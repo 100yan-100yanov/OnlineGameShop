@@ -1,4 +1,4 @@
-package com.playtray.controller;
+package com.playtray.web;
 
 import com.playtray.model.dto.UserRegisterDTO;
 import com.playtray.service.UserService;
@@ -20,13 +20,13 @@ public class UserRegisterController {
 
     @GetMapping("/register")
     public ModelAndView register() {
-        return new ModelAndView("/register");
+        return new ModelAndView("register");
     }
 
     @PostMapping("/register")
     public ModelAndView register(@Valid UserRegisterDTO userRegisterDTO,
                                  BindingResult bindingResult) {
 
-        return new ModelAndView("/");
+        return new ModelAndView("redirect:/");
     }
 }

@@ -1,4 +1,4 @@
-package com.playtray.controller;
+package com.playtray.web;
 
 import com.playtray.service.GameService;
 import org.springframework.stereotype.Controller;

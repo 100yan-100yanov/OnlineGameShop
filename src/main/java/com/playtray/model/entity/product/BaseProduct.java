@@ -15,6 +15,11 @@ public class BaseProduct extends BaseEntity {
     @Size(min = 5, max = 200)
     private String description;
 
-    @OneToMany
-    List<Rating> ratings;
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }

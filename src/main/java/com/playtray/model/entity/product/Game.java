@@ -25,4 +25,36 @@ public class Game extends BaseProduct {
 
     @ManyToOne
     private User offeredBy;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public PlatformName getPlatform() {
+        return platform;
+    }
+
+    public void setPlatform(PlatformName platform) {
+        this.platform = platform;
+    }
+
+    public List<GameGenre> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<GameGenre> categories) {
+        this.categories = categories;
+    }
+
+    public User getOfferedBy() {
+        return offeredBy;
+    }
+
+    public void setOfferedBy(User offeredBy) {
+        this.offeredBy = offeredBy;
+    }
 }
