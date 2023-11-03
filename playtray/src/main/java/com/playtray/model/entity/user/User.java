@@ -14,6 +14,14 @@ import java.util.List;
 @Table(name = "users")
 public class User extends BaseEntity {
 
+    @Column(nullable = false)
+    @Size(min = 2, max = 30)
+    private String firstName;
+
+    @Column(nullable = false)
+    @Size(min = 2, max = 30)
+    private String lastName;
+
     @Column(nullable = false, unique = true)
     @Size(min = 4, max = 16)
     private String username;
@@ -24,14 +32,6 @@ public class User extends BaseEntity {
     @Column(nullable = false, unique = true)
     @Email
     private String email;
-
-    @Column(nullable = false)
-    @Size(min = 2, max = 30)
-    private String firstName;
-
-    @Column(nullable = false)
-    @Size(min = 2, max = 30)
-    private String lastName;
 
     @Column(nullable = false, unique = true)
     @Enumerated(EnumType.STRING)
