@@ -7,7 +7,7 @@ import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "consoles")
-public class Console extends BaseProduct {
+public class Console extends Product {
 
     @Column(nullable = false, unique = true)
     @Size(min = 2, max = 30)

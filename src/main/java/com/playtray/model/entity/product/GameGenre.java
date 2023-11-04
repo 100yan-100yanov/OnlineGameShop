@@ -1,6 +1,6 @@
 package com.playtray.model.entity.product;
 
-import com.playtray.model.entity.user.BaseEntity;
+import com.playtray.model.entity.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;

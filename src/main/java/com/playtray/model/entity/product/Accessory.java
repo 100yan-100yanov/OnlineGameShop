@@ -7,7 +7,7 @@ import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "accessories")
-public class Accessory extends BaseProduct {
+public class Accessory extends Product {
 
     @Column(nullable = false, unique = true)
     @Enumerated(EnumType.STRING)

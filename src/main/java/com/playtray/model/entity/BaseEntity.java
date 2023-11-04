@@ -1,4 +1,4 @@
-package com.playtray.model.entity.user;
+package com.playtray.model.entity;
 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

@@ -1,6 +1,7 @@
 package com.playtray.model.entity.user;
 
-import com.playtray.model.entity.product.Game;
+import com.playtray.model.entity.BaseEntity;
+import com.playtray.model.entity.product.Product;
 import com.playtray.model.enums.UserRole;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -39,13 +40,13 @@ public class User extends BaseEntity {
     private boolean isActive;
 
     @OneToMany
-    private List<Game> sellingGames;
+    private List<Product> sellingProducts;
 
     @OneToMany
-    private List<Game> boughtGames;
+    private List<Product> boughtProducts;
 
     @OneToMany
-    private List<Game> gamesInCart;
+    private List<Product> productsInCart;
 
     public String getFirstName() {
         return firstName;
@@ -103,27 +104,27 @@ public class User extends BaseEntity {
         isActive = active;
     }
 
-    public List<Game> getSellingGames() {
-        return sellingGames;
+    public List<Product> getSellingProducts() {
+        return sellingProducts;
     }
 
-    public void setSellingGames(List<Game> sellingGames) {
-        this.sellingGames = sellingGames;
+    public void setSellingProducts(List<Product> sellingProducts) {
+        this.sellingProducts = sellingProducts;
     }
 
-    public List<Game> getBoughtGames() {
-        return boughtGames;
+    public List<Product> getBoughtProducts() {
+        return boughtProducts;
     }
 
-    public void setBoughtGames(List<Game> boughtGames) {
-        this.boughtGames = boughtGames;
+    public void setBoughtProducts(List<Product> boughtProducts) {
+        this.boughtProducts = boughtProducts;
     }
 
-    public List<Game> getGamesInCart() {
-        return gamesInCart;
+    public List<Product> getProductsInCart() {
+        return productsInCart;
     }
 
-    public void setGamesInCart(List<Game> gamesInCart) {
-        this.gamesInCart = gamesInCart;
+    public void setProductsInCart(List<Product> productsInCart) {
+        this.productsInCart = productsInCart;
     }
 }

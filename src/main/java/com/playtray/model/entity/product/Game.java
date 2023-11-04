@@ -9,7 +9,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "games")
-public class Game extends BaseProduct {
+public class Game extends Product {
 
     @Column(nullable = false, unique = true)
     @Size(min = 2, max = 50)
