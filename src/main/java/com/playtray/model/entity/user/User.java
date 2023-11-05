@@ -2,7 +2,6 @@ package com.playtray.model.entity.user;
 
 import com.playtray.model.entity.BaseEntity;
 import com.playtray.model.entity.product.Product;
-import com.playtray.model.enums.UserRole;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Size;
@@ -32,9 +31,8 @@ public class User extends BaseEntity {
     @Email
     private String email;
 
-    @Column(nullable = false, unique = true)
-    @Enumerated(EnumType.STRING)
-    private UserRole role;
+    @ManyToOne
+    private Role role;
 
     @Column(nullable = false)
     private boolean isActive;
@@ -88,11 +86,11 @@ public class User extends BaseEntity {
         this.email = email;
     }
 
-    public UserRole getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(UserRole role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 
