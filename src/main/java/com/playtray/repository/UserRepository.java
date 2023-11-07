@@ -1,6 +1,6 @@
 package com.playtray.repository;
 
-import com.playtray.model.entity.user.User;
+import com.playtray.model.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

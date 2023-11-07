@@ -1,6 +1,7 @@
-package com.playtray.model.entity.product;
+package com.playtray.model.entity.obsolete;
 
-import com.playtray.model.entity.user.User;
+import com.playtray.model.entity.Product;
+import com.playtray.model.entity.User;
 import com.playtray.model.enums.PlatformName;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;

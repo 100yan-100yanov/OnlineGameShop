@@ -1,19 +1,30 @@
-package com.playtray.model.entity.product;
+package com.playtray.model.entity.obsolete;
 
 import com.playtray.model.entity.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Size;
 
 @Entity
-@Table(name = "products")
-public class Product extends BaseEntity {
+@Table(name = "categories")
+public class GameGenre extends BaseEntity {
+
+    @Column(nullable = false, unique = true)
+    @Size(min = 3, max = 20)
+    private String name;
 
     @Column(nullable = false, columnDefinition = "TEXT")
     @Size(min = 5, max = 200)
     private String description;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getDescription() {
         return description;

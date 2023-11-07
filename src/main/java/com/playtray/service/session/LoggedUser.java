@@ -1,6 +1,6 @@
 package com.playtray.service.session;
 
-import com.playtray.model.entity.user.Role;
+import com.playtray.model.entity.Role;
 import com.playtray.model.enums.UserRole;
 import org.springframework.stereotype.Component;
 

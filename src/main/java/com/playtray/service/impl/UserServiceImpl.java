@@ -2,8 +2,8 @@ package com.playtray.service.impl;
 
 import com.playtray.model.dto.UserLoginDTO;
 import com.playtray.model.dto.UserRegisterDTO;
-import com.playtray.model.entity.user.Role;
-import com.playtray.model.entity.user.User;
+import com.playtray.model.entity.Role;
+import com.playtray.model.entity.User;
 import com.playtray.repository.UserRepository;
 import com.playtray.service.UserService;
 import com.playtray.service.session.LoggedUser;

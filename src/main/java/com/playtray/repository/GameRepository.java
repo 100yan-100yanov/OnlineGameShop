@@ -1,6 +1,6 @@
 package com.playtray.repository;
 
-import com.playtray.model.entity.product.Game;
+import com.playtray.model.entity.obsolete.Game;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

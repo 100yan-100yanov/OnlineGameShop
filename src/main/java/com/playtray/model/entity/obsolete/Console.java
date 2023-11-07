@@ -1,17 +1,14 @@
-package com.playtray.model.entity.product;
+package com.playtray.model.entity.obsolete;
 
-import com.playtray.model.enums.AccessoryType;
-import jakarta.persistence.*;
+import com.playtray.model.entity.Product;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.Size;
 
-
 @Entity
-@Table(name = "accessories")
-public class Accessory extends Product {
-
-    @Column(nullable = false, unique = true)
-    @Enumerated(EnumType.STRING)
-    private AccessoryType type;
+@Table(name = "consoles")
+public class Console extends Product {
 
     @Column(nullable = false, unique = true)
     @Size(min = 2, max = 30)
@@ -20,14 +17,6 @@ public class Accessory extends Product {
     @Column(nullable = false, unique = true)
     @Size(min = 2, max = 30)
     private String model;
-
-    public AccessoryType getType() {
-        return type;
-    }
-
-    public void setType(AccessoryType type) {
-        this.type = type;
-    }
 
     public String getBrand() {
         return brand;
