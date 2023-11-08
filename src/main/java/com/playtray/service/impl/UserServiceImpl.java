@@ -2,11 +2,9 @@ package com.playtray.service.impl;
 
 import com.playtray.model.dto.UserLoginDTO;
 import com.playtray.model.dto.UserRegisterDTO;
-import com.playtray.model.entity.Role;
 import com.playtray.model.entity.User;
 import com.playtray.repository.UserRepository;
 import com.playtray.service.UserService;
-import com.playtray.service.session.LoggedUser;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -19,16 +17,13 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
     private final PasswordEncoder passwordEncoder;
-    private final LoggedUser loggedUser;
 
     public UserServiceImpl(UserRepository userRepository,
                            ModelMapper modelMapper,
-                           PasswordEncoder passwordEncoder,
-                           LoggedUser loggedUser) {
+                           PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
         this.passwordEncoder = passwordEncoder;
-        this.loggedUser = loggedUser;
     }
 
     @Override
@@ -55,11 +50,8 @@ public class UserServiceImpl implements UserService {
             String encodedPassword = user.get().getPassword();
 
             if (passwordEncoder.matches(rawPassword, encodedPassword)) {
-                Role role = user.get().getRole();
 
-                loggedUser.setUsername(username);
-                loggedUser.setLogged(true);
-                loggedUser.setRole(role);
+                //TODO
 
                 return true;
             }
@@ -69,11 +61,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void logout() {
-        this.loggedUser.logout();
+
+        //TODO
     }
 
     @Override
     public boolean isUserLogged() {
-        return this.loggedUser.isLogged();
+        //TODO
+        return false;
     }
 }

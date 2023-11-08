@@ -1,8 +1,6 @@
 package com.playtray.model.entity;
 
-import com.playtray.model.entity.BaseEntity;
-import com.playtray.model.entity.Product;
-import com.playtray.model.entity.Role;
+import com.playtray.model.enums.UserRole;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Size;
@@ -32,8 +30,8 @@ public class User extends BaseEntity {
     @Email
     private String email;
 
-    @ManyToOne
-    private Role role;
+    @OneToMany
+    private List<Role> roles;
 
     @Column(nullable = false)
     private boolean isActive;
@@ -51,79 +49,89 @@ public class User extends BaseEntity {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
+    public User setFirstName(String firstName) {
         this.firstName = firstName;
+        return this;
     }
 
     public String getLastName() {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
+    public User setLastName(String lastName) {
         this.lastName = lastName;
+        return this;
     }
 
     public String getUsername() {
         return username;
     }
 
-    public void setUsername(String username) {
+    public User setUsername(String username) {
         this.username = username;
+        return this;
     }
 
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
+    public User setPassword(String password) {
         this.password = password;
+        return this;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
+    public User setEmail(String email) {
         this.email = email;
+        return this;
     }
 
-    public Role getRole() {
-        return role;
+    public List<Role> getRoles() {
+        return roles;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    public User setRoles(List<Role> roles) {
+        this.roles = roles;
+        return this;
     }
 
     public boolean isActive() {
         return isActive;
     }
 
-    public void setActive(boolean active) {
+    public User setActive(boolean active) {
         isActive = active;
+        return this;
     }
 
     public List<Product> getSellingProducts() {
         return sellingProducts;
     }
 
-    public void setSellingProducts(List<Product> sellingProducts) {
+    public User setSellingProducts(List<Product> sellingProducts) {
         this.sellingProducts = sellingProducts;
+        return this;
     }
 
     public List<Product> getBoughtProducts() {
         return boughtProducts;
     }
 
-    public void setBoughtProducts(List<Product> boughtProducts) {
+    public User setBoughtProducts(List<Product> boughtProducts) {
         this.boughtProducts = boughtProducts;
+        return this;
     }
 
     public List<Product> getProductsInCart() {
         return productsInCart;
     }
 
-    public void setProductsInCart(List<Product> productsInCart) {
+    public User setProductsInCart(List<Product> productsInCart) {
         this.productsInCart = productsInCart;
+        return this;
     }
 }

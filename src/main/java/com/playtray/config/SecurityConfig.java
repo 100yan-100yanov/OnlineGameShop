@@ -1,0 +1,68 @@
+package com.playtray.config;
+
+import com.playtray.model.enums.UserRole;
+import com.playtray.repository.UserRepository;
+import com.playtray.service.impl.PlaytrayUserDetailsService;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
+
+@Configuration
+public class SecurityConfig {
+
+    private final String rememberMeKey;
+
+    //TODO implement in HTML
+    public SecurityConfig(@Value("${TODO.remember.me.key}")
+                          String rememberMeKey) {
+        this.rememberMeKey = rememberMeKey;
+    }
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
+        return httpSecurity.authorizeHttpRequests(
+                request -> request
+                        .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
+                        .requestMatchers("/", "/login", "/register", "/login-error").permitAll()
+                        .requestMatchers("/products/all").permitAll()
+                        .requestMatchers("/products/add", "/products/delete").hasRole(UserRole.ADMIN.name())
+                        .requestMatchers(HttpMethod.GET, "/products/**").permitAll()
+                        .requestMatchers("/error").permitAll()
+                        .anyRequest().authenticated()
+        ).formLogin(
+                login -> login
+                        .loginPage("/login")
+                        .usernameParameter("username")
+                        .passwordParameter("password")
+                        .defaultSuccessUrl("/")
+                        .failureForwardUrl("/login-error")
+        ).logout(
+                logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/")
+                        .invalidateHttpSession(true)
+        ).rememberMe(
+                rememberMe -> rememberMe
+                        .key(rememberMeKey)
+                        .rememberMeParameter("rememberme")
+                        .rememberMeCookieName("rememberme")
+        ).build();
+    }
+
+    @Bean
+    public UserDetailsService userDetailsService(UserRepository userRepository) {
+        return new PlaytrayUserDetailsService(userRepository);
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+}
