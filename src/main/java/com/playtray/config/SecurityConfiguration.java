@@ -15,15 +15,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
-public class SecurityConfig {
+public class SecurityConfiguration {
 
-    private final String rememberMeKey;
+//    private final String rememberMeKey;
 
     //TODO implement in HTML
-    public SecurityConfig(@Value("${TODO.remember.me.key}")
-                          String rememberMeKey) {
-        this.rememberMeKey = rememberMeKey;
-    }
+//    public SecurityConfiguration(@Value("${TODO.remember.me.key}")
+//                          String rememberMeKey) {
+//        this.rememberMeKey = rememberMeKey;
+//    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
@@ -48,11 +48,11 @@ public class SecurityConfig {
                         .logoutUrl("/logout")
                         .logoutSuccessUrl("/")
                         .invalidateHttpSession(true)
-        ).rememberMe(
-                rememberMe -> rememberMe
-                        .key(rememberMeKey)
-                        .rememberMeParameter("rememberme")
-                        .rememberMeCookieName("rememberme")
+//        ).rememberMe(
+//                rememberMe -> rememberMe
+//                        .key(rememberMeKey)
+//                        .rememberMeParameter("rememberme")
+//                        .rememberMeCookieName("rememberme")
         ).build();
     }
 

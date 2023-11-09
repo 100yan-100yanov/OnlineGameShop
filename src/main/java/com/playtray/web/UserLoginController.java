@@ -50,7 +50,7 @@ public class UserLoginController {
     public ModelAndView onFailure(
             @ModelAttribute("username") String username) {
 
-        ModelAndView model = new ModelAndView("/login");
+        ModelAndView model = new ModelAndView("login");
         model.addObject("username", username);
         model.addObject("bad_credentials", true);
 

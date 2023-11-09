@@ -17,6 +17,7 @@ public class PlaytrayUserDetailsService implements UserDetailsService {
         this.userRepository = userRepository;
     }
 
+    @Override
     public UserDetails loadUserByUsername(String username) {
         return userRepository.findByUsername(username)
                 .map(PlaytrayUserDetailsService::map)

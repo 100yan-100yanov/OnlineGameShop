@@ -1,10 +1,10 @@
 package com.playtray.repository;
 
-import com.playtray.model.entity.obsolete.Game;
+import com.playtray.model.entity.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface GameRepository extends JpaRepository<Game, Long> {
+public interface ProductRepository extends JpaRepository<Product, Long> {
 
 }
