@@ -30,10 +30,6 @@ public class UserLoginController {
                               UserLoginDTO userLoginDTO,
                               BindingResult bindingResult) {
 
-        if (userService.isUserLogged()) {
-            return new ModelAndView("redirect:/");
-        }
-
         boolean loginSuccessful = userService.login(userLoginDTO);
 
         if (!loginSuccessful) {
@@ -59,10 +55,6 @@ public class UserLoginController {
 
     @PostMapping("/logout")
     public ModelAndView logout() {
-
-        if (userService.isUserLogged()) {
-            return new ModelAndView("redirect:/");
-        }
 
         userService.logout();
 

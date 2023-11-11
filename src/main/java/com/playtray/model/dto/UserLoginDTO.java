@@ -13,10 +13,6 @@ public class UserLoginDTO {
     @Size(min = 6, max = 16, message = "Password must be between 6 and 16 characters.")
     private String password;
 
-    //TODO confirmPassword
-    @NotBlank
-    private String confirmPassword;
-
     public String getUsername() {
         return username;
     }
@@ -33,11 +29,4 @@ public class UserLoginDTO {
         this.password = password;
     }
 
-    public String getConfirmPassword() {
-        return confirmPassword;
-    }
-
-    public void setConfirmPassword(String confirmPassword) {
-        this.confirmPassword = confirmPassword;
-    }
 }

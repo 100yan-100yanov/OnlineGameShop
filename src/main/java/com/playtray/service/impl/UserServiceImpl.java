@@ -29,13 +29,16 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean register(UserRegisterDTO userRegisterDTO) {
 
-        Optional<User> user = this.userRepository.findByUsername(userRegisterDTO.getUsername());
+        Optional<User> user = userRepository.findByUsername(userRegisterDTO.getUsername());
 
         if (user.isPresent()) {
             return false;
         }
 
-        this.userRepository.save(this.modelMapper.map(userRegisterDTO, User.class));
+        User userToSave = modelMapper.map(userRegisterDTO, User.class);
+        userToSave.setPassword(passwordEncoder.encode(userToSave.getPassword()));
+
+        userRepository.save(userToSave);
         return true;
     }
 
@@ -43,7 +46,7 @@ public class UserServiceImpl implements UserService {
     public boolean login(UserLoginDTO userLoginDTO) {
         String username = userLoginDTO.getUsername();
 
-        Optional<User> user = this.userRepository.findByUsername(username);
+        Optional<User> user = userRepository.findByUsername(username);
 
         if (user.isPresent()) {
             String rawPassword = userLoginDTO.getPassword();

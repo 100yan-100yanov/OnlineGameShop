@@ -4,11 +4,13 @@ import com.playtray.model.dto.UserRegisterDTO;
 import com.playtray.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class UserRegisterController {
@@ -20,11 +22,10 @@ public class UserRegisterController {
     }
 
     @GetMapping("/register")
-    public ModelAndView register(@ModelAttribute("userRegisterDTO")
-                                 UserRegisterDTO userRegisterDTO) {
+    public ModelAndView register(Model model) {
 
-        if (userService.isUserLogged()) {
-            return new ModelAndView("redirect:/");
+        if (!model.containsAttribute("userRegisterDTO")) {
+            model.addAttribute("userRegisterDTO", new UserRegisterDTO());
         }
 
         return new ModelAndView("register");
@@ -34,22 +35,23 @@ public class UserRegisterController {
     public ModelAndView register(@Valid
                                  @ModelAttribute("userRegisterDTO")
                                  UserRegisterDTO userRegisterDTO,
-                                 BindingResult bindingResult) {
+                                 BindingResult bindingResult,
+                                 RedirectAttributes redirectAttributes) {
 
-        if (userService.isUserLogged()) {
-            return new ModelAndView("redirect:/");
-        }
+        ModelAndView modelAndView = new ModelAndView();
 
         if (bindingResult.hasErrors()) {
-            return new ModelAndView("register");
+            redirectAttributes
+                    .addFlashAttribute("org.springframework.validation.BindingResult.userRegisterDTO", bindingResult);
+
+            modelAndView.setViewName("redirect:/register");
+
+        } else {
+            if (userService.register(userRegisterDTO)) {
+                modelAndView.setViewName("redirect:/login");
+            }
         }
 
-        boolean registrationSuccessful = this.userService.register(userRegisterDTO);
-
-        if (!registrationSuccessful) {
-            return new ModelAndView("register");
-        }
-
-        return new ModelAndView("redirect:/login");
+        return modelAndView;
     }
 }
