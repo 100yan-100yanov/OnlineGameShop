@@ -1,5 +1,5 @@
 package com.playtray.model.enums;
 
-public enum Category {
+public enum ProductCategory {
     GAME, CONSOLE, ACCESSORY
 }

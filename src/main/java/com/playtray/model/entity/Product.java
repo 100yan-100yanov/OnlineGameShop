@@ -1,6 +1,6 @@
 package com.playtray.model.entity;
 
-import com.playtray.model.enums.Category;
+import com.playtray.model.enums.ProductCategory;
 import com.playtray.model.enums.PlatformName;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMax;
@@ -15,7 +15,7 @@ public class Product extends BaseEntity {
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private Category category;
+    private ProductCategory productCategory;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
@@ -34,12 +34,12 @@ public class Product extends BaseEntity {
     @Size(min = 5, max = 200)
     private String description;
 
-    public Category getCategory() {
-        return category;
+    public ProductCategory getCategory() {
+        return productCategory;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setCategory(ProductCategory productCategory) {
+        this.productCategory = productCategory;
     }
 
     public PlatformName getPlatform() {

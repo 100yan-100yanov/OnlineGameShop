@@ -1,6 +1,6 @@
 package com.playtray.model.dto;
 
-import com.playtray.model.enums.Category;
+import com.playtray.model.enums.ProductCategory;
 import com.playtray.model.enums.PlatformName;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -10,7 +10,7 @@ import jakarta.validation.constraints.Size;
 import java.math.BigDecimal;
 
 public record ProductAddDTO(@NotNull
-                            Category category,
+                            ProductCategory productCategory,
                             @NotNull
                             PlatformName platform,
                             @NotBlank

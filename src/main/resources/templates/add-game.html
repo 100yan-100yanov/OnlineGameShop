@@ -108,11 +108,11 @@
         <div>
             <div class="form-group p-3">
                 <label class="p-2" for="categories">Categories:</label>
-                <input th:each="category: ${T(bg.softuni.pathfinder.model.enums.CategoryNames).values()}" class="m-3"
+                <input th:each="productCategory: ${T(bg.softuni.pathfinder.model.enums.CategoryNames).values()}" class="m-3"
                        th:field="*{categories}"
                        type="checkbox" name="categories" id="categories"
-                       th:text="${#strings.toLowerCase(category)}"
-                       th:value="${category}">
+                       th:text="${#strings.toLowerCase(productCategory)}"
+                       th:value="${productCategory}">
                 <br>
             </div>
         </div>
