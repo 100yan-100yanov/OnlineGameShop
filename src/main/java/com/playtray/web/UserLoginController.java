@@ -8,9 +8,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
+@RequestMapping("/users")
 public class UserLoginController {
 
     private final UserService userService;
@@ -28,18 +31,23 @@ public class UserLoginController {
     public ModelAndView login(@Valid
                               @ModelAttribute("userLoginDTO")
                               UserLoginDTO userLoginDTO,
-                              BindingResult bindingResult) {
+                              BindingResult bindingResult,
+                              RedirectAttributes redirectAttributes) {
 
-        boolean loginSuccessful = userService.login(userLoginDTO);
+        ModelAndView modelAndView = new ModelAndView();
 
-        if (!loginSuccessful) {
-            ModelAndView model = new ModelAndView("login");
-            model.addObject("loginError", true);
+        if (bindingResult.hasErrors()) {
+            redirectAttributes
+                    .addFlashAttribute("org.springframework.validation.BindingResult.userLoginDTO", bindingResult)
+                    .addFlashAttribute("userLoginDTO", userLoginDTO);
 
-            return model;
+            modelAndView.setViewName("redirect:/users/login");
+        } else {
+            userService.login(userLoginDTO);
+            modelAndView.setViewName("redirect:/");
         }
 
-        return new ModelAndView("redirect:/");
+        return modelAndView;
     }
 
     @PostMapping("/login-error")

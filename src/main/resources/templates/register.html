@@ -28,91 +28,109 @@
                             <h2 class="text-uppercase text-center mb-5">Create an account</h2>
 
                             <form th:method="POST"
-                                  th:action="@{/register}"
+                                  th:action="@{/users/register}"
                                   th:object="${userRegisterDTO}">
 
                                 <div class="form-outline mb-4">
+
+                                    <label class="form-label"
+                                           for="username"
+                                           th:if="${#fields.hasErrors('username')}"
+                                           th:errors="*{username}"></label>
+
                                     <input type="text"
                                            id="username"
                                            class="form-control form-control-lg"
+                                           placeholder="Username"
                                            th:field="*{username}"
-                                           th:errorclass="bg-danger"/>
+                                           th:errorclass="bg-warning"/>
 
-                                    <label class="form-label"
-                                           for="username">Username</label>
-
-                                    <small th:if="${#fields.hasErrors('username')}"
-                                           th:errors="*{username}"></small>
+                                    <br>
                                 </div>
 
                                 <div class="form-outline mb-4">
+
+                                    <label class="form-label"
+                                           for="username"
+                                           th:if="${#fields.hasErrors('firstName')}"
+                                           th:errors="*{firstName}"></label>
+
                                     <input type="text"
                                            id="firstName"
                                            class="form-control form-control-lg"
+                                           placeholder="First Name"
                                            th:field="*{firstName}"
-                                           th:errorclass="bg-danger"/>
+                                           th:errorclass="bg-warning"/>
 
-                                    <label class="form-label"
-                                           for="firstName">First name</label>
-
-                                    <small th:if="${#fields.hasErrors('firstName')}"
-                                           th:errors="*{firstName}"></small>
+                                    <br>
                                 </div>
 
                                 <div class="form-outline mb-4">
+
+                                    <label class="form-label"
+                                           for="lastName"
+                                           th:if="${#fields.hasErrors('lastName')}"
+                                           th:errors="*{lastName}"></label>
+
                                     <input type="text"
                                            id="lastName"
                                            class="form-control form-control-lg"
+                                           placeholder="Last Name"
                                            th:field="*{lastName}"
-                                           th:errorclass="bg-danger"/>
+                                           th:errorclass="bg-warning"/>
 
-                                    <label class="form-label"
-                                           for="lastName">Last name</label>
-
-                                    <small th:if="${#fields.hasErrors('lastName')}"
-                                           th:errors="*{lastName}"></small>
+                                    <br>
                                 </div>
 
                                 <div class="form-outline mb-4">
-                                    <input type="email"
+
+                                    <label class="form-label"
+                                           for="email"
+                                           th:if="${#fields.hasErrors('email')}"
+                                           th:errors="*{email}"></label>
+
+                                    <input type="text"
                                            id="email"
                                            class="form-control form-control-lg"
+                                           placeholder="Email"
                                            th:field="*{email}"
-                                           th:errorclass="bg-danger"/>
+                                           th:errorclass="bg-warning"/>
 
-                                    <label class="form-label"
-                                           for="email">Email</label>
-
-                                    <small th:if="${#fields.hasErrors('email')}"
-                                           th:errors="*{email}"></small>
+                                    <br>
                                 </div>
 
                                 <div class="form-outline mb-4">
+
+                                    <label class="form-label"
+                                           for="password"
+                                           th:if="${#fields.hasErrors('password')}"
+                                           th:errors="*{password}"></label>
+
                                     <input type="password"
                                            id="password"
                                            class="form-control form-control-lg"
+                                           placeholder="Password"
                                            th:field="*{password}"
-                                           th:errorclass="bg-danger"/>
+                                           th:errorclass="bg-warning"/>
 
-                                    <label class="form-label"
-                                           for="password">Password</label>
-
-                                    <small th:if="${#fields.hasErrors('password')}"
-                                           th:errors="*{password}"></small>
+                                    <br>
                                 </div>
 
                                 <div class="form-outline mb-4">
-                                    <input type="password"
-                                           id="form3Example4cdg"
-                                           class="form-control form-control-lg"
-                                           th:field="*{password}"
-                                           th:errorclass="bg-danger"/>
 
                                     <label class="form-label"
-                                           for="form3Example4cdg">Repeat password</label>
+                                           for="confirmPassword"
+                                           th:if="${#fields.hasErrors('password')}"
+                                           th:errors="*{password}"></label>
 
-                                    <small th:if="${#fields.hasErrors('password')}"
-                                           th:errors="*{password}"></small>
+                                    <input type="password"
+                                           id="confirmPassword"
+                                           class="form-control form-control-lg"
+                                           placeholder="Confirm Password"
+                                           th:field="*{password}"
+                                           th:errorclass="bg-warning"/>
+
+                                    <br>
                                 </div>
 
                                 <div class="d-flex justify-content-center">
@@ -124,7 +142,7 @@
                                 </div>
 
                                 <p class="text-center mt-5 mb-0">Have already an account?
-                                    <a th:href="@{/login}"
+                                    <a th:href="@{/users/login}"
                                        class="btn-link"
                                        type="button"
                                        style="color: #755bb4">Login here

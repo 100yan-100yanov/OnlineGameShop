@@ -5,11 +5,15 @@ import com.playtray.model.dto.UserRegisterDTO;
 
 public interface UserService {
 
-    boolean register(UserRegisterDTO userRegisterDTO);
+    void register(UserRegisterDTO userRegisterDTO);
 
-    boolean login(UserLoginDTO userLoginDTO);
+    void login(UserLoginDTO userLoginDTO);
 
     void logout();
 
     boolean isUserLogged();
+
+    boolean isUniqueUsername(String value);
+
+    boolean isUniqueEmail(String value);
 }

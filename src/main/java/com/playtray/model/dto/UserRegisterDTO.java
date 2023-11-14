@@ -1,9 +1,13 @@
 package com.playtray.model.dto;
 
+import com.playtray.validation.annotations.PasswordMatch;
+import com.playtray.validation.annotations.UniqueEmail;
+import com.playtray.validation.annotations.UniqueUsername;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
+@PasswordMatch
 public class UserRegisterDTO {
 
     @Size(min = 2, max = 30, message = "First name must be between 2 and 30 characters.")
@@ -12,16 +16,22 @@ public class UserRegisterDTO {
     @Size(min = 2, max = 30, message = "Last name must be between 2 and 30 characters.")
     private String lastName;
 
-    @NotBlank
+    @UniqueUsername
+    @NotBlank(message = "")
     @Size(min = 4, max = 20, message = "Username must be between 4 and 20 characters.")
     private String username;
 
-    @NotBlank
+    @NotBlank(message = "")
     @Size(min = 6, max = 16, message = "Password must be between 6 and 16 characters.")
     private String password;
 
-    @NotBlank
-    @Email
+    @NotBlank(message = "")
+    @Size(min = 6, max = 16)
+    private String confirmPassword;
+
+    @UniqueEmail
+    @NotBlank(message = "")
+    @Email()
     private String email;
 
     public String getFirstName() {
@@ -54,6 +64,14 @@ public class UserRegisterDTO {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
     }
 
     public String getEmail() {

@@ -30,22 +30,23 @@ public class SecurityConfiguration {
         return httpSecurity.authorizeHttpRequests(
                 request -> request
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                        .requestMatchers("/", "/login", "/register", "/login-error").permitAll()
+                        .requestMatchers("/", "/users/login", "/users/register", "/users/login-error").permitAll()
                         .requestMatchers("/products/games", "/products/consoles", "/products/accessories").permitAll()
                         .requestMatchers("/products/add", "/products/delete").hasRole(UserRole.ADMIN.name())
+                        .requestMatchers("/users/delete").hasRole(UserRole.ADMIN.name())
                         .requestMatchers(HttpMethod.GET, "/products/**").permitAll()
                         .requestMatchers("/error").permitAll()
                         .anyRequest().authenticated()
         ).formLogin(
                 login -> login
-                        .loginPage("/login")
+                        .loginPage("/users/login")
                         .usernameParameter("username")
                         .passwordParameter("password")
                         .defaultSuccessUrl("/")
-                        .failureForwardUrl("/login-error")
+                        .failureForwardUrl("/users/login-error")
         ).logout(
                 logout -> logout
-                        .logoutUrl("/logout")
+                        .logoutUrl("/users/logout")
                         .logoutSuccessUrl("/")
                         .invalidateHttpSession(true)
 //        ).rememberMe(

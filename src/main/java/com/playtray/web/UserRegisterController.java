@@ -9,10 +9,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
+@RequestMapping("/users")
 public class UserRegisterController {
 
     private final UserService userService;
@@ -42,14 +44,14 @@ public class UserRegisterController {
 
         if (bindingResult.hasErrors()) {
             redirectAttributes
-                    .addFlashAttribute("org.springframework.validation.BindingResult.userRegisterDTO", bindingResult);
+                    .addFlashAttribute("org.springframework.validation.BindingResult.userRegisterDTO", bindingResult)
+                    .addFlashAttribute("userRegisterDTO", userRegisterDTO);
 
-            modelAndView.setViewName("redirect:/register");
+            modelAndView.setViewName("redirect:/users/register");
 
         } else {
-            if (userService.register(userRegisterDTO)) {
-                modelAndView.setViewName("redirect:/login");
-            }
+            userService.register(userRegisterDTO);
+            modelAndView.setViewName("redirect:/users/login");
         }
 
         return modelAndView;
