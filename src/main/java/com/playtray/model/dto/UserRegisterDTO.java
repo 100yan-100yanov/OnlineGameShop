@@ -26,12 +26,11 @@ public class UserRegisterDTO {
     private String password;
 
     @NotBlank(message = "")
-    @Size(min = 6, max = 16)
     private String confirmPassword;
 
     @UniqueEmail
     @NotBlank(message = "")
-    @Email()
+    @Email(regexp = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$")
     private String email;
 
     public String getFirstName() {

@@ -29,14 +29,14 @@ public class User extends BaseEntity {
     @Email
     private String email;
 
-    @OneToMany
+    @ManyToMany
+    @JoinTable(name = "users_roles",
+            joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "role_id")})
     private List<Role> roles;
 
     @Column(nullable = false)
     private boolean isActive;
-
-    @OneToMany
-    private List<Product> sellingProducts;
 
     @OneToMany
     private List<Product> boughtProducts;
@@ -104,15 +104,6 @@ public class User extends BaseEntity {
 
     public User setActive(boolean active) {
         isActive = active;
-        return this;
-    }
-
-    public List<Product> getSellingProducts() {
-        return sellingProducts;
-    }
-
-    public User setSellingProducts(List<Product> sellingProducts) {
-        this.sellingProducts = sellingProducts;
         return this;
     }
 

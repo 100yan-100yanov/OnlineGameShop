@@ -120,14 +120,14 @@
 
                                     <label class="form-label"
                                            for="confirmPassword"
-                                           th:if="${#fields.hasErrors('password')}"
-                                           th:errors="*{password}"></label>
+                                           th:if="${#fields.hasErrors('confirmPassword')}"
+                                           th:errors="*{confirmPassword}"></label>
 
                                     <input type="password"
                                            id="confirmPassword"
                                            class="form-control form-control-lg"
                                            placeholder="Confirm Password"
-                                           th:field="*{password}"
+                                           th:field="*{confirmPassword}"
                                            th:errorclass="bg-warning"/>
 
                                     <br>
