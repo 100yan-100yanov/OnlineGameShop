@@ -1,6 +1,5 @@
 package com.playtray.model.entity;
 
-import com.playtray.model.entity.BaseEntity;
 import com.playtray.model.enums.UserRole;
 import jakarta.persistence.*;
 

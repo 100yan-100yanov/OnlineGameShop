@@ -28,31 +28,35 @@ public class Cart extends BaseEntity{
         return customer;
     }
 
-    public void setCustomer(User customer) {
+    public Cart setCustomer(User customer) {
         this.customer = customer;
+        return this;
     }
 
     public List<Product> getProducts() {
         return products;
     }
 
-    public void setProducts(List<Product> products) {
+    public Cart setProducts(List<Product> products) {
         this.products = products;
+        return this;
     }
 
     public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public Cart setQuantity(int quantity) {
         this.quantity = quantity;
+        return this;
     }
 
     public BigDecimal getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(BigDecimal totalPrice) {
+    public Cart setTotalPrice(BigDecimal totalPrice) {
         this.totalPrice = totalPrice;
+        return this;
     }
 }

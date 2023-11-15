@@ -2,6 +2,7 @@ package com.playtray.service.impl;
 
 import com.playtray.model.dto.UserLoginDTO;
 import com.playtray.model.dto.UserRegisterDTO;
+import com.playtray.model.entity.Cart;
 import com.playtray.model.entity.User;
 import com.playtray.model.enums.UserRole;
 import com.playtray.repository.RoleRepository;
@@ -78,7 +79,7 @@ public class UserServiceImpl implements UserService {
                 .setActive(false)
                 .setRoles(List.of(roleRepository.findByName(UserRole.USER)))
                 .setBoughtProducts(new ArrayList<>())
-                .setProductsInCart(new ArrayList<>());
+                .setCart(new Cart().setCustomer(user));
 
         return user;
     }

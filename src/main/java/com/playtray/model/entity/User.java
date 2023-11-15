@@ -29,20 +29,20 @@ public class User extends BaseEntity {
     @Email
     private String email;
 
+    @Column(nullable = false)
+    private boolean isActive;
+
     @ManyToMany
     @JoinTable(name = "users_roles",
             joinColumns = {@JoinColumn(name = "user_id")},
             inverseJoinColumns = {@JoinColumn(name = "role_id")})
     private List<Role> roles;
 
-    @Column(nullable = false)
-    private boolean isActive;
-
-    @OneToMany
+    @ManyToMany(targetEntity = Product.class)
     private List<Product> boughtProducts;
 
-    @OneToMany
-    private List<Product> productsInCart;
+    @OneToOne(targetEntity = Cart.class, mappedBy = "customer")
+    private Cart cart;
 
     public String getFirstName() {
         return firstName;
@@ -116,12 +116,12 @@ public class User extends BaseEntity {
         return this;
     }
 
-    public List<Product> getProductsInCart() {
-        return productsInCart;
+    public Cart getCart() {
+        return cart;
     }
 
-    public User setProductsInCart(List<Product> productsInCart) {
-        this.productsInCart = productsInCart;
+    public User setCart(Cart cart) {
+        this.cart = cart;
         return this;
     }
 }
