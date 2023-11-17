@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Size;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -41,8 +42,12 @@ public class User extends BaseEntity {
     @ManyToMany(targetEntity = Product.class)
     private List<Product> boughtProducts;
 
-    @OneToOne(targetEntity = Cart.class, mappedBy = "customer")
+    @OneToOne(targetEntity = Cart.class, mappedBy = "customer", cascade = CascadeType.ALL)
     private Cart cart;
+
+    public User() {
+        this.boughtProducts = new ArrayList<>();
+    }
 
     public String getFirstName() {
         return firstName;

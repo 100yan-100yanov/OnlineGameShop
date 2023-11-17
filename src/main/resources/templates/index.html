@@ -15,31 +15,14 @@
 </script>
 <th:block th:replace="~{fragments/navbar}"></th:block>
 <main>
-    <img class="bg-img" src="/images/main-background.png" alt="main-background">
-    <div class="container bg-blur rounded mt-5">
-        <h1>Play Tray</h1>
-        <hr class="my-3 bg-white w-50"/>
+    <!--    <img class="bg-img" src="/images/main-background.png" alt="main-background">-->
+    <section class="vh-100 bg-image"
+             style="background-image: url(/images/main-background.png);">
 
-        <p class="h4">
-            Dictionary App is designed to help individuals and language enthusiasts effortlessly access and
-            explore the vast world of words and their meanings. It provides a user-friendly interface with a
-            comprehensive
-            dictionary that allows users to search for words, browse definitions, and enhance their vocabulary.
-            <br>
-            Dictionary App is a valuable tool for students, writers, professionals, and anyone seeking to enrich their
-            language skills.
-            It provides an extensive database of words and their meanings, making it a reliable companion for German,
-            French, Spanish and Italian.</p>
-        <hr class="my-3 bg-white w-75"/>
-
-        <h3>
-            <a class="text-primary" th:href="@{/users/login}">Login</a>
-            if you have an account or
-            <a class="text-primary" th:href="@{/users/register}">Register</a>
-            now and check our deals.
-        </h3>
-    </div>
+    </section>
 </main>
-<footer th:replace="~{fragments/footer}"></footer>
+<footer>
+    <th:block th:replace="~{fragments/footer}"></th:block>
+</footer>
 </body>
 </html>

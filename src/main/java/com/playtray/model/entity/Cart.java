@@ -4,25 +4,28 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.Min;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "cart")
 public class Cart extends BaseEntity{
 
-    @OneToOne
+    @OneToOne(targetEntity = User.class)
     private User customer;
 
     @OneToMany
     private List<Product> products;
 
-    @Min(1)
     private int quantity;
 
     private BigDecimal totalPrice;
+
+    public Cart() {
+        this.products = new ArrayList<>();
+    }
 
     public User getCustomer() {
         return customer;

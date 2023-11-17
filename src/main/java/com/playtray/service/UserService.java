@@ -11,6 +11,8 @@ public interface UserService {
 
     void logout();
 
+    void delete(Long id);
+
     boolean isUserLogged();
 
     boolean isUniqueUsername(String value);

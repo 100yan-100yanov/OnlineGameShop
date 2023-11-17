@@ -38,39 +38,44 @@ public class Product extends BaseEntity {
         return productCategory;
     }
 
-    public void setCategory(ProductCategory productCategory) {
+    public Product setCategory(ProductCategory productCategory) {
         this.productCategory = productCategory;
+        return this;
     }
 
     public PlatformName getPlatform() {
         return platform;
     }
 
-    public void setPlatform(PlatformName platform) {
+    public Product setPlatform(PlatformName platform) {
         this.platform = platform;
+        return this;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public Product setName(String name) {
         this.name = name;
+        return this;
     }
 
     public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public Product setPrice(BigDecimal price) {
         this.price = price;
+        return this;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
+    public Product setDescription(String description) {
         this.description = description;
+        return this;
     }
 }

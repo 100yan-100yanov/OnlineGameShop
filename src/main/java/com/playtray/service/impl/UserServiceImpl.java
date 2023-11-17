@@ -67,6 +67,17 @@ public class UserServiceImpl implements UserService {
         //TODO
     }
 
+    @Override
+    public void delete(Long id) {
+        Optional<User> user = userRepository.findById(id);
+
+        if (user.isEmpty()) {
+            throw new NullPointerException("User with id " + id + " doesn't exist!");
+        }
+
+        userRepository.delete(user.get());
+    }
+
     private User mapToUser(UserRegisterDTO userRegisterDTO) {
         User user = new User();
 
@@ -78,7 +89,6 @@ public class UserServiceImpl implements UserService {
                 .setLastName(userRegisterDTO.getLastName())
                 .setActive(false)
                 .setRoles(List.of(roleRepository.findByName(UserRole.USER)))
-                .setBoughtProducts(new ArrayList<>())
                 .setCart(new Cart().setCustomer(user));
 
         return user;

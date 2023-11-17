@@ -10,6 +10,8 @@ import jakarta.validation.constraints.Size;
 import java.math.BigDecimal;
 
 public record ProductAddDTO(@NotNull
+                            Long id,
+                            @NotNull
                             ProductCategory productCategory,
                             @NotNull
                             PlatformName platform,
