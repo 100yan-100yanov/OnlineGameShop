@@ -29,33 +29,58 @@
 
                 <div class="d-flex align-items-center h-custom-2 px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5">
 
-                    <form style="width: 23rem;">
+                    <form style="width: 23rem;"
+                          th:method="POST"
+                          th:action="@{/users/login}"
+                          th:object="${userLoginDTO}">
 
-                        <h3 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Log in</h3>
+                        <h3 class="fw-normal mb-3 pb-3"
+                            style="letter-spacing: 1px;">Log in</h3>
 
                         <div class="form-outline mb-4">
-                            <input type="email" id="form2Example18" class="form-control form-control-lg"/>
-                            <label class="form-label" for="form2Example18">Email address</label>
+                            <input
+                                    type="text"
+                                    id="username"
+                                    class="form-control form-control-lg"
+                                    placeholder="Username"/>
+
+                            <label class="form-label"
+                                   for="username"></label>
                         </div>
 
                         <div class="form-outline mb-4">
-                            <input type="password" id="form2Example28" class="form-control form-control-lg"/>
-                            <label class="form-label" for="form2Example28">Password</label>
+                            <input type="password"
+                                   id="password"
+                                   class="form-control form-control-lg"
+                                   placeholder="Password"/>
+
+                            <label class="form-label"
+                                   for="password"></label>
+
+                            <p th:if="${bad_credentials}" class="errors alert alert-warning">
+                                Invalid username or password.
+                            </p>
                         </div>
 
                         <!-- Checkbox -->
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="form-check mb-2">
-                                <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3"/>
-                                <label class="form-check-label" for="form2Example3">
+                                <input class="form-check-input me-2"
+                                       type="checkbox"
+                                       value=""
+                                       id="checkbox"/>
+
+                                <label class="form-check-label"
+                                       for="checkbox">
                                     Remember me
                                 </label>
                             </div>
                         </div>
 
                         <div class="pt-1 mb-4">
-                            <button class="btn text-white btn-lg btn-block" style="background-color: #755bb4"
-                                    type="button">Login
+                            <button class="btn text-white btn-lg btn-block"
+                                    style="background-color: #755bb4"
+                                    type="submit">Login
                             </button>
                         </div>
 
@@ -72,7 +97,9 @@
             </div>
             <div class="col-sm-6 px-0 d-none d-sm-block">
                 <img th:src="@{/images/logo-color.png}"
-                     alt="Login image" class="w-100 vh-100" style="object-fit: cover; object-position: left;">
+                     alt="Login image"
+                     class="w-100 vh-100"
+                     style="object-fit: cover; object-position: left;">
             </div>
         </div>
     </div>

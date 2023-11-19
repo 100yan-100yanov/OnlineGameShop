@@ -30,7 +30,9 @@ public class UserRegisterDTO {
 
     @UniqueEmail
     @NotBlank(message = "")
-    @Email(regexp = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$")
+    @Email(
+            regexp = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$",
+            message = "Use a valid email.")
     private String email;
 
     public String getFirstName() {

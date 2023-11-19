@@ -4,6 +4,7 @@ import com.playtray.model.dto.UserLoginDTO;
 import com.playtray.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -30,21 +31,16 @@ public class UserLoginController {
     @PostMapping("/login")
     public ModelAndView login(@Valid
                               @ModelAttribute("userLoginDTO")
-                              UserLoginDTO userLoginDTO,
-                              BindingResult bindingResult,
-                              RedirectAttributes redirectAttributes) {
+                              UserLoginDTO userLoginDTO) {
 
         ModelAndView modelAndView = new ModelAndView();
 
-        if (bindingResult.hasErrors()) {
-            redirectAttributes
-                    .addFlashAttribute("org.springframework.validation.BindingResult.userLoginDTO", bindingResult)
-                    .addFlashAttribute("userLoginDTO", userLoginDTO);
-
-            modelAndView.setViewName("redirect:/users/login");
-        } else {
-            userService.login(userLoginDTO);
+        if (userService.login(userLoginDTO)) {
             modelAndView.setViewName("redirect:/");
+
+        } else {
+            modelAndView.addObject("bad_credentials", true);
+            modelAndView.setViewName("redirect:/users/login");
         }
 
         return modelAndView;

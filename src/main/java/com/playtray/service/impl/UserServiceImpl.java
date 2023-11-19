@@ -8,11 +8,9 @@ import com.playtray.model.enums.UserRole;
 import com.playtray.repository.RoleRepository;
 import com.playtray.repository.UserRepository;
 import com.playtray.service.UserService;
-import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -44,7 +42,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void login(UserLoginDTO userLoginDTO) {
+    public boolean login(UserLoginDTO userLoginDTO) {
         String username = userLoginDTO.getUsername();
 
         Optional<User> optionalUser = userRepository.findByUsername(username);
@@ -54,11 +52,13 @@ public class UserServiceImpl implements UserService {
             String encodedPassword = optionalUser.get().getPassword();
 
             if (passwordEncoder.matches(rawPassword, encodedPassword)) {
-
                 User user = optionalUser.get();
                 user.setActive(true);
+                return true;
             }
         }
+
+        return false;
     }
 
     @Override

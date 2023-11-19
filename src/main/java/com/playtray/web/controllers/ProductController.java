@@ -1,8 +1,14 @@
 package com.playtray.web.controllers;
 
+import com.playtray.model.dto.ProductSummaryDTO;
 import com.playtray.model.dto.ProductAddDTO;
+import com.playtray.model.enums.ProductCategory;
 import com.playtray.service.ProductService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -17,30 +23,57 @@ public class ProductController {
     }
 
     @GetMapping("/consoles/all")
-    public ModelAndView allConsoles() {
-        return new ModelAndView("products-consoles");
+    public ModelAndView allConsoles(Model model,
+                                    @PageableDefault(size = 3, sort = "id")
+                                    Pageable pageable) {
+
+        Page<ProductSummaryDTO> allConsoles =
+                productService.getAllProducts(ProductCategory.CONSOLE, pageable);
+
+        model.addAttribute("consoles", allConsoles);
+
+        return new ModelAndView("consoles");
     }
+
     @GetMapping("/consoles/{id}")
     public ModelAndView getConsole(@PathVariable("id") String id) {
-        return new ModelAndView("products");
+        return new ModelAndView("consoles");
     }
 
     @GetMapping("/games/all")
-    public ModelAndView allGames() {
-        return new ModelAndView("products-games");
+    public ModelAndView allGames(Model model,
+                                 @PageableDefault(size = 3, sort = "id")
+                                 Pageable pageable) {
+
+        Page<ProductSummaryDTO> allGames =
+                productService.getAllProducts(ProductCategory.GAME, pageable);
+
+        model.addAttribute("games", allGames);
+
+        return new ModelAndView("games");
     }
+
     @GetMapping("/games/{id}")
     public ModelAndView getGame(@PathVariable("id") String id) {
-        return new ModelAndView("products");
+        return new ModelAndView("consoles");
     }
 
     @GetMapping("/accessories/all")
-    public ModelAndView allAccessories() {
-        return new ModelAndView("products-accessories");
+    public ModelAndView allAccessories(Model model,
+                                       @PageableDefault(size = 3, sort = "id")
+                                       Pageable pageable) {
+
+        Page<ProductSummaryDTO> allAccessories =
+                productService.getAllProducts(ProductCategory.ACCESSORY, pageable);
+
+        model.addAttribute("accessories", allAccessories);
+
+        return new ModelAndView("accessories");
     }
+
     @GetMapping("/accessories/{id}")
     public ModelAndView getAccessory(@PathVariable("id") String id) {
-        return new ModelAndView("products");
+        return new ModelAndView("consoles");
     }
 
     @PostMapping("/add")
