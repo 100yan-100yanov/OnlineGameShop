@@ -34,6 +34,9 @@ public class Product extends BaseEntity {
     @Size(min = 5, max = 200)
     private String description;
 
+    @Column(nullable = false)
+    private String imageUrl;
+
     public ProductCategory getCategory() {
         return productCategory;
     }
@@ -76,6 +79,15 @@ public class Product extends BaseEntity {
 
     public Product setDescription(String description) {
         this.description = description;
+        return this;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public Product setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
         return this;
     }
 }

@@ -13,5 +13,5 @@ public interface ProductService {
 
     void delete(Long id);
 
-    Page<ProductSummaryDTO> getAllProducts(ProductCategory category, Pageable pageable);
+    Page<ProductSummaryDTO> getAll(ProductCategory category, Pageable pageable);
 }

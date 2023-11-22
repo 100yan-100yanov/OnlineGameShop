@@ -46,7 +46,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Page<ProductSummaryDTO> getAllProducts(ProductCategory category, Pageable pageable) {
+    public Page<ProductSummaryDTO> getAll(ProductCategory category, Pageable pageable) {
 
         List<ProductSummaryDTO> products = productRepository
                 .findAllByProductCategory(category, pageable)

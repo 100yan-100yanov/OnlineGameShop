@@ -28,7 +28,7 @@ public class ProductController {
                                     Pageable pageable) {
 
         Page<ProductSummaryDTO> allConsoles =
-                productService.getAllProducts(ProductCategory.CONSOLE, pageable);
+                productService.getAll(ProductCategory.CONSOLE, pageable);
 
         model.addAttribute("consoles", allConsoles);
 
@@ -46,7 +46,7 @@ public class ProductController {
                                  Pageable pageable) {
 
         Page<ProductSummaryDTO> allGames =
-                productService.getAllProducts(ProductCategory.GAME, pageable);
+                productService.getAll(ProductCategory.GAME, pageable);
 
         model.addAttribute("games", allGames);
 
@@ -64,7 +64,7 @@ public class ProductController {
                                        Pageable pageable) {
 
         Page<ProductSummaryDTO> allAccessories =
-                productService.getAllProducts(ProductCategory.ACCESSORY, pageable);
+                productService.getAll(ProductCategory.ACCESSORY, pageable);
 
         model.addAttribute("accessories", allAccessories);
 
