@@ -1,9 +1,11 @@
 package com.playtray.web.controllers;
 
+import com.playtray.model.dto.ProductDetailsDTO;
 import com.playtray.model.dto.ProductSummaryDTO;
 import com.playtray.model.dto.ProductAddDTO;
 import com.playtray.model.enums.ProductCategory;
 import com.playtray.service.ProductService;
+import org.hibernate.ObjectNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -36,8 +38,16 @@ public class ProductController {
     }
 
     @GetMapping("/consoles/{id}")
-    public ModelAndView getConsole(@PathVariable("id") String id) {
-        return new ModelAndView("consoles");
+    public ModelAndView consoleDetails(@PathVariable("id") Long id,
+                                       Model model) {
+
+        ProductDetailsDTO productDetailsDTO = productService
+                .getProductDetails(id)
+                .orElseThrow(() -> new NullPointerException("Product with id " + id + " not found!"));
+
+        model.addAttribute("console", productDetailsDTO);
+
+        return new ModelAndView("console-details");
     }
 
     @GetMapping("/games/all")
@@ -54,8 +64,8 @@ public class ProductController {
     }
 
     @GetMapping("/games/{id}")
-    public ModelAndView getGame(@PathVariable("id") String id) {
-        return new ModelAndView("consoles");
+    public ModelAndView gameDetails(@PathVariable("id") Long id) {
+        return new ModelAndView("game-details");
     }
 
     @GetMapping("/accessories/all")
@@ -72,8 +82,9 @@ public class ProductController {
     }
 
     @GetMapping("/accessories/{id}")
-    public ModelAndView getAccessory(@PathVariable("id") String id) {
-        return new ModelAndView("consoles");
+    public ModelAndView accessoryDetails(@PathVariable("id") Long id) {
+
+        return new ModelAndView("accessory-details");
     }
 
     @PostMapping("/add")

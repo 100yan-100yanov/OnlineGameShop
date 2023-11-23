@@ -31,7 +31,7 @@ public class SecurityConfiguration {
                 request -> request
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                         .requestMatchers("/", "/users/login", "/users/register", "/users/login-error").permitAll()
-                        .requestMatchers("/products/games/all", "/products/consoles/all", "/products/accessories/all").permitAll()
+                        .requestMatchers("/products/games/**", "/products/consoles/**", "/products/accessories/**").permitAll()
                         .requestMatchers("/products/add", "/products/delete").hasRole(UserRole.ADMIN.name())
                         .requestMatchers("/users/delete").hasRole(UserRole.ADMIN.name())
                         .requestMatchers(HttpMethod.GET, "/products/**").permitAll()

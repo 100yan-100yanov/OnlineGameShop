@@ -22,20 +22,22 @@
 
     <!--<section style="background-color: #eee;">-->
     <div class="container py-5"
-         th:each="game : ${games.getContent()}"
+         th:each="game, iStat : ${games.getContent()}"
          th:object="${game}">
+        <!--         th:style="${iStat.odd} ? 'font-weight: bold;'"-->
+        <!--         th:alt-title="${iStat.even} ? 'even' : 'odd'"-->
 
-        <div class="row justify-content-center mb-3">
+        <div class="row justify-content-center mb-0">
             <div class="col-md-12 col-xl-10">
                 <div class="card shadow-0 border rounded-3">
-                    <div class="card-body">
+                    <div class="card-body rounded-3">
                         <div class="row">
 
                             <div class="col-md-12 col-lg-3 col-xl-3 mb-4 mb-lg-0">
                                 <div class="bg-image hover-zoom ripple rounded ripple-surface">
                                     <img th:src="*{imageUrl}"
                                          class="w-100"/>
-                                    <a href="#!">
+                                    <a>
                                         <div class="hover-overlay">
                                             <div class="mask"
                                                  style="background-color: rgba(253, 253, 253, 0.15);"></div>
@@ -43,8 +45,10 @@
                                     </a>
                                 </div>
                             </div>
+
+                            <!-- Game name-->
                             <div class="col-md-6 col-lg-6 col-xl-6">
-                                <h5 th:text="*{name} + ' ' + *{platform}">Game name</h5>
+                                <h2 th:text="*{name}"></h2>
                                 <div class="d-flex flex-row">
                                     <div class="text-danger mb-1 me-2">
                                         <i class="fa fa-star"></i>
@@ -53,168 +57,36 @@
                                         <i class="fa fa-star"></i>
                                     </div>
                                 </div>
+
+                                <!-- Platform-->
                                 <div class="mt-1 mb-0 text-muted small">
-                                    <span>100% cotton</span>
-                                    <span class="text-primary"> • </span>
-                                    <span>Light weight</span>
-                                    <span class="text-primary"> • </span>
-                                    <span>Best finish<br/></span>
+                                    <h6 th:text="'Platform: ' + *{platform}"></h6>
                                 </div>
-                                <div class="mb-2 text-muted small">
-                                    <span>Unique design</span>
-                                    <span class="text-primary"> • </span>
-                                    <span>For men</span>
-                                    <span class="text-primary"> • </span>
-                                    <span>Casual<br/></span>
-                                </div>
-                                <p class="text-truncate mb-4 mb-md-0"
+
+                                <!-- Description-->
+                                <p class="mb-4 mb-md-0 mt-4"
                                    th:text="*{description}">
-                                    Description
                                 </p>
                             </div>
+
+                            <!-- Price-->
                             <div class="col-md-6 col-lg-3 col-xl-3 border-sm-start-none border-start">
                                 <div class="d-flex flex-row align-items-center mb-1">
                                     <h4 class="mb-1 me-1"
-                                        th:text="*{price}">$13.99</h4>
+                                        th:text="'$' + *{price}"></h4>
                                 </div>
                                 <h6 class="text-success">Free shipping</h6>
+
+                                <!-- Buttons-->
                                 <div class="d-flex flex-column mt-4">
                                     <button class="btn btn-sm text-white"
                                             style="background-color: #755bb4"
-                                            type="button">Details
+                                            type="button"
+                                            th:href="@{/products/games/{id} (id=${game.id})}">Details
                                     </button>
                                     <button class="btn btn-outline-info btn-sm mt-2"
                                             type="button">
                                         Add cart
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row justify-content-center mb-3">
-            <div class="col-md-12 col-xl-10">
-                <div class="card shadow-0 border rounded-3">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-12 col-lg-3 col-xl-3 mb-4 mb-lg-0">
-                                <div class="bg-image hover-zoom ripple rounded ripple-surface">
-                                    <img th:src="*{imageUrl}"
-                                         class="w-100"/>
-                                    <a href="#!">
-                                        <div class="hover-overlay">
-                                            <div class="mask"
-                                                 style="background-color: rgba(253, 253, 253, 0.15);"></div>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-lg-6 col-xl-6">
-                                <h5 th:text="*{name} + ' ' + *{platform}">Game name</h5>
-                                <div class="d-flex flex-row">
-                                    <div class="text-danger mb-1 me-2">
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                    </div>
-                                </div>
-                                <div class="mt-1 mb-0 text-muted small">
-                                    <span>100% cotton</span>
-                                    <span class="text-primary"> • </span>
-                                    <span>Light weight</span>
-                                    <span class="text-primary"> • </span>
-                                    <span>Best finish<br/></span>
-                                </div>
-                                <div class="mb-2 text-muted small">
-                                    <span>Unique design</span>
-                                    <span class="text-primary"> • </span>
-                                    <span>For men</span>
-                                    <span class="text-primary"> • </span>
-                                    <span>Casual<br/></span>
-                                </div>
-                                <p class="text-truncate mb-4 mb-md-0">
-                                    Description
-                                </p>
-                            </div>
-                            <div class="col-md-6 col-lg-3 col-xl-3 border-sm-start-none border-start">
-                                <div class="d-flex flex-row align-items-center mb-1">
-                                    <h4 class="mb-1 me-1">$14.99</h4>
-                                </div>
-                                <h6 class="text-success">Free shipping</h6>
-                                <div class="d-flex flex-column mt-4">
-                                    <button class="btn text-white btn-sm"
-                                            type="button"
-                                            style="background-color: #755bb4">Details</button>
-                                    <button class="btn btn-outline-info btn-sm mt-2"
-                                            type="button">
-                                        Add cart
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row justify-content-center">
-            <div class="col-md-12 col-xl-10">
-                <div class="card shadow-0 border rounded-3">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-12 col-lg-3 col-xl-3 mb-4 mb-lg-0">
-                                <div class="bg-image hover-zoom ripple rounded ripple-surface">
-                                    <img th:src="*{imageUrl}"
-                                         class="w-100"/>
-                                    <a href="#!">
-                                        <div class="hover-overlay">
-                                            <div class="mask"
-                                                 style="background-color: rgba(253, 253, 253, 0.15);"></div>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-lg-6 col-xl-6">
-                                <h5 th:text="*{name} + ' ' + *{platform}">Game name</h5>
-                                <div class="d-flex flex-row">
-                                    <div class="text-danger mb-1 me-2">
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                    </div>
-                                </div>
-                                <div class="mt-1 mb-0 text-muted small">
-                                    <span>100% cotton</span>
-                                    <span class="text-primary"> • </span>
-                                    <span>Light weight</span>
-                                    <span class="text-primary"> • </span>
-                                    <span>Best finish<br/></span>
-                                </div>
-                                <div class="mb-2 text-muted small">
-                                    <span>Unique design</span>
-                                    <span class="text-primary"> • </span>
-                                    <span>For women</span>
-                                    <span class="text-primary"> • </span>
-                                    <span>Casual<br/></span>
-                                </div>
-                                <p class="text-truncate mb-4 mb-md-0">
-                                    Description
-                                </p>
-                            </div>
-                            <div class="col-md-6 col-lg-3 col-xl-3 border-sm-start-none border-start">
-                                <div class="d-flex flex-row align-items-center mb-1">
-                                    <h4 class="mb-1 me-1">$17.99</h4>
-                                </div>
-                                <h6 class="text-success">Free shipping</h6>
-                                <div class="d-flex flex-column mt-4">
-                                    <button class="btn text-white btn-sm"
-                                            type="button"
-                                            style="background-color: #755bb4">Details</button>
-                                    <button class="btn btn-outline-info btn-sm mt-2" type="button">
-                                        Add to cart
                                     </button>
                                 </div>
                             </div>

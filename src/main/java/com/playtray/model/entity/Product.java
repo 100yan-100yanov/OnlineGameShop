@@ -21,7 +21,7 @@ public class Product extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private PlatformName platform;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     @Size(min = 2, max = 50)
     private String name;
 

@@ -1,5 +1,6 @@
 package com.playtray.service.impl;
 
+import com.playtray.model.dto.ProductDetailsDTO;
 import com.playtray.model.dto.ProductSummaryDTO;
 import com.playtray.model.dto.ProductAddDTO;
 import com.playtray.model.entity.Product;
@@ -51,20 +52,38 @@ public class ProductServiceImpl implements ProductService {
         List<ProductSummaryDTO> products = productRepository
                 .findAllByProductCategory(category, pageable)
                 .stream()
-                .map(ProductServiceImpl::mapToSummary)
+                .map(ProductServiceImpl::mapAsSummary)
                 .toList();
 
         return new PageImpl<>(products);
     }
 
-    private static ProductSummaryDTO mapToSummary(Product product) {
+    @Override
+    public Optional<ProductDetailsDTO> getProductDetails(Long id) {
+        return productRepository
+                .findById(id)
+                .map(ProductServiceImpl::mapAsDetails);
+    }
+
+    private static ProductDetailsDTO mapAsDetails(Product product) {
+        return new ProductDetailsDTO(
+                product.getId(),
+                product.getName(),
+                product.getPlatform(),
+                product.getPrice(),
+                product.getDescription(),
+                product.getImageUrl()
+        );
+    }
+
+    private static ProductSummaryDTO mapAsSummary(Product product) {
         return new ProductSummaryDTO(
                 product.getId(),
                 product.getName(),
-                product.getCategory(),
                 product.getPlatform(),
                 product.getPrice(),
-                product.getDescription()
+                product.getDescription(),
+                product.getImageUrl()
         );
     }
 }
