@@ -38,14 +38,14 @@ public class ProductController {
     }
 
     @GetMapping("/consoles/{id}")
-    public ModelAndView consoleDetails(@PathVariable("id") Long id,
-                                       Model model) {
+    public ModelAndView consoleDetails(Model model,
+                                       @PathVariable("id") Long id) {
 
-        ProductDetailsDTO productDetailsDTO = productService
+        ProductDetailsDTO consoleDetails = productService
                 .getProductDetails(id)
-                .orElseThrow(() -> new NullPointerException("Product with id " + id + " not found!"));
+                .orElseThrow(() -> new NullPointerException("Console with id " + id + " not found!"));
 
-        model.addAttribute("console", productDetailsDTO);
+        model.addAttribute("consoleDetails", consoleDetails);
 
         return new ModelAndView("console-details");
     }
@@ -64,7 +64,15 @@ public class ProductController {
     }
 
     @GetMapping("/games/{id}")
-    public ModelAndView gameDetails(@PathVariable("id") Long id) {
+    public ModelAndView gameDetails(Model model,
+                                    @PathVariable("id") Long id) {
+
+        ProductDetailsDTO gameDetails = productService
+                .getProductDetails(id)
+                .orElseThrow(() -> new NullPointerException("Game with id " + id + " not found!"));
+
+        model.addAttribute("gameDetails", gameDetails);
+
         return new ModelAndView("game-details");
     }
 
@@ -82,7 +90,14 @@ public class ProductController {
     }
 
     @GetMapping("/accessories/{id}")
-    public ModelAndView accessoryDetails(@PathVariable("id") Long id) {
+    public ModelAndView accessoryDetails(Model model,
+                                         @PathVariable("id") Long id) {
+
+        ProductDetailsDTO accessoryDetails = productService
+                .getProductDetails(id)
+                .orElseThrow(() -> new NullPointerException("Accessory with id " + id + " not found!"));
+
+        model.addAttribute("accessoryDetails", accessoryDetails);
 
         return new ModelAndView("accessory-details");
     }

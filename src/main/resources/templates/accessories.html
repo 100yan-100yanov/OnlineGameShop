@@ -18,7 +18,7 @@
 <th:block th:replace="~{fragments/navbar}"></th:block>
 
 <section class="vh-100 bg-image"
-         style="background-image: url(/images/main-background.png);">
+         style="background-image: url(/images/main-background-purple.png);">
 
     <!--<section style="background-color: #eee;">-->
     <div class="container py-5"
@@ -33,7 +33,7 @@
                     <div class="card-body rounded-3">
                         <div class="row">
 
-                            <div class="col-md-12 col-lg-3 col-xl-3 mb-4 mb-lg-0">
+                            <div class="col-md-12 col-lg-3 col-xl-2 mb-4 mb-lg-0">
                                 <div class="bg-image hover-zoom ripple rounded ripple-surface">
                                     <img th:src="*{imageUrl}"
                                          class="w-100"/>
@@ -79,10 +79,11 @@
 
                                 <!-- Buttons-->
                                 <div class="d-flex flex-column mt-4">
-                                    <button class="btn btn-sm text-white"
+                                    <a class="btn btn-sm text-white"
                                             style="background-color: #755bb4"
-                                            type="button">Details
-                                    </button>
+                                            type="button"
+                                            th:href="@{/products/accessories/{id}(id=*{id})}">Details
+                                    </a>
                                     <button class="btn btn-outline-info btn-sm mt-2"
                                             type="button">
                                         Add cart
