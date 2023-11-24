@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"
-      xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+      xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -95,9 +96,10 @@
                                th:href="@{/about-us}">About us
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item"
+                            sec:authorize="hasRole('ADMIN')">
                             <a class="nav-link"
-                               th:href="@{/about-us}">Manage
+                               th:href="@{/about-us}">Admin
                             </a>
                         </li>
                     </ul>
@@ -109,17 +111,20 @@
                 <div class="d-flex align-items-center">
 
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
+                        <li class="nav-item"
+                            sec:authorize="hasRole('USER')">
                             <a class="nav-link"
                                th:href="@{/cart}">Cart
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item"
+                            sec:authorize="hasRole('USER')">
                             <a class="nav-link"
                                th:href="@{/users/{id} (id=${id})/profile}">Profile
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item"
+                            sec:authorize="hasRole('USER')">
                             <a class="nav-link"
                                th:href="@{/}">Logout
                             </a>

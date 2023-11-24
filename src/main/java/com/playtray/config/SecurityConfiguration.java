@@ -12,16 +12,17 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 public class SecurityConfiguration {
 
+    //TODO
 //    private final String rememberMeKey;
-
-    //TODO implement in HTML
-//    public SecurityConfiguration(@Value("${TODO.remember.me.key}")
-//                          String rememberMeKey) {
+//
+//    public SecurityConfiguration(@Value("${playtray.remember.me.key}")
+//                                 String rememberMeKey) {
 //        this.rememberMeKey = rememberMeKey;
 //    }
 
@@ -31,10 +32,8 @@ public class SecurityConfiguration {
                 request -> request
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                         .requestMatchers("/", "/users/login", "/users/register", "/users/login-error").permitAll()
-                        .requestMatchers("/products/games/**", "/products/consoles/**", "/products/accessories/**").permitAll()
-                        .requestMatchers("/products/add", "/products/delete").hasRole(UserRole.ADMIN.name())
-                        .requestMatchers("/cart").permitAll()
-                        .requestMatchers("/users/delete").hasRole(UserRole.ADMIN.name())
+                        .requestMatchers("/products/add", "/products/delete", "/users/delete").hasRole(UserRole.ADMIN.name())
+                        .requestMatchers("/cart").hasRole(UserRole.USER.name())
                         .requestMatchers(HttpMethod.GET, "/products/**").permitAll()
                         .requestMatchers("/error").permitAll()
                         .anyRequest().authenticated()
@@ -65,6 +64,6 @@ public class SecurityConfiguration {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+        return new Pbkdf2PasswordEncoder();
     }
 }

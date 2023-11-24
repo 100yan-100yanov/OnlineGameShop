@@ -1,5 +1,6 @@
 package com.playtray.service.impl;
 
+import com.playtray.model.entity.Product;
 import com.playtray.model.entity.Role;
 import com.playtray.model.entity.User;
 import com.playtray.repository.UserRepository;
@@ -28,7 +29,10 @@ public class PlaytrayUserDetailsService implements UserDetailsService {
         return org.springframework.security.core.userdetails.User
                 .withUsername(user.getUsername())
                 .password(user.getPassword())
-                .authorities(user.getRoles().stream().map(PlaytrayUserDetailsService::grantAuthority).toList())
+                .authorities(user.getRoles()
+                        .stream()
+                        .map(PlaytrayUserDetailsService::grantAuthority)
+                        .toList())
                 .build();
     }
 
