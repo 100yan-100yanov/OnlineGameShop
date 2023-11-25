@@ -11,20 +11,18 @@ import java.util.List;
 
 @Entity
 @Table(name = "cart")
-public class Cart extends BaseEntity{
+public class Cart extends BaseEntity {
 
     @OneToOne(targetEntity = User.class)
     private User customer;
 
     @OneToMany
-    private List<Product> products;
-
-    private int quantity;
+    private List<Item> items;
 
     private BigDecimal totalPrice;
 
     public Cart() {
-        this.products = new ArrayList<>();
+        this.items = new ArrayList<>();
     }
 
     public User getCustomer() {
@@ -36,21 +34,12 @@ public class Cart extends BaseEntity{
         return this;
     }
 
-    public List<Product> getProducts() {
-        return products;
+    public List<Item> getItems() {
+        return items;
     }
 
-    public Cart setProducts(List<Product> products) {
-        this.products = products;
-        return this;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public Cart setQuantity(int quantity) {
-        this.quantity = quantity;
+    public Cart setItems(List<Item> items) {
+        this.items = items;
         return this;
     }
 
@@ -58,8 +47,21 @@ public class Cart extends BaseEntity{
         return totalPrice;
     }
 
-    public Cart setTotalPrice(BigDecimal totalPrice) {
-        this.totalPrice = totalPrice;
-        return this;
+    public void setTotalPrice() {
+
+        this.totalPrice = items
+                .stream()
+                .map(Item::getPrice)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
+    public Item getItem(Product product) {
+
+        for (Item item : items) {
+            if (item.getProduct().equals(product)) {
+                return item;
+            }
+        }
+        return null;
     }
 }

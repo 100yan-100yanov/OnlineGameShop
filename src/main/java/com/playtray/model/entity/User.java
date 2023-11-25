@@ -47,6 +47,7 @@ public class User extends BaseEntity {
 
     public User() {
         this.boughtProducts = new ArrayList<>();
+        this.cart = new Cart();
     }
 
     public String getFirstName() {

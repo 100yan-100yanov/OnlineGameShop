@@ -65,7 +65,7 @@
 
                                 <!-- Description-->
                                 <p class="mb-4 mb-md-0 mt-4"
-                                   th:text="*{description}">
+                                   th:text="*{summary}">
                                 </p>
                             </div>
 
@@ -84,10 +84,10 @@
                                             type="button"
                                             th:href="@{/products/games/{id}(id=*{id})}">Details
                                     </a>
-                                    <button class="btn btn-outline-info btn-sm mt-2"
+                                    <a class="btn btn-outline-info btn-sm mt-2"
                                             type="button">
                                         Add to cart
-                                    </button>
+                                    </a>
                                 </div>
                             </div>
                         </div>

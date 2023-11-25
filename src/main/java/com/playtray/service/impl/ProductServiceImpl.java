@@ -1,8 +1,8 @@
 package com.playtray.service.impl;
 
+import com.playtray.model.dto.ProductAddDTO;
 import com.playtray.model.dto.ProductDetailsDTO;
 import com.playtray.model.dto.ProductSummaryDTO;
-import com.playtray.model.dto.ProductAddDTO;
 import com.playtray.model.entity.Product;
 import com.playtray.model.enums.ProductCategory;
 import com.playtray.repository.ProductRepository;
@@ -82,7 +82,7 @@ public class ProductServiceImpl implements ProductService {
                 product.getName(),
                 product.getPlatform(),
                 product.getPrice(),
-                product.getDescription(),
+                product.getSummary(),
                 product.getImageUrl()
         );
     }

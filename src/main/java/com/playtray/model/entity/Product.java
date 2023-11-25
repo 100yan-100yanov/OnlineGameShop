@@ -32,6 +32,10 @@ public class Product extends BaseEntity {
 
     @Column(nullable = false, columnDefinition = "TEXT")
     @Size(min = 5, max = 200)
+    private String summary;
+
+    @Column(nullable = false, columnDefinition = "TEXT")
+    @Size(min = 5, max = 500)
     private String description;
 
     @Column(nullable = false)
@@ -70,6 +74,15 @@ public class Product extends BaseEntity {
 
     public Product setPrice(BigDecimal price) {
         this.price = price;
+        return this;
+    }
+
+    public String getSummary() {
+        return summary;
+    }
+
+    public Product setSummary(String summary) {
+        this.summary = summary;
         return this;
     }
 

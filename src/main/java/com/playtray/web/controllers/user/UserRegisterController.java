@@ -1,4 +1,4 @@
-package com.playtray.web.controllers;
+package com.playtray.web.controllers.user;
 
 import com.playtray.model.dto.UserRegisterDTO;
 import com.playtray.service.UserService;

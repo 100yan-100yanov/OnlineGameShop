@@ -8,9 +8,11 @@ import com.playtray.model.enums.UserRole;
 import com.playtray.repository.RoleRepository;
 import com.playtray.repository.UserRepository;
 import com.playtray.service.UserService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -62,9 +64,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void logout() {
+    public void logout(Principal principal) {
+      User user = userRepository
+              .findByUsername(principal.getName())
+              .orElseThrow(() -> new UsernameNotFoundException("User with username " + principal.getName() + " doesn't exist!"));
 
-        //TODO
+        user.setActive(false);
     }
 
     @Override
@@ -95,12 +100,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean isUserLogged() {
-        //TODO
-        return false;
-    }
-
-    @Override
     public boolean isUniqueUsername(String value) {
         return userRepository.findByUsername(value).isEmpty();
     }
@@ -108,5 +107,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean isUniqueEmail(String value) {
         return userRepository.findByEmail(value).isEmpty();
+    }
+
+    @Override
+    public User findByUsername(String name) {
+        return userRepository
+                .findByUsername(name)
+                .orElseThrow(() -> new UsernameNotFoundException("User with username " + name + " doesn't exist!"));
     }
 }

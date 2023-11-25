@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 public record ProductAddDTO(@NotNull
                             Long id,
                             @NotNull
-                            ProductCategory productCategory,
+                            ProductCategory category,
                             @NotNull
                             PlatformName platform,
                             @NotBlank
@@ -20,6 +20,9 @@ public record ProductAddDTO(@NotNull
                             BigDecimal price,
                             @NotBlank
                             @Size(min = 5, max = 200)
+                            String summary,
+                            @NotBlank
+                            @Size(min = 5, max = 500)
                             String description,
                             @NotBlank
                             @Pattern(regexp = "\\b(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]")

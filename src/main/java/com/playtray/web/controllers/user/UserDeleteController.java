@@ -1,4 +1,4 @@
-package com.playtray.web.controllers;
+package com.playtray.web.controllers.user;
 
 import com.playtray.service.UserService;
 import org.springframework.stereotype.Controller;
