@@ -115,4 +115,9 @@ public class UserServiceImpl implements UserService {
                 .findByUsername(name)
                 .orElseThrow(() -> new UsernameNotFoundException("User with username " + name + " doesn't exist!"));
     }
+
+    @Override
+    public void save(User customer) {
+        userRepository.save(customer);
+    }
 }

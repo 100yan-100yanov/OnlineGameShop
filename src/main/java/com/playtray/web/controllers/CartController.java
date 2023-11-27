@@ -1,5 +1,6 @@
 package com.playtray.web.controllers;
 
+import com.playtray.model.dto.CartBuyDTO;
 import com.playtray.service.CartService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
@@ -45,5 +46,16 @@ public class CartController {
         String referer = httpRequest.getHeader("Referer");
 
         return new ModelAndView("redirect:" + referer);
+    }
+
+    @PostMapping("/buy")
+    public ModelAndView buy(CartBuyDTO cartBuyDTO) {
+
+        ModelAndView modelAndView = new ModelAndView();
+
+        modelAndView.addObject("cartItems", cartBuyDTO);
+        modelAndView.setViewName("checkout");
+
+        return modelAndView;
     }
 }

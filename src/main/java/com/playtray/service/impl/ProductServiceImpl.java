@@ -65,6 +65,13 @@ public class ProductServiceImpl implements ProductService {
                 .map(ProductServiceImpl::mapAsDetails);
     }
 
+    @Override
+    public Product findById(Long productId) {
+
+        return productRepository.findById(productId)
+                .orElseThrow(() -> new NullPointerException("Product with id " + productId + " doesn't exist!"));
+    }
+
     private static ProductDetailsDTO mapAsDetails(Product product) {
         return new ProductDetailsDTO(
                 product.getId(),
