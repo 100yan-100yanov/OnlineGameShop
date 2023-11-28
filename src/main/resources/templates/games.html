@@ -73,19 +73,20 @@
                             <div class="col-md-6 col-lg-3 col-xl-3 border-sm-start-none border-start">
                                 <div class="d-flex flex-row align-items-center mb-1">
                                     <h4 class="mb-1 me-1"
-                                        th:text="'$' + *{price}"></h4>
+                                        th:text="'€' + *{price}"></h4>
                                 </div>
                                 <h6 class="text-success">Free shipping</h6>
 
                                 <!-- Buttons-->
                                 <div class="d-flex flex-column mt-4">
                                     <a class="btn btn-sm text-white"
-                                            style="background-color: #755bb4"
-                                            type="button"
-                                            th:href="@{/products/games/{id}(id=*{id})}">Details
+                                       style="background-color: #755bb4"
+                                       type="button"
+                                       th:href="@{/products/games/{id}(id=*{id})}">Details
                                     </a>
                                     <a class="btn btn-outline-info btn-sm mt-2"
-                                            type="button">
+                                       type="button"
+                                       th:href="@{/cart/add/{id}(id=*{id})}">
                                         Add to cart
                                     </a>
                                 </div>

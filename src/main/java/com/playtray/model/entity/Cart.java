@@ -1,9 +1,6 @@
 package com.playtray.model.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -16,7 +13,8 @@ public class Cart extends BaseEntity {
     @OneToOne(targetEntity = User.class)
     private User customer;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER,
+            cascade = CascadeType.ALL)
     private List<Item> items;
 
     private BigDecimal totalPrice;
@@ -53,15 +51,5 @@ public class Cart extends BaseEntity {
                 .stream()
                 .map(Item::getPrice)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
-    }
-
-    public Item getItem(Product product) {
-
-        for (Item item : items) {
-            if (item.getProduct().equals(product)) {
-                return item;
-            }
-        }
-        return null;
     }
 }

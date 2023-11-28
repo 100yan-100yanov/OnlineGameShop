@@ -65,9 +65,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void logout(Principal principal) {
-      User user = userRepository
-              .findByUsername(principal.getName())
-              .orElseThrow(() -> new UsernameNotFoundException("User with username " + principal.getName() + " doesn't exist!"));
+        User user = userRepository
+                .findByUsername(principal.getName())
+                .orElseThrow(() -> new UsernameNotFoundException("User with username " + principal.getName() + " doesn't exist!"));
 
         user.setActive(false);
     }
@@ -110,14 +110,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findByUsername(String name) {
-        return userRepository
-                .findByUsername(name)
-                .orElseThrow(() -> new UsernameNotFoundException("User with username " + name + " doesn't exist!"));
+    public void save(User customer) {
+        userRepository.save(customer);
     }
 
     @Override
-    public void save(User customer) {
-        userRepository.save(customer);
+    public User findByUsername(String name) {
+        return userRepository
+                .findByUsername(name)
+                .orElseThrow(() -> new UsernameNotFoundException("User with name " + name + " doesn't exist!"));
     }
 }

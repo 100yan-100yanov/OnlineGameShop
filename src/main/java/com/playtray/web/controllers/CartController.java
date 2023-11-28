@@ -5,6 +5,7 @@ import com.playtray.service.CartService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -26,26 +27,24 @@ public class CartController {
         return new ModelAndView("cart");
     }
 
-    @PostMapping("/add")
-    public ModelAndView addToCart(Long productId,
+    @RequestMapping("/add/{id}")
+    public ModelAndView addToCart(@PathVariable("id") Long id,
                                   Principal principal,
                                   HttpServletRequest httpRequest) {
 
-        cartService.addToCart(productId, principal);
+        cartService.addToCart(id, principal);
         String referer = httpRequest.getHeader("Referer");
 
         return new ModelAndView("redirect:" + referer);
     }
 
-    @PostMapping("/remove")
-    public ModelAndView removeFromCart(Long productId,
-                                       Principal principal,
-                                       HttpServletRequest httpRequest) {
+    @RequestMapping("/remove/{id}")
+    public ModelAndView removeFromCart(@PathVariable("id") Long productId,
+                                       Principal principal) {
 
         cartService.removeFromCart(productId, principal);
-        String referer = httpRequest.getHeader("Referer");
 
-        return new ModelAndView("redirect:" + referer);
+        return new ModelAndView("redirect:/cart");
     }
 
     @PostMapping("/buy")

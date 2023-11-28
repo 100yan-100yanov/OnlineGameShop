@@ -13,7 +13,7 @@ import java.security.Principal;
 @RequestMapping("/checkout")
 public class CheckoutController {
 
-    private CartService cartService;
+    private final CartService cartService;
 
     public CheckoutController(CartService cartService) {
         this.cartService = cartService;

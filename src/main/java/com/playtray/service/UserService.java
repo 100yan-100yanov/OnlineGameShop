@@ -20,7 +20,7 @@ public interface UserService {
 
     boolean isUniqueEmail(String value);
 
-    User findByUsername(String name);
-
     void save(User customer);
+
+    User findByUsername(String name);
 }

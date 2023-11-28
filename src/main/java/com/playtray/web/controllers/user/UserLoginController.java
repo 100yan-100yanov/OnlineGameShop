@@ -62,11 +62,5 @@ public class UserLoginController {
         return model;
     }
 
-    @PostMapping("/logout")
-    public ModelAndView logout(Principal principal) {
-
-        userService.logout(principal);
-
-        return new ModelAndView("redirect:/");
-    }
+    //TODO logout and button hide
 }

@@ -7,6 +7,7 @@ import com.playtray.model.entity.Product;
 import com.playtray.model.entity.User;
 import com.playtray.repository.CartRepository;
 import com.playtray.service.CartService;
+import com.playtray.service.ItemService;
 import com.playtray.service.ProductService;
 import com.playtray.service.UserService;
 import org.springframework.stereotype.Service;
@@ -20,28 +21,31 @@ public class CartServiceImpl implements CartService {
     private final CartRepository cartRepository;
     private final ProductService productService;
     private final UserService userService;
+    private final ItemService itemService;
 
     public CartServiceImpl(CartRepository cartRepository,
                            ProductService productService,
-                           UserService userService) {
+                           UserService userService,
+                           ItemService itemService) {
 
         this.cartRepository = cartRepository;
         this.productService = productService;
         this.userService = userService;
+        this.itemService = itemService;
     }
 
     @Override
     public void addToCart(Long productId, Principal principal) {
-        User customer = userService.findByUsername(principal.getName());
-        Cart cart = cartRepository.findCartByCustomer(customer);
-
         Product product = productService.findById(productId);
-
-        Item item = cart.getItem(product);
+        User customer = userService.findByUsername(principal.getName());
+        Cart cart = customer.getCart();
+        Item item = getItemFromCart(productId, cart);
 
         if (item != null) {
-            int quantity = item.getQuantity();
-            item.setQuantity(quantity + 1);
+            int itemQuantity = item.getQuantity();
+
+            item.setQuantity(itemQuantity + 1)
+                    .setPrice();
 
         } else {
             item = new Item();
@@ -49,31 +53,49 @@ public class CartServiceImpl implements CartService {
             item.setProduct(product)
                     .setQuantity(1)
                     .setPrice();
+
+            cart.getItems().add(item);
         }
 
-        cart.getItems().add(item);
+//        itemService.save(item);
         cart.setTotalPrice();
-
         cartRepository.save(cart);
     }
 
     @Override
     public void removeFromCart(Long productId, Principal principal) {
         User customer = userService.findByUsername(principal.getName());
-        Cart cart = cartRepository.findCartByCustomer(customer);
+        Cart cart = customer.getCart();
+        Item item = getItemFromCart(productId, cart);
 
-        Product product = productService.findById(productId);
+        if (item != null) {
 
-        Item item = cart.getItem(product);
-        cart.getItems().remove(item);
-        cart.setTotalPrice();
+            cart.getItems().remove(item);
+            cart.setTotalPrice();
 
-        cartRepository.save(cart);
+            cartRepository.save(cart);
+            itemService.delete(item);
+
+        } else {
+            throw new NullPointerException("Product with id " + productId + " doesn't exist!");
+        }
+
+    }
+
+    private Item getItemFromCart(Long productId, Cart cart) {
+        for (Item cartItem : cart.getItems()) {
+            Long cartProductId = cartItem.getProduct().getId();
+
+            if (cartProductId.equals(productId)) {
+                return cartItem;
+            }
+        }
+        return null;
     }
 
     @Override
     public void buy(Principal principal, CartBuyDTO cartBuyDTO) {
-        User customer = userService.findByUsername(principal.getName());
+        User customer = (User) principal;
 
         List<Product> products = cartBuyDTO.items()
                 .stream()
