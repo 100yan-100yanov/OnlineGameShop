@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -17,12 +18,8 @@ public class UserDeleteController {
         this.userService = userService;
     }
 
-    @DeleteMapping("/users/{id}")
-    public ModelAndView delete(@PathVariable("id") Long id,
-                               BindingResult bindingResult,
-                               RedirectAttributes redirectAttributes) {
-
-        //TODO
+    @PostMapping("/users/{id}")
+    public ModelAndView delete(@PathVariable("id") Long id) {
 
         userService.delete(id);
 

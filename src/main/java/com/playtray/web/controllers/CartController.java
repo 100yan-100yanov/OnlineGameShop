@@ -1,6 +1,6 @@
 package com.playtray.web.controllers;
 
-import com.playtray.model.dto.CartBuyDTO;
+import com.playtray.model.dto.CartDTO;
 import com.playtray.service.CartService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
@@ -23,8 +23,13 @@ public class CartController {
     }
 
     @GetMapping
-    public ModelAndView cart() {
-        return new ModelAndView("cart");
+    public ModelAndView cart(Principal principal) {
+        ModelAndView modelAndView = new ModelAndView("cart");
+
+        CartDTO cartDTO = cartService.getCart(principal);
+        modelAndView.addObject("cart", cartDTO);
+
+        return modelAndView;
     }
 
     @RequestMapping("/add/{id}")
@@ -48,11 +53,11 @@ public class CartController {
     }
 
     @PostMapping("/buy")
-    public ModelAndView buy(CartBuyDTO cartBuyDTO) {
+    public ModelAndView buy(CartDTO cartDTO) {
 
         ModelAndView modelAndView = new ModelAndView();
 
-        modelAndView.addObject("cartItems", cartBuyDTO);
+        modelAndView.addObject("cart", cartDTO);
         modelAndView.setViewName("checkout");
 
         return modelAndView;

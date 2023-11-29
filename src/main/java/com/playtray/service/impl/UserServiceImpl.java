@@ -33,8 +33,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void register(UserRegisterDTO userRegisterDTO) {
+        String username = userRegisterDTO.getUsername();
 
-        Optional<User> optionalUser = userRepository.findByUsername(userRegisterDTO.getUsername());
+        Optional<User> optionalUser = userRepository.findByUsername(username);
 
         if (optionalUser.isEmpty()) {
             User user = mapToUser(userRegisterDTO);
@@ -47,40 +48,26 @@ public class UserServiceImpl implements UserService {
     public boolean login(UserLoginDTO userLoginDTO) {
         String username = userLoginDTO.getUsername();
 
-        Optional<User> optionalUser = userRepository.findByUsername(username);
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new NullPointerException("User with username " + username + " doesn't exist!"));
 
-        if (optionalUser.isPresent()) {
-            String rawPassword = userLoginDTO.getPassword();
-            String encodedPassword = optionalUser.get().getPassword();
+        String rawPassword = userLoginDTO.getPassword();
+        String encodedPassword = user.getPassword();
 
-            if (passwordEncoder.matches(rawPassword, encodedPassword)) {
-                User user = optionalUser.get();
-                user.setActive(true);
-                return true;
-            }
+        if (passwordEncoder.matches(rawPassword, encodedPassword)) {
+            user.setActive(true);
+            return true;
         }
 
         return false;
     }
 
     @Override
-    public void logout(Principal principal) {
-        User user = userRepository
-                .findByUsername(principal.getName())
-                .orElseThrow(() -> new UsernameNotFoundException("User with username " + principal.getName() + " doesn't exist!"));
-
-        user.setActive(false);
-    }
-
-    @Override
     public void delete(Long id) {
-        Optional<User> user = userRepository.findById(id);
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new NullPointerException("User with id " + id + " doesn't exist!"));
 
-        if (user.isEmpty()) {
-            throw new NullPointerException("User with id " + id + " doesn't exist!");
-        }
-
-        userRepository.delete(user.get());
+        userRepository.delete(user);
     }
 
     private User mapToUser(UserRegisterDTO userRegisterDTO) {

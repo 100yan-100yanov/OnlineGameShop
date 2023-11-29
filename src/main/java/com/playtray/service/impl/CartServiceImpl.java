@@ -1,6 +1,6 @@
 package com.playtray.service.impl;
 
-import com.playtray.model.dto.CartBuyDTO;
+import com.playtray.model.dto.CartDTO;
 import com.playtray.model.entity.Cart;
 import com.playtray.model.entity.Item;
 import com.playtray.model.entity.Product;
@@ -10,6 +10,7 @@ import com.playtray.service.CartService;
 import com.playtray.service.ItemService;
 import com.playtray.service.ProductService;
 import com.playtray.service.UserService;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
@@ -22,16 +23,19 @@ public class CartServiceImpl implements CartService {
     private final ProductService productService;
     private final UserService userService;
     private final ItemService itemService;
+    private final ModelMapper modelMapper;
 
     public CartServiceImpl(CartRepository cartRepository,
                            ProductService productService,
                            UserService userService,
-                           ItemService itemService) {
+                           ItemService itemService,
+                           ModelMapper modelMapper) {
 
         this.cartRepository = cartRepository;
         this.productService = productService;
         this.userService = userService;
         this.itemService = itemService;
+        this.modelMapper = modelMapper;
     }
 
     @Override
@@ -94,10 +98,10 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public void buy(Principal principal, CartBuyDTO cartBuyDTO) {
-        User customer = (User) principal;
+    public void buy(Principal principal, CartDTO cartDTO) {
+        User customer = userService.findByUsername(principal.getName());
 
-        List<Product> products = cartBuyDTO.items()
+        List<Product> products = cartDTO.getItems()
                 .stream()
                 .map(Item::getProduct)
                 .toList();
@@ -105,5 +109,14 @@ public class CartServiceImpl implements CartService {
         customer.setBoughtProducts(products);
 
         userService.save(customer);
+    }
+
+    @Override
+    public CartDTO getCart(Principal principal) {
+        User customer = userService.findByUsername(principal.getName());
+
+        Cart cart = cartRepository.findCartByCustomer(customer);
+
+        return modelMapper.map(cart, CartDTO.class);
     }
 }

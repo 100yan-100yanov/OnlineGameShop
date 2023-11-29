@@ -117,18 +117,15 @@
                                th:href="@{/cart}">Cart
                             </a>
                         </li>
-                        <li class="nav-item"
-                            sec:authorize="hasRole('USER')">
-                            <a class="nav-link"
-                               th:href="@{/users/{id} (id=${id})/profile}">Profile
-                            </a>
-                        </li>
-                        <li class="nav-item"
-                            sec:authorize="hasRole('USER')">
-                            <a class="nav-link"
-                               th:href="@{/users/logout}">Logout
-                            </a>
-                        </li>
+                        <form class="nav-item"
+                              sec:authorize="hasRole('USER')"
+                              th:method="POST"
+                              th:action="@{/logout}">
+                            <button class="nav-link"
+                                    style="background-color: transparent; border: none"
+                                    type="submit">Logout
+                            </button>
+                        </form>
                     </ul>
                 </div>
                 <!-- Right elements -->

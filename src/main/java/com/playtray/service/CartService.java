@@ -1,6 +1,6 @@
 package com.playtray.service;
 
-import com.playtray.model.dto.CartBuyDTO;
+import com.playtray.model.dto.CartDTO;
 
 import java.security.Principal;
 
@@ -10,5 +10,7 @@ public interface CartService {
 
     void removeFromCart(Long cartId, Principal principal);
 
-    void buy(Principal principal, CartBuyDTO cartBuyDTO);
+    void buy(Principal principal, CartDTO cartDTO);
+
+    CartDTO getCart(Principal principal);
 }

@@ -48,7 +48,7 @@ public class SecurityConfiguration {
                         .failureForwardUrl("/users/login-error")
         ).logout(
                 logout -> logout
-                        .logoutUrl("/users/logout")
+                        .logoutUrl("/logout")
                         .logoutSuccessUrl("/")
                         .invalidateHttpSession(true)
 //        ).rememberMe(

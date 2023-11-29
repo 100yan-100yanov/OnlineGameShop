@@ -12,8 +12,6 @@ public interface UserService {
 
     boolean login(UserLoginDTO userLoginDTO);
 
-    void logout(Principal principal);
-
     void delete(Long id);
 
     boolean isUniqueUsername(String value);

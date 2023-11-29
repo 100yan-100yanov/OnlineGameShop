@@ -1,6 +1,6 @@
 package com.playtray.web.controllers;
 
-import com.playtray.model.dto.CartBuyDTO;
+import com.playtray.model.dto.CartDTO;
 import com.playtray.service.CartService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,9 +21,9 @@ public class CheckoutController {
 
     @PostMapping("/finish")
     public ModelAndView finish(Principal principal,
-                               CartBuyDTO cartBuyDTO) {
+                               CartDTO cartDTO) {
 
-        cartService.buy(principal, cartBuyDTO);
+        cartService.buy(principal, cartDTO);
 
         return new ModelAndView("purchase-complete");
     }
