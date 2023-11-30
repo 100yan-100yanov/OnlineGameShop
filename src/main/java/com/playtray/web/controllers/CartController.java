@@ -6,7 +6,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -50,16 +49,5 @@ public class CartController {
         cartService.removeFromCart(productId, principal);
 
         return new ModelAndView("redirect:/cart");
-    }
-
-    @PostMapping("/buy")
-    public ModelAndView buy(CartDTO cartDTO) {
-
-        ModelAndView modelAndView = new ModelAndView();
-
-        modelAndView.addObject("cart", cartDTO);
-        modelAndView.setViewName("checkout");
-
-        return modelAndView;
     }
 }

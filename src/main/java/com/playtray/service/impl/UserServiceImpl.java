@@ -8,11 +8,11 @@ import com.playtray.model.enums.UserRole;
 import com.playtray.repository.RoleRepository;
 import com.playtray.repository.UserRepository;
 import com.playtray.service.UserService;
+import org.modelmapper.ModelMapper;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,13 +22,16 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
+    private final ModelMapper modelMapper;
 
     public UserServiceImpl(UserRepository userRepository,
                            RoleRepository roleRepository,
-                           PasswordEncoder passwordEncoder) {
+                           PasswordEncoder passwordEncoder,
+                           ModelMapper modelMapper) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
+        this.modelMapper = modelMapper;
     }
 
     @Override
@@ -102,9 +105,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findByUsername(String name) {
+    public User findByUsername(String username) {
         return userRepository
-                .findByUsername(name)
-                .orElseThrow(() -> new UsernameNotFoundException("User with name " + name + " doesn't exist!"));
+                .findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User with username " + username + " doesn't exist!"));
     }
 }

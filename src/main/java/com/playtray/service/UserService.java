@@ -4,8 +4,6 @@ import com.playtray.model.dto.UserLoginDTO;
 import com.playtray.model.dto.UserRegisterDTO;
 import com.playtray.model.entity.User;
 
-import java.security.Principal;
-
 public interface UserService {
 
     void register(UserRegisterDTO userRegisterDTO);
