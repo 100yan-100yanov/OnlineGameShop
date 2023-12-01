@@ -121,7 +121,7 @@ public class ProductsInit implements CommandLineRunner {
                     .setPrice(BigDecimal.valueOf(140.0))
                     .setSummary("summary")
                     .setDescription("BlackWidow V3 Tenkeyless continues the Razer tradition in creating successful products.")
-                    .setImageUrl("https://www.ozone.bg/product/geyming-klaviatura-razer-blackwidow-v3-tenkeyless-us-layout/");
+                    .setImageUrl("https://cdn.ozone.bg/media/catalog/product/cache/1/image/a4e40ebdc3e371adff845072e1c73f37/8/1/bc4cf409725f7a98c87293a191df4ae8/mehanichna-klaviatura-razer---blackwidow-v3-tenkeyless--razer-green-31.jpg");
 
             List<Product> products =
                     List.of(consolePS5,

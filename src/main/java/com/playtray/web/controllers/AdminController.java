@@ -1,5 +1,6 @@
 package com.playtray.web.controllers;
 
+import com.playtray.model.dto.UserDTO;
 import com.playtray.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -7,6 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
@@ -20,8 +23,15 @@ public class AdminController {
 
     @GetMapping("/users")
     public ModelAndView allUsers() {
-        return new ModelAndView("users");
+        ModelAndView modelAndView = new ModelAndView("manage-users");
+
+        List<UserDTO> users = userService.getAllUsers();
+
+        modelAndView.addObject("users", users);
+
+        return modelAndView;
     }
+
     @DeleteMapping("/users/delete/{id}")
     public ModelAndView deleteUser(@PathVariable("id") Long id) {
 

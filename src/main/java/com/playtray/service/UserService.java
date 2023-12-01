@@ -1,8 +1,11 @@
 package com.playtray.service;
 
+import com.playtray.model.dto.UserDTO;
 import com.playtray.model.dto.UserLoginDTO;
 import com.playtray.model.dto.UserRegisterDTO;
 import com.playtray.model.entity.User;
+
+import java.util.List;
 
 public interface UserService {
 
@@ -17,4 +20,6 @@ public interface UserService {
     void save(User customer);
 
     User findByUsername(String name);
+
+    List<UserDTO> getAllUsers();
 }
