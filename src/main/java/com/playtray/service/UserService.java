@@ -8,8 +8,6 @@ public interface UserService {
 
     void register(UserRegisterDTO userRegisterDTO);
 
-    boolean login(UserLoginDTO userLoginDTO);
-
     void delete(Long id);
 
     boolean isUniqueUsername(String value);

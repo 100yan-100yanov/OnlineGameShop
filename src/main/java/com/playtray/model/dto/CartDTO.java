@@ -24,4 +24,12 @@ public class CartDTO {
     public void setTotalPrice(BigDecimal totalPrice) {
         this.totalPrice = totalPrice;
     }
+
+    public int getItemsQuantity() {
+
+        return this.items
+                .stream()
+                .map(Item::getQuantity)
+                .reduce(0, Integer::sum);
+    }
 }

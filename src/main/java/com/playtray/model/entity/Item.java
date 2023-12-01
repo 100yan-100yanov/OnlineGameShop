@@ -36,6 +36,7 @@ public class Item extends BaseEntity{
     }
 
     public BigDecimal getPrice() {
+        this.setPrice();
         return price;
     }
 

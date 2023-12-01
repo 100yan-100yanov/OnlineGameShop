@@ -48,13 +48,15 @@ public class CartServiceImpl implements CartService {
         if (item != null) {
             int itemQuantity = item.getQuantity();
 
-            item.setQuantity(itemQuantity + 1)
+            item
+                    .setQuantity(itemQuantity + 1)
                     .setPrice();
 
         } else {
             item = new Item();
 
-            item.setProduct(product)
+            item
+                    .setProduct(product)
                     .setQuantity(1)
                     .setPrice();
 
@@ -64,6 +66,17 @@ public class CartServiceImpl implements CartService {
 //        itemService.save(item);
         cart.setTotalPrice();
         cartRepository.save(cart);
+    }
+
+    private Item getItemFromCart(Long productId, Cart cart) {
+        for (Item cartItem : cart.getItems()) {
+            Long cartProductId = cartItem.getProduct().getId();
+
+            if (cartProductId.equals(productId)) {
+                return cartItem;
+            }
+        }
+        return null;
     }
 
     @Override
@@ -84,17 +97,6 @@ public class CartServiceImpl implements CartService {
             throw new NullPointerException("Product with id " + productId + " doesn't exist!");
         }
 
-    }
-
-    private Item getItemFromCart(Long productId, Cart cart) {
-        for (Item cartItem : cart.getItems()) {
-            Long cartProductId = cartItem.getProduct().getId();
-
-            if (cartProductId.equals(productId)) {
-                return cartItem;
-            }
-        }
-        return null;
     }
 
     @Override

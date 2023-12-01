@@ -1,4 +1,4 @@
-package com.playtray.web.controllers.product;
+package com.playtray.web.controllers;
 
 import com.playtray.model.dto.ProductDetailsDTO;
 import com.playtray.model.dto.ProductSummaryDTO;

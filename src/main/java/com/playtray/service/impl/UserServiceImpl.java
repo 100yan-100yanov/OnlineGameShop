@@ -22,16 +22,13 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
-    private final ModelMapper modelMapper;
 
     public UserServiceImpl(UserRepository userRepository,
                            RoleRepository roleRepository,
-                           PasswordEncoder passwordEncoder,
-                           ModelMapper modelMapper) {
+                           PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
-        this.modelMapper = modelMapper;
     }
 
     @Override
@@ -45,24 +42,6 @@ public class UserServiceImpl implements UserService {
 
             userRepository.save(user);
         }
-    }
-
-    @Override
-    public boolean login(UserLoginDTO userLoginDTO) {
-        String username = userLoginDTO.getUsername();
-
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new NullPointerException("User with username " + username + " doesn't exist!"));
-
-        String rawPassword = userLoginDTO.getPassword();
-        String encodedPassword = user.getPassword();
-
-        if (passwordEncoder.matches(rawPassword, encodedPassword)) {
-            user.setActive(true);
-            return true;
-        }
-
-        return false;
     }
 
     @Override
