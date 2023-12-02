@@ -25,28 +25,28 @@ public class GameController {
     }
 
     @GetMapping("/games/all")
-    public ModelAndView allGames(Model model,
-                                 @PageableDefault(size = 3, sort = "id")
+    public ModelAndView allGames(@PageableDefault(size = 3, sort = "id")
                                  Pageable pageable) {
 
         Page<ProductSummaryDTO> allGames =
                 productService.getAll(ProductCategory.GAME, pageable);
 
-        model.addAttribute("games", allGames);
+        ModelAndView modelAndView = new ModelAndView("games");
+        modelAndView.addObject("games", allGames);
 
-        return new ModelAndView("games");
+        return modelAndView;
     }
 
     @GetMapping("/games/{id}")
-    public ModelAndView gameDetails(Model model,
-                                    @PathVariable("id") Long id) {
+    public ModelAndView gameDetails(@PathVariable("id") Long id) {
 
         ProductDetailsDTO gameDetails = productService
                 .getProductDetails(id)
                 .orElseThrow(() -> new NullPointerException("Game with id " + id + " not found!"));
 
-        model.addAttribute("gameDetails", gameDetails);
+        ModelAndView modelAndView = new ModelAndView("game-details");
+        modelAndView.addObject("gameDetails", gameDetails);
 
-        return new ModelAndView("game-details");
+        return modelAndView;
     }
 }

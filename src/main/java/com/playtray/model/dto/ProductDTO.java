@@ -2,10 +2,12 @@ package com.playtray.model.dto;
 
 import com.playtray.model.enums.PlatformName;
 
+import java.math.BigDecimal;
+
 public class ProductDTO {
     private Long id;
     private String name;
-    private PlatformName platform;
+    private BigDecimal price;
     private String imageUrl;
 
     public Long getId() {
@@ -24,12 +26,12 @@ public class ProductDTO {
         this.name = name;
     }
 
-    public PlatformName getPlatform() {
-        return platform;
+    public BigDecimal getPrice() {
+        return price;
     }
 
-    public void setPlatform(PlatformName platform) {
-        this.platform = platform;
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
     public String getImageUrl() {

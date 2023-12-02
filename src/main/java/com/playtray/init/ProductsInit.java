@@ -106,7 +106,7 @@ public class ProductsInit implements CommandLineRunner {
             accessoryXboxHeadset
                     .setCategory(ProductCategory.ACCESSORY)
                     .setPlatform(PlatformName.XBOX)
-                    .setName("Microsoft Xbox Series X/S")
+                    .setName("Xbox Series X/S")
                     .setPrice(BigDecimal.valueOf(150.0))
                     .setSummary("summary")
                     .setDescription("Light and flexible, the wired stereo headphones Xbox stand out with their ergonomic design for maximum comfort.")
@@ -124,15 +124,15 @@ public class ProductsInit implements CommandLineRunner {
                     .setImageUrl("https://cdn.ozone.bg/media/catalog/product/cache/1/image/a4e40ebdc3e371adff845072e1c73f37/8/1/bc4cf409725f7a98c87293a191df4ae8/mehanichna-klaviatura-razer---blackwidow-v3-tenkeyless--razer-green-31.jpg");
 
             List<Product> products =
-                    List.of(consolePS5,
-                            consolePS4,
+                    List.of(consolePS4,
                             consoleSwitch,
                             consoleXBOX,
+                            consolePS5,
                             gameEldenRing,
-                            gameFinalFantasyXVI,
                             gameGhostOfTsushima,
-                            accessoryXboxHeadset,
-                            accessoryKeyboardPC);
+                            gameFinalFantasyXVI,
+                            accessoryKeyboardPC,
+                            accessoryXboxHeadset);
 
             productRepository.saveAll(products);
         }

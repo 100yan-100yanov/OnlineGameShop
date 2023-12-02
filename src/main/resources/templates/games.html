@@ -96,6 +96,32 @@
             </div>
         </div>
     </div>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            <li class="page-item">
+                <a class="page-link"
+                   th:href="@{'/products/games/all?page=' + ${games.number}}"
+                   aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+
+            <li th:each="pageNumber : ${#numbers.sequence(0, games.getTotalPages()-1)}"
+                th:class="${pageNumber == games.number ? 'page-item active' : 'page-item'}">
+                <a class="page-link"
+                   th:href="@{'/products/games/all?page=' + ${pageNumber}}"
+                   th:text="${pageNumber + 1}"></a>
+            </li>
+
+            <li class="page-item">
+                <a class="page-link"
+                   th:href="@{'/products/games/all?page=' + ${games.number + 1}}"
+                   aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
 </section>
 
 <footer>
