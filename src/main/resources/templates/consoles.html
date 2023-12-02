@@ -5,9 +5,14 @@
 <head>
     <meta charset="UTF-8">
 
+    <style>
+        body {
+            background: url(/images/main-background.png) no-repeat center center fixed;
+
+        }
+    </style>
 </head>
-<body class="vh-100 bg-image"
-      style="background-image: url(/images/main-background-purple.png);">
+<body>
 
 <th:block th:replace="~{fragments/navbar}"></th:block>
 
@@ -73,7 +78,7 @@
                                 <!-- Buttons-->
                                 <div class="d-flex flex-column mt-4">
                                     <a class="btn btn-sm text-white"
-                                       style="background-color: #755bb4"
+                                       style="background-color: #1f94a5"
                                        type="button"
                                        th:href="@{/products/consoles/{id}(id=*{id})}">Details
                                     </a>

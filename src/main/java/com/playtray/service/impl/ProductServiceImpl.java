@@ -1,6 +1,7 @@
 package com.playtray.service.impl;
 
 import com.playtray.model.dto.ProductAddDTO;
+import com.playtray.model.dto.ProductDTO;
 import com.playtray.model.dto.ProductDetailsDTO;
 import com.playtray.model.dto.ProductSummaryDTO;
 import com.playtray.model.entity.Product;
@@ -70,6 +71,13 @@ public class ProductServiceImpl implements ProductService {
 
         return productRepository.findById(productId)
                 .orElseThrow(() -> new NullPointerException("Product with id " + productId + " doesn't exist!"));
+    }
+
+    @Override
+    public ProductDTO findLatest(ProductCategory productCategory) {
+        Product product = productRepository.findProductByCategory(productCategory);
+
+        return modelMapper.map(product, ProductDTO.class);
     }
 
     private static ProductDetailsDTO mapAsDetails(Product product) {

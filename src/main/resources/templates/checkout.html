@@ -6,10 +6,15 @@
 
     <title>Checkout</title>
 
+    <style>
+        body {
+            background: url(/images/blue-background.png) no-repeat center center fixed;
+
+        }
+    </style>
 </head>
 
-<body class="vh-100 bg-image"
-      style="background-image: url(/images/main-background-gray.png);">
+<body>
 
 <th:block th:replace="~{fragments/navbar}"></th:block>
 
@@ -18,14 +23,15 @@
         <img class="d-block mx-auto mb-sm-0"
              th:src="@{/images/logo-no-background.png}"
              alt="" width="300" height="200">
+        <br>
         <h2>Checkout</h2>
     </div>
 
     <div class="row">
         <div class="col-md-4 order-md-2 mb-4">
             <h4 class="d-flex justify-content-between align-items-center mb-3">
-                <span class="text-muted">Your cart</span>
-                <span class="badge badge-secondary badge-pill"
+                <span>Your cart</span>
+                <span class="badge badge-secondary badge-pill text-dark"
                       th:text="${cart.getItemsQuantity()}">Quantity</span>
             </h4>
             <ul class="list-group mb-3"
@@ -178,7 +184,8 @@
                 </div>
                 <form th:method="POST"
                       th:action="@{/checkout/finish}">
-                    <button class="btn btn-primary btn-lg btn-block"
+                    <button class="btn btn-lg btn-block text-white"
+                            style="background-color: #1f94a5"
                             type="submit">Finish order</button>
                 </form>
             </form>
