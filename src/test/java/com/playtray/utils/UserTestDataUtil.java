@@ -1,14 +1,12 @@
 package com.playtray.utils;
 
 import com.playtray.model.entity.Cart;
-import com.playtray.model.entity.Role;
 import com.playtray.model.entity.User;
-import com.playtray.model.enums.UserRole;
+import com.playtray.repository.RoleRepository;
 import com.playtray.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
 
 @Component
 public class UserTestDataUtil {
@@ -16,27 +14,24 @@ public class UserTestDataUtil {
     @Autowired
     private UserRepository userRepository;
 
-    public User createTestUser(String username, String email) {
-        return createUser(username, email, List.of(new Role().setName(UserRole.USER)));
-    }
+    @Autowired
+    private RoleRepository roleRepository;
 
-    public User createTestAdmin(String username) {
-        return createUser(username, "testAdmin@email.com", List.of(new Role().setName(UserRole.ADMIN)));
-    }
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
-    private User createUser(String username, String email, List<Role> roles) {
-
+    public User createUser() {
         User user = new User();
 
         user
-                .setUsername(username)
-                .setPassword("password")
-                .setEmail(email)
-                .setFirstName("TestFirst")
-                .setLastName("TestLast")
+                .setUsername("TestUser")
+                .setPassword(passwordEncoder.encode("TestPass"))
+                .setFirstName("First")
+                .setLastName("Last")
+                .setEmail("mail@email.com")
                 .setActive(false)
-                .setRoles(roles)
-                .setCart(new Cart().setCustomer(user));
+                .setCart(new Cart().setCustomer(user))
+                .setRoles(roleRepository.findAll());
 
         return userRepository.save(user);
     }

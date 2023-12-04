@@ -30,11 +30,11 @@ public class Product extends BaseEntity {
     @DecimalMax("5000.00")
     private BigDecimal price;
 
-    @Column(nullable = false, columnDefinition = "TEXT")
+    @Column(nullable = false)
     @Size(min = 5, max = 200)
     private String summary;
 
-    @Column(nullable = false, columnDefinition = "TEXT")
+    @Column(nullable = false)
     @Size(min = 5, max = 500)
     private String description;
 

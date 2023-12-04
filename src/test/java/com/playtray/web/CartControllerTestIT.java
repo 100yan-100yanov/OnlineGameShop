@@ -1,6 +1,7 @@
 package com.playtray.web;
 
-import com.playtray.repository.UserRepository;
+import com.playtray.model.entity.Item;
+import com.playtray.utils.ItemTestDataUtil;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,34 +13,29 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-
 @SpringBootTest
 @AutoConfigureMockMvc
-public class UserRegisterControllerTestIT {
+public class CartControllerTestIT {
 
     @Autowired
     private MockMvc mockMvc;
 
     @Autowired
-    private UserRepository userRepository;
+    private ItemTestDataUtil itemTestDataUtil;
 
     @AfterEach
     void tearDown() {
-        userRepository.deleteAll();
+        itemTestDataUtil.cleanUp();
     }
 
     @Test
-    void testRegistration() throws Exception {
+    void testAddItemToCart() throws Exception {
+        Item item = itemTestDataUtil.createItem();
+
         mockMvc.perform(MockMvcRequestBuilders
-                        .post("/users/register")
-                        .with(csrf())
-                        .param("username", "Username")
-                        .param("firstName", "User")
-                        .param("lastName", "Userov")
-                        .param("email", "user@email.com")
-                        .param("password", "123456")
-                        .param("confirmPassword", "123456"))
+                        .post("/cart/add/{id}", item.getId())
+                        .with(csrf()))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/users/login"));
+                .andExpect(redirectedUrlPattern("**/users/login"));
     }
 }

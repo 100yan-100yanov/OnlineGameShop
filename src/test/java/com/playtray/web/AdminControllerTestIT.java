@@ -1,7 +1,6 @@
 package com.playtray.web;
 
 import com.playtray.model.entity.User;
-import com.playtray.repository.UserRepository;
 import com.playtray.utils.UserTestDataUtil;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,22 +12,18 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrlPattern;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class UserLoginControllerTestIT {
+public class AdminControllerTestIT {
 
     @Autowired
-    private MockMvc mockMvc;
+    MockMvc mockMvc;
 
     @Autowired
     private UserTestDataUtil userTestDataUtil;
-
-    @BeforeEach
-    void setUp() {
-        userTestDataUtil.createUser();
-    }
 
     @AfterEach
     void tearDown() {
@@ -36,12 +31,13 @@ public class UserLoginControllerTestIT {
     }
 
     @Test
-    void testLogin() throws Exception {
+    void testDeleteUser() throws Exception {
+        User user = userTestDataUtil.createUser();
+
         mockMvc.perform(MockMvcRequestBuilders
-                        .post("/users/login")
-                        .with(csrf())
-                        .param("username", "TestUser")
-                        .param("password", "TestPass"))
-                .andExpect(status().isFound());
+                        .delete("/admin/users/delete/{id}", user.getId())
+                        .with(csrf()))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrlPattern("**/users/login"));
     }
 }
