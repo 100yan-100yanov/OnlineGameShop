@@ -1,8 +1,8 @@
 package com.playtray.model.dto;
 
-import com.playtray.validation.annotations.PasswordMatch;
-import com.playtray.validation.annotations.UniqueEmail;
-import com.playtray.validation.annotations.UniqueUsername;
+import com.playtray.model.validation.annotations.PasswordMatch;
+import com.playtray.model.validation.annotations.UniqueEmail;
+import com.playtray.model.validation.annotations.UniqueUsername;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

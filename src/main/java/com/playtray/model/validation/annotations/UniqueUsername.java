@@ -1,6 +1,6 @@
-package com.playtray.validation.annotations;
+package com.playtray.model.validation.annotations;
 
-import com.playtray.validation.validators.UniqueUsernameValidator;
+import com.playtray.model.validation.validators.UniqueUsernameValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 

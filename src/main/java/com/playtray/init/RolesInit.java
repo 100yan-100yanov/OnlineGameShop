@@ -32,7 +32,7 @@ public class RolesInit implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        if (roleRepository.count() <= 0) {
+        if (roleRepository.count() == 0) {
             List<Role> roles = new ArrayList<>();
 
             Arrays.stream(UserRole.values())

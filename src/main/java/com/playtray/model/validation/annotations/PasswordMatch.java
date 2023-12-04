@@ -1,6 +1,6 @@
-package com.playtray.validation.annotations;
+package com.playtray.model.validation.annotations;
 
-import com.playtray.validation.validators.PasswordMatchValidator;
+import com.playtray.model.validation.validators.PasswordMatchValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 

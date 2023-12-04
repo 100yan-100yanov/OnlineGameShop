@@ -1,7 +1,7 @@
-package com.playtray.validation.validators;
+package com.playtray.model.validation.validators;
 
 import com.playtray.model.dto.UserRegisterDTO;
-import com.playtray.validation.annotations.PasswordMatch;
+import com.playtray.model.validation.annotations.PasswordMatch;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import org.hibernate.validator.constraintvalidation.HibernateConstraintValidatorContext;

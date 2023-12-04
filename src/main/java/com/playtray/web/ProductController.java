@@ -1,4 +1,4 @@
-package com.playtray.web.controllers;
+package com.playtray.web;
 
 import com.playtray.model.dto.ProductAddDTO;
 import com.playtray.service.ProductService;

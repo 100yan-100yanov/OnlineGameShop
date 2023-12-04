@@ -1,7 +1,7 @@
-package com.playtray.validation.validators;
+package com.playtray.model.validation.validators;
 
 import com.playtray.service.UserService;
-import com.playtray.validation.annotations.UniqueUsername;
+import com.playtray.model.validation.annotations.UniqueUsername;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import org.hibernate.validator.constraintvalidation.HibernateConstraintValidatorContext;
