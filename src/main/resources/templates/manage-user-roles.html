@@ -69,7 +69,7 @@
 
                                     <li th:each="unRole : ${unassignedRoles}">
                                         <form th:method="POST"
-                                              th:action="@{/admin/users/{username}/roles/add/{roleName}(username=${username}, roleName=${unRole.name})}">
+                                              th:action="@{/admin/users/{username}/roles/add/{roleId}(username=${username}, roleId=${unRole.id})}">
 
                                             <button type="submit" class="dropdown-item btn nav-link"
                                                     th:text="${unRole.name}">
@@ -84,7 +84,7 @@
                     </div>
                 </div>
                 <a th:href="@{/admin/users}"
-                   class="btn-link"
+                   class="btn-link mt-3"
                    type="button"
                    style="color: white">Back to users
                 </a>

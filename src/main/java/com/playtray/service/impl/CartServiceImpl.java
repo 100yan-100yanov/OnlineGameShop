@@ -10,6 +10,7 @@ import com.playtray.service.CartService;
 import com.playtray.service.ItemService;
 import com.playtray.service.ProductService;
 import com.playtray.service.UserService;
+import com.playtray.service.exception.ObjectNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -63,20 +64,8 @@ public class CartServiceImpl implements CartService {
             cart.getItems().add(item);
         }
 
-//        itemService.save(item);
         cart.setTotalPrice();
         cartRepository.save(cart);
-    }
-
-    private Item getItemFromCart(Long productId, Cart cart) {
-        for (Item cartItem : cart.getItems()) {
-            Long cartProductId = cartItem.getProduct().getId();
-
-            if (cartProductId.equals(productId)) {
-                return cartItem;
-            }
-        }
-        return null;
     }
 
     @Override
@@ -86,7 +75,6 @@ public class CartServiceImpl implements CartService {
         Item item = getItemFromCart(productId, cart);
 
         if (item != null) {
-
             cart.getItems().remove(item);
             cart.setTotalPrice();
 
@@ -94,7 +82,7 @@ public class CartServiceImpl implements CartService {
             itemService.delete(item);
 
         } else {
-            throw new NullPointerException("Product with id " + productId + " doesn't exist!");
+            throw new ObjectNotFoundException("Product with id " + productId + " doesn't exist!");
         }
 
     }
@@ -116,9 +104,19 @@ public class CartServiceImpl implements CartService {
     @Override
     public CartDTO getCart(Principal principal) {
         User customer = userService.findByUsername(principal.getName());
-
-        Cart cart = cartRepository.findCartByCustomer(customer);
+        Cart cart = customer.getCart();
 
         return modelMapper.map(cart, CartDTO.class);
+    }
+
+    private Item getItemFromCart(Long productId, Cart cart) {
+        for (Item cartItem : cart.getItems()) {
+            Long cartProductId = cartItem.getProduct().getId();
+
+            if (cartProductId.equals(productId)) {
+                return cartItem;
+            }
+        }
+        return null;
     }
 }

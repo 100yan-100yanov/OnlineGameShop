@@ -3,7 +3,6 @@ package com.playtray.service;
 import com.playtray.model.dto.UserDTO;
 import com.playtray.model.dto.UserRegisterDTO;
 import com.playtray.model.entity.User;
-import com.playtray.model.enums.UserRole;
 
 import java.util.List;
 
@@ -25,5 +24,5 @@ public interface UserService {
 
     void removeUserRole(String username, Long roleId);
 
-    void addUserRole(String username, UserRole roleName);
+    void addUserRole(String username, Long roleId);
 }

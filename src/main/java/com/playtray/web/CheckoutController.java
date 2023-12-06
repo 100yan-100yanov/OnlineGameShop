@@ -6,6 +6,7 @@ import com.playtray.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -16,13 +17,10 @@ import java.security.Principal;
 public class CheckoutController {
 
     private final CartService cartService;
-    private final UserService userService;
 
-    public CheckoutController(CartService cartService,
-                              UserService userService) {
+    public CheckoutController(CartService cartService) {
 
         this.cartService = cartService;
-        this.userService = userService;
     }
 
     @GetMapping()
@@ -45,10 +43,10 @@ public class CheckoutController {
 
     @PostMapping("/finish")
     public ModelAndView finish(Principal principal,
-                               CartDTO cartDTO) {
+                               @RequestBody CartDTO cartDTO) {
 
         cartService.buy(principal, cartDTO);
 
-        return new ModelAndView("redirect:purchase-complete");
+        return new ModelAndView("redirect:/purchase-complete");
     }
 }

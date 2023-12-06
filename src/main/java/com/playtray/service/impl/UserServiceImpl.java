@@ -116,15 +116,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void addUserRole(String username, UserRole roleName) {
+    public void addUserRole(String username, Long roleId) {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException(
                         "User with username " + username + " doesn't exist!"));
 
-        Role roleToAdd = roleRepository.findByName(roleName);
+        Role roleToAdd = roleRepository.findById(roleId)
+                .orElseThrow(() -> new ObjectNotFoundException(
+                        "Role with id " + roleId + " doesn't exist!"));;
 
         for (Role role : user.getRoles()) {
-            if (role.getName().equals(roleName)) {
+            if (role.getId().equals(roleId)) {
                 throw new IllegalArgumentException(
                         "Role " + role.getName().name() + " already assigned to user " + username);
             }

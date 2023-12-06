@@ -58,20 +58,20 @@ public class AdminController {
         return modelAndView;
     }
 
+    @PostMapping("/users/{username}/roles/add/{roleId}")
+    public ModelAndView addUserRole(@PathVariable("username") String username,
+                                    @PathVariable("roleId") Long roleId) {
+
+        userService.addUserRole(username, roleId);
+
+        return new ModelAndView("redirect:/admin/users/{username}/roles");
+    }
+
     @PostMapping("/users/{username}/roles/remove/{roleId}")
     public ModelAndView removeUserRole(@PathVariable("username") String username,
                                        @PathVariable("roleId") Long roleId) {
 
         userService.removeUserRole(username, roleId);
-
-        return new ModelAndView("redirect:/admin/users/{username}/roles");
-    }
-
-    @PostMapping("/users/{username}/roles/add/{roleName}")
-    public ModelAndView addUserRole(@PathVariable("username") String username,
-                                    @PathVariable("roleName") UserRole roleName) {
-
-        userService.addUserRole(username, roleName);
 
         return new ModelAndView("redirect:/admin/users/{username}/roles");
     }

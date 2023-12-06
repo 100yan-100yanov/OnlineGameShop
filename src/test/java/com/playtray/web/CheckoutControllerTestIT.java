@@ -1,33 +1,31 @@
 package com.playtray.web;
 
-import com.playtray.model.entity.Product;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.playtray.model.dto.CartDTO;
+import com.playtray.model.entity.Cart;
 import com.playtray.model.entity.User;
-import com.playtray.repository.ProductRepository;
 import com.playtray.utils.TestDataUtil;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class CartControllerTestIT {
+public class CheckoutControllerTestIT {
 
     private static final String TEST_USERNAME = "TestUser";
 
     @Autowired
     private MockMvc mockMvc;
-
-    @Autowired
-    private ProductRepository productRepository;
 
     @Autowired
     private TestDataUtil testDataUtil;
@@ -39,40 +37,47 @@ public class CartControllerTestIT {
 
     @Test
     @WithMockUser(username = TEST_USERNAME)
-    void testShowItemsInCart() throws Exception {
+    void testCheckoutWithItems() throws Exception {
         User user = testDataUtil.createUser(TEST_USERNAME);
+        testDataUtil.addItemToCart(user);
 
         mockMvc.perform(MockMvcRequestBuilders
-                        .get("/cart")
+                        .get("/checkout")
                         .with(csrf()))
                 .andExpect(status().isOk())
-                .andExpect(view().name("cart"))
+                .andExpect(view().name("checkout"))
                 .andExpect(model().attributeExists("cart"));
     }
 
     @Test
     @WithMockUser(username = TEST_USERNAME)
-    void testAddItemToCart() throws Exception {
-        Product product = productRepository.findAll().get(0);
+    void techCheckoutWithoutItems() throws Exception {
         testDataUtil.createUser(TEST_USERNAME);
 
-        mockMvc.perform(post("/cart/add/{id}", product.getId())
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get("/checkout")
                         .with(csrf()))
-                .andExpect(status().isFound())
-                .andExpect(status().is3xxRedirection());
+                .andExpect(model().attributeExists("no_items"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/cart?no_items=true"));
     }
 
     @Test
     @WithMockUser(username = TEST_USERNAME)
-    void testRemoveItemFromCart() throws Exception {
+    void testFinishOrderAtCheckout() throws Exception {
         User user = testDataUtil.createUser(TEST_USERNAME);
+        Cart cart = user.getCart();
+
         testDataUtil.addItemToCart(user);
-        Long productId = user.getCart().getItems().get(0).getProduct().getId();
+        CartDTO cartDTO = testDataUtil.createCartDTO(cart);
 
         mockMvc.perform(MockMvcRequestBuilders
-                        .post("/cart/remove/{id}", productId)
+                        .post("/checkout/finish")
+                        .content(testDataUtil.asJsonString(cartDTO))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
                         .with(csrf()))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/cart"));
+                .andExpect(redirectedUrl("/purchase-complete"));
     }
 }

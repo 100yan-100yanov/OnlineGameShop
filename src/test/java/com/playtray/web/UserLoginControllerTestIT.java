@@ -1,6 +1,6 @@
 package com.playtray.web;
 
-import com.playtray.utils.UserTestDataUtil;
+import com.playtray.utils.TestDataUtil;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,16 +21,16 @@ public class UserLoginControllerTestIT {
     private MockMvc mockMvc;
 
     @Autowired
-    private UserTestDataUtil userTestDataUtil;
+    private TestDataUtil testDataUtil;
 
     @BeforeEach
     void setUp() {
-        userTestDataUtil.createUser("TestUser");
+        testDataUtil.createUser("TestUser");
     }
 
     @AfterEach
     void tearDown() {
-        userTestDataUtil.cleanUp();
+        testDataUtil.cleanUp();
     }
 
     @Test
