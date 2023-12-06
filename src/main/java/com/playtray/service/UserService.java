@@ -1,7 +1,6 @@
 package com.playtray.service;
 
 import com.playtray.model.dto.UserDTO;
-import com.playtray.model.dto.UserLoginDTO;
 import com.playtray.model.dto.UserRegisterDTO;
 import com.playtray.model.entity.User;
 
@@ -22,4 +21,8 @@ public interface UserService {
     User findByUsername(String name);
 
     List<UserDTO> getAllUsers();
+
+    void removeUserRole(String username, Long roleId);
+
+    void addUserRole(String username, String roleName);
 }

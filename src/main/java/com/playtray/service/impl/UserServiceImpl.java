@@ -1,14 +1,15 @@
 package com.playtray.service.impl;
 
 import com.playtray.model.dto.UserDTO;
-import com.playtray.model.dto.UserLoginDTO;
 import com.playtray.model.dto.UserRegisterDTO;
 import com.playtray.model.entity.Cart;
+import com.playtray.model.entity.Role;
 import com.playtray.model.entity.User;
 import com.playtray.model.enums.UserRole;
 import com.playtray.repository.RoleRepository;
 import com.playtray.repository.UserRepository;
 import com.playtray.service.UserService;
+import com.playtray.service.exception.ObjectNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -51,7 +52,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void delete(Long id) {
         User user = userRepository.findById(id)
-                .orElseThrow(() -> new NullPointerException("User with id " + id + " doesn't exist!"));
+                .orElseThrow(() -> new ObjectNotFoundException("User with id " + id + " doesn't exist!"));
 
         userRepository.delete(user);
     }
@@ -102,5 +103,35 @@ public class UserServiceImpl implements UserService {
                 .stream()
                 .map(user -> modelMapper.map(user, UserDTO.class))
                 .toList();
+    }
+
+    @Override
+    public void removeUserRole(String username, Long roleId) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User with username " + username + " doesn't exist!"));
+
+        user.getRoles().removeIf(userRole -> userRole.getId().equals(roleId));
+
+        userRepository.save(user);
+    }
+
+    @Override
+    public void addUserRole(String username, String roleName) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException(
+                        "User with username " + username + " doesn't exist!"));
+
+        Role roleToAdd = roleRepository.findByName(UserRole.USER);
+
+
+        for (Role role : user.getRoles()) {
+            if (role.getId().equals(roleName)) {
+                throw new IllegalArgumentException(
+                        "Role " + role.getName().name() + " already assigned to user " + username);
+            }
+        }
+        user.getRoles().add(roleToAdd);
+
+        userRepository.save(user);
     }
 }

@@ -115,7 +115,7 @@
                             </a>
                         </li>
                         <form class="nav-item"
-                              sec:authorize="hasRole('USER')"
+                              sec:authorize="isAuthenticated()"
                               th:method="POST"
                               th:action="@{/logout}">
                             <button class="nav-link"

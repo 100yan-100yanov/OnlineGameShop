@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 public class ProductDTO {
     private Long id;
     private String name;
+    private PlatformName platform;
     private BigDecimal price;
     private String imageUrl;
 
@@ -20,6 +21,14 @@ public class ProductDTO {
 
     public String getName() {
         return name;
+    }
+
+    public PlatformName getPlatform() {
+        return platform;
+    }
+
+    public void setPlatform(PlatformName platform) {
+        this.platform = platform;
     }
 
     public void setName(String name) {

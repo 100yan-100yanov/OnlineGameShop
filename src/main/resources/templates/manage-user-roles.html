@@ -3,7 +3,7 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Manage users</title>
+    <title>Manage user roles</title>
 
     <style>
         body {
@@ -21,58 +21,58 @@
             <div class="col-md-12 mt-5 mb-5">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title text-uppercase mb-0">Manage Users</h5>
+                        <h5 class="card-title text-uppercase mb-0"
+                            th:text="'Manage Roles of User: ' + ${username}">Manage Roles</h5>
                     </div>
                     <div class="table-responsive">
                         <table class="table no-wrap user-table mb-0">
                             <thead>
                             <tr>
                                 <th scope="col" class="border-0 text-uppercase font-medium pl-4">ID</th>
-                                <th scope="col" class="border-0 text-uppercase font-medium">Name</th>
-                                <th scope="col" class="border-0 text-uppercase font-medium">Username</th>
-                                <th scope="col" class="border-0 text-uppercase font-medium">Email</th>
-                                <th scope="col" class="border-0 text-uppercase font-medium">Roles</th>
+                                <th scope="col" class="border-0 text-uppercase font-medium">Role</th>
                                 <th scope="col" class="border-0 text-uppercase font-medium">Manage</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="user : ${users}"
-                                th:object="${user}">
+                            <tr th:each="role : ${roles}"
+                                th:object="${role}">
                                 <td class="pl-4"
                                     th:text="*{id}">ID
                                 </td>
                                 <td>
                                     <h5 class="font-medium mb-0"
-                                        th:text="*{firstName} + ' ' + *{lastName}">Name</h5>
-                                </td>
-                                <td>
-                                    <span class="text-muted"
-                                          th:text="*{username}">Username</span><br>
-                                </td>
-                                <td>
-                                    <span class="text-muted"
-                                          th:text="*{email}">Email</span><br>
-                                </td>
-                                <td>
-                                    <span class="form-check text-muted"
-                                        th:each="role : *{roles}">
-                                        <span th:text="${role.name}">Modulator</span>
-                                    </span>
+                                        th:text="*{name.toString()}">Role</h5>
                                 </td>
                                 <td>
                                     <!--                                    <button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle"><i-->
                                     <!--                                            class="fa fa-key"></i></button>-->
                                     <form class="nav-item"
-                                          th:method="DELETE"
-                                          th:action="@{/admin/users/delete/{id}(id=*{id})}">
+                                          th:method="POST"
+                                          th:action="@{/admin/users/{username}/roles/remove/{id}(username=${username}, id=*{id})}">
                                         <button type="submit"
                                                 class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2"><i
-                                                class="fa fa-trash"></i></button>
+                                                class="fa fa-trash"></i>
+                                        </button>
 
-                                    <a type="button"
-                                            th:href="@{/admin/users/{username}/roles(username=*{username})}"
-                                            class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2"><i
-                                            class="fa fa-edit"></i></a>
+                                        <div class="btn-group dropright">
+                                            <button type="button" class="btn btn-outline-info dropdown-toggle"
+                                                    data-toggle="dropdown" aria-haspopup="true"
+                                                    aria-expanded="false">
+                                                <i class="fa fa-plus fa-1x"></i>
+                                            </button>
+
+                                            <div class="nav-link"
+                                                 th:each="unRole : ${unassignedRoles}">
+
+                                                <form th:method="POST"
+                                                      th:action="@{/admin/users/{username}/roles/add/{roleName}(username=${username}, roleName=${unRole.name})}">
+                                                    <button type="submit"
+                                                            class="dropdown-item btn nav-link"
+                                                            th:text="${unRole.name}">
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
                                     </form>
                                 </td>
                             </tr>
@@ -82,9 +82,21 @@
                     </div>
                 </div>
             </div>
+            <a th:href="@{/admin/users}"
+               class="btn-link"
+               type="button"
+               style="color: white">Back to users
+            </a>
         </div>
     </div>
 </section>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 <footer>
     <th:block th:replace="~{fragments/footer}"></th:block>
 </footer>

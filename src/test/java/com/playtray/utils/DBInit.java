@@ -35,16 +35,25 @@ public class DBInit implements CommandLineRunner {
         }
 
         if (productRepository.count() == 0) {
-            Product product = new Product()
+            Product console = new Product()
                     .setCategory(ProductCategory.CONSOLE)
                     .setPlatform(PlatformName.PS5)
                     .setName("Sony")
                     .setPrice(BigDecimal.valueOf(1000.0))
                     .setSummary("summary")
-                    .setDescription("Last generation game console by Sony")
+                    .setDescription("description")
                     .setImageUrl("https://cdn.ozone.bg/media/catalog/product/cache/1/image/a4e40ebdc3e371adff845072e1c73f37/p/l/d5cbabf70bde6f305d9d3ba3f76ae93f/playstation-5-standard-edition-31.jpg");
 
-            productRepository.save(product);
+            Product game = new Product()
+                    .setCategory(ProductCategory.GAME)
+                    .setPlatform(PlatformName.PS5)
+                    .setName("Sony")
+                    .setPrice(BigDecimal.valueOf(1000.0))
+                    .setSummary("summary")
+                    .setDescription("description")
+                    .setImageUrl("https://cdn.ozone.bg/media/catalog/product/cache/1/image/a4e40ebdc3e371adff845072e1c73f37/p/l/d5cbabf70bde6f305d9d3ba3f76ae93f/playstation-5-standard-edition-31.jpg");
+
+            productRepository.saveAll(List.of(console, game));
         }
     }
 }

@@ -106,7 +106,7 @@ public class ProductsInit implements CommandLineRunner {
             accessoryXboxHeadset
                     .setCategory(ProductCategory.ACCESSORY)
                     .setPlatform(PlatformName.XBOX)
-                    .setName("Xbox Series X/S")
+                    .setName("Series X/S")
                     .setPrice(BigDecimal.valueOf(150.0))
                     .setSummary("summary")
                     .setDescription("Light and flexible, the wired stereo headphones Xbox stand out with their ergonomic design for maximum comfort.")

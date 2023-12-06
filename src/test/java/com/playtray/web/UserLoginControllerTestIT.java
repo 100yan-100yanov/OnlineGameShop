@@ -1,7 +1,5 @@
 package com.playtray.web;
 
-import com.playtray.model.entity.User;
-import com.playtray.repository.UserRepository;
 import com.playtray.utils.UserTestDataUtil;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -27,7 +25,7 @@ public class UserLoginControllerTestIT {
 
     @BeforeEach
     void setUp() {
-        userTestDataUtil.createUser();
+        userTestDataUtil.createUser("TestUser");
     }
 
     @AfterEach
