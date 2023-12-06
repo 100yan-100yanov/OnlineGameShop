@@ -2,6 +2,7 @@ package com.playtray.web;
 
 import com.playtray.model.dto.RoleDTO;
 import com.playtray.model.dto.UserDTO;
+import com.playtray.model.enums.UserRole;
 import com.playtray.service.RoleService;
 import com.playtray.service.UserService;
 import org.springframework.stereotype.Controller;
@@ -66,9 +67,9 @@ public class AdminController {
         return new ModelAndView("redirect:/admin/users/{username}/roles");
     }
 
-    @PostMapping("/users{username}/roles/add/{roleName}")
+    @PostMapping("/users/{username}/roles/add/{roleName}")
     public ModelAndView addUserRole(@PathVariable("username") String username,
-                                    @PathVariable("roleName") String roleName) {
+                                    @PathVariable("roleName") UserRole roleName) {
 
         userService.addUserRole(username, roleName);
 

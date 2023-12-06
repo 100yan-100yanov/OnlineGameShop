@@ -44,24 +44,62 @@ public class RolesInit implements CommandLineRunner {
             roleRepository.saveAll(roles);
         }
 
-        Optional<User> admin = userRepository.findByUsername("admin");
+        List<User> DbUsers = userRepository.findAll();
 
-        if (admin.isEmpty()) {
-            User user = new User();
+        if (DbUsers.size() == 0) {
+            User admin = new User();
+            User test1 = new User();
+            User test2 = new User();
+            User test3 = new User();
 
-            user
-                    .setFirstName("Stoyan")
-                    .setLastName("Stoyanov")
-                    .setUsername("admin")
-                    .setPassword(passwordEncoder.encode("666666"))
-                    .setEmail("admin@playtray.com")
-                    .setActive(true)
-                    .setRoles(List.of(
-                            roleRepository.findByName(UserRole.ADMIN),
-                            roleRepository.findByName(UserRole.USER)))
-                    .setCart(new Cart().setCustomer(user));
+            List<User> users = List.of(
+                    admin
+                            .setFirstName("Stoyan")
+                            .setLastName("Stoyanov")
+                            .setUsername("admin")
+                            .setPassword(passwordEncoder.encode("666666"))
+                            .setEmail("admin@playtray.com")
+                            .setActive(true)
+                            .setRoles(List.of(
+                                    roleRepository.findByName(UserRole.ADMIN),
+                                    roleRepository.findByName(UserRole.USER)))
+                            .setCart(new Cart().setCustomer(admin)),
 
-            userRepository.save(user);
+                    test1
+                            .setFirstName("Test1")
+                            .setLastName("Testov1")
+                            .setUsername("test1")
+                            .setPassword(passwordEncoder.encode("666666"))
+                            .setEmail("test1@playtray.com")
+                            .setActive(false)
+                            .setRoles(List.of(
+                                    roleRepository.findByName(UserRole.ADMIN),
+                                    roleRepository.findByName(UserRole.USER)))
+                            .setCart(new Cart().setCustomer(test1)),
+
+                    test2
+                            .setFirstName("Test2")
+                            .setLastName("Testov2")
+                            .setUsername("test2")
+                            .setPassword(passwordEncoder.encode("666666"))
+                            .setEmail("test2@playtray.com")
+                            .setActive(false)
+                            .setRoles(List.of(
+                                    roleRepository.findByName(UserRole.USER)))
+                            .setCart(new Cart().setCustomer(test2)),
+
+                    test3
+                            .setFirstName("Test3")
+                            .setLastName("Testov3")
+                            .setUsername("test3")
+                            .setPassword(passwordEncoder.encode("666666"))
+                            .setEmail("test3@playtray.com")
+                            .setActive(false)
+                            .setRoles(List.of(
+                                    roleRepository.findByName(UserRole.USER)))
+                            .setCart(new Cart().setCustomer(test3)));
+
+            userRepository.saveAll(users);
         }
     }
 }

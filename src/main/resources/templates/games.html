@@ -20,7 +20,7 @@
 
     <!--<section style="background-color: #eee;">-->
     <div class="container py-5"
-         th:each="game, iStat : ${games.getContent()}"
+         th:each="game : ${games.getContent()}"
          th:object="${game}">
         <!--         th:style="${iStat.odd} ? 'font-weight: bold;'"-->
         <!--         th:alt-title="${iStat.even} ? 'even' : 'odd'"-->

@@ -44,8 +44,6 @@
                                         th:text="*{name.toString()}">Role</h5>
                                 </td>
                                 <td>
-                                    <!--                                    <button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle"><i-->
-                                    <!--                                            class="fa fa-key"></i></button>-->
                                     <form class="nav-item"
                                           th:method="POST"
                                           th:action="@{/admin/users/{username}/roles/remove/{id}(username=${username}, id=*{id})}">
@@ -53,40 +51,44 @@
                                                 class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2"><i
                                                 class="fa fa-trash"></i>
                                         </button>
-
-                                        <div class="btn-group dropright">
-                                            <button type="button" class="btn btn-outline-info dropdown-toggle"
-                                                    data-toggle="dropdown" aria-haspopup="true"
-                                                    aria-expanded="false">
-                                                <i class="fa fa-plus fa-1x"></i>
-                                            </button>
-
-                                            <div class="nav-link"
-                                                 th:each="unRole : ${unassignedRoles}">
-
-                                                <form th:method="POST"
-                                                      th:action="@{/admin/users/{username}/roles/add/{roleName}(username=${username}, roleName=${unRole.name})}">
-                                                    <button type="submit"
-                                                            class="dropdown-item btn nav-link"
-                                                            th:text="${unRole.name}">
-                                                    </button>
-                                                </form>
-                                            </div>
-                                        </div>
                                     </form>
                                 </td>
+                            </tr>
+
+                            <tr class="btn-group dropdown align-text-bottom mb-2">
+                                <button type="button"
+                                        id="dropDown"
+                                        class="btn dropdown-toggle btn-outline-info"
+                                        data-bs-toggle="dropdown"
+                                        aria-haspopup="true"
+                                        aria-expanded="false"><i class="fa fa-plus fa-1x"></i>
+                                </button>
+                                <ul class="dropdown-menu"
+                                    aria-labelledby="dropDown"
+                                    style="background-color: white">
+
+                                    <li th:each="unRole : ${unassignedRoles}">
+                                        <form th:method="POST"
+                                              th:action="@{/admin/users/{username}/roles/add/{roleName}(username=${username}, roleName=${unRole.name})}">
+
+                                            <button type="submit" class="dropdown-item btn nav-link"
+                                                    th:text="${unRole.name}">
+                                            </button>
+                                        </form>
+                                    </li>
+                                </ul>
                             </tr>
 
                             </tbody>
                         </table>
                     </div>
                 </div>
+                <a th:href="@{/admin/users}"
+                   class="btn-link"
+                   type="button"
+                   style="color: white">Back to users
+                </a>
             </div>
-            <a th:href="@{/admin/users}"
-               class="btn-link"
-               type="button"
-               style="color: white">Back to users
-            </a>
         </div>
     </div>
 </section>

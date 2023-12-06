@@ -48,7 +48,7 @@
         <div class="col-sm-3">
             <div class="card">
                 <img th:src="${game.imageUrl}" class="card-img-top img-fluid" style="height: 250px" alt="Latest Game">
-                <div class="card-body" style="height: 100px;">
+                <div class="card-body" style="height: 120px;">
                     <h6 class="card-title"
                         th:text="${game.name} +  ', ' + ${game.platform}">Latest Game</h6>
                     <h6 class="card-title"
@@ -64,9 +64,11 @@
         <div class="col-sm-3">
             <div class="card">
                 <img th:src="${console.imageUrl}" class="card-img-top img-fluid" style="height: 250px" alt="Latest Console">
-                <div class="card-body">
+                <div class="card-body" style="height: 120px">
                     <h6 class="card-title"
-                        th:text="${console.name} + ' - €' + ${console.price}">Latest Console</h6>
+                        th:text="${console.name} +  ', ' + ${console.platform}">Latest Game</h6>
+                    <h6 class="card-title"
+                        th:text="'€' + ${console.price}"></h6>
                     <a th:href="@{/products/consoles/{id}(id=${console.id})}"
                        class="btn text-white"
                        style="background-color: #755bb4">View Details</a>
@@ -78,9 +80,11 @@
         <div class="col-sm-3">
             <div class="card">
                 <img th:src="${accessory.imageUrl}" class="card-img-top img-fluid" style="height: 250px" alt="Latest Accessory">
-                <div class="card-body">
+                <div class="card-body" style="height: 120px">
                     <h6 class="card-title"
-                        th:text="${accessory.name} + ' - €' + ${accessory.price}">Latest Accessory</h6>
+                        th:text="${accessory.name} +  ', ' + ${accessory.platform}">Latest Game</h6>
+                    <h6 class="card-title"
+                        th:text="'€' + ${accessory.price}"></h6>
                     <a th:href="@{/products/accessories/{id}(id=${accessory.id})}"
                        class="btn text-white"
                        style="background-color: #755bb4">View Details</a>
