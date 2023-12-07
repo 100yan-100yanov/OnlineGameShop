@@ -1,5 +1,6 @@
 package com.playtray.service.impl;
 
+import com.playtray.error.ObjectNotFoundException;
 import com.playtray.model.entity.Product;
 import com.playtray.model.entity.Role;
 import com.playtray.model.entity.User;
@@ -22,7 +23,7 @@ public class PlaytrayUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) {
         return userRepository.findByUsername(username)
                 .map(PlaytrayUserDetailsService::map)
-                .orElseThrow(() -> new UsernameNotFoundException("User " + username + " not found!"));
+                .orElseThrow(() -> new ObjectNotFoundException("User " + username + " not found!"));
     }
 
     private static UserDetails map(User user) {

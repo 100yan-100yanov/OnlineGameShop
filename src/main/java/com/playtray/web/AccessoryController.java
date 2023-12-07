@@ -41,10 +41,7 @@ public class AccessoryController {
     public ModelAndView accessoryDetails(Model model,
                                          @PathVariable("id") Long id) {
 
-        ProductDetailsDTO accessoryDetails = productService
-                .getProductDetails(id)
-                .orElseThrow(() -> new NullPointerException("Accessory with id " + id + " not found!"));
-
+        ProductDetailsDTO accessoryDetails = productService.getProductDetails(id);
         model.addAttribute("accessoryDetails", accessoryDetails);
 
         return new ModelAndView("accessory-details");

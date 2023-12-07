@@ -1,4 +1,4 @@
-package com.playtray.service.exception;
+package com.playtray.error;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

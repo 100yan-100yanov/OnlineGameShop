@@ -1,8 +1,5 @@
 package com.playtray.web;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.playtray.model.dto.CartDTO;
-import com.playtray.model.entity.Cart;
 import com.playtray.model.entity.User;
 import com.playtray.utils.TestDataUtil;
 import org.junit.jupiter.api.AfterEach;
@@ -10,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -66,18 +62,12 @@ public class CheckoutControllerTestIT {
     @WithMockUser(username = TEST_USERNAME)
     void testFinishOrderAtCheckout() throws Exception {
         User user = testDataUtil.createUser(TEST_USERNAME);
-        Cart cart = user.getCart();
-
         testDataUtil.addItemToCart(user);
-        CartDTO cartDTO = testDataUtil.createCartDTO(cart);
 
         mockMvc.perform(MockMvcRequestBuilders
                         .post("/checkout/finish")
-                        .content(testDataUtil.asJsonString(cartDTO))
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON)
                         .with(csrf()))
-                .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/purchase-complete"));
+                .andExpect(status().isOk())
+                .andExpect(view().name("purchase-complete"));
     }
 }

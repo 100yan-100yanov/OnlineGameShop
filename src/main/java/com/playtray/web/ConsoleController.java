@@ -41,9 +41,7 @@ public class ConsoleController {
     public ModelAndView consoleDetails(Model model,
                                        @PathVariable("id") Long id) {
 
-        ProductDetailsDTO consoleDetails = productService
-                .getProductDetails(id)
-                .orElseThrow(() -> new NullPointerException("Console with id " + id + " not found!"));
+        ProductDetailsDTO consoleDetails = productService.getProductDetails(id);
 
         model.addAttribute("consoleDetails", consoleDetails);
 

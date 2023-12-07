@@ -9,7 +9,7 @@ import com.playtray.model.enums.UserRole;
 import com.playtray.repository.RoleRepository;
 import com.playtray.repository.UserRepository;
 import com.playtray.service.UserService;
-import com.playtray.service.exception.ObjectNotFoundException;
+import com.playtray.error.ObjectNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -92,7 +92,7 @@ public class UserServiceImpl implements UserService {
     public User findByUsername(String username) {
         return userRepository
                 .findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User with username " + username + " doesn't exist!"));
+                .orElseThrow(() -> new ObjectNotFoundException("User with username " + username + " doesn't exist!"));
     }
 
     @Override
@@ -108,7 +108,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void removeUserRole(String username, Long roleId) {
         User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User with username " + username + " doesn't exist!"));
+                .orElseThrow(() -> new ObjectNotFoundException("User with username " + username + " doesn't exist!"));
 
         user.getRoles().removeIf(userRole -> userRole.getId().equals(roleId));
 
@@ -118,7 +118,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void addUserRole(String username, Long roleId) {
         User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException(
+                .orElseThrow(() -> new ObjectNotFoundException(
                         "User with username " + username + " doesn't exist!"));
 
         Role roleToAdd = roleRepository.findById(roleId)

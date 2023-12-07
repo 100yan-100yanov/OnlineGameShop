@@ -20,7 +20,7 @@ public interface ProductService {
 
     Page<ProductSummaryDTO> getAll(ProductCategory category, Pageable pageable);
 
-    Optional<ProductDetailsDTO> getProductDetails(Long id);
+    ProductDetailsDTO getProductDetails(Long id);
 
     Product findById(Long productId);
 

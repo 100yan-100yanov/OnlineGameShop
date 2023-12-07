@@ -1,5 +1,6 @@
 package com.playtray.service.impl;
 
+import com.playtray.error.ObjectNotFoundException;
 import com.playtray.model.dto.RoleDTO;
 import com.playtray.model.entity.Role;
 import com.playtray.model.entity.User;
@@ -32,7 +33,7 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public List<RoleDTO> getRolesByUsername(String username) {
         User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User with username " + username + " doesn't exist!"));
+                .orElseThrow(() -> new ObjectNotFoundException("User with username " + username + " doesn't exist!"));
 
         List<Role> roles = user.getRoles();
 
@@ -45,7 +46,7 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public List<RoleDTO> getUnassignedRoles(String username) {
         User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User with username " + username + " doesn't exist!"));
+                .orElseThrow(() -> new ObjectNotFoundException("User with username " + username + " doesn't exist!"));
 
         List<Role> allRoles = roleRepository.findAll();
         List<Role> userRoles = user.getRoles();

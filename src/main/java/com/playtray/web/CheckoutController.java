@@ -42,11 +42,11 @@ public class CheckoutController {
     }
 
     @PostMapping("/finish")
-    public ModelAndView finish(Principal principal,
-                               @RequestBody CartDTO cartDTO) {
+    public ModelAndView finish(Principal principal) {
 
-        cartService.buy(principal, cartDTO);
+        cartService.buy(principal);
+        cartService.clearCart(principal);
 
-        return new ModelAndView("redirect:/purchase-complete");
+        return new ModelAndView("purchase-complete");
     }
 }

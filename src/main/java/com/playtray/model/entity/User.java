@@ -34,12 +34,15 @@ public class User extends BaseEntity {
     private boolean isActive;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "users_roles",
+    @JoinTable(
+            name = "users_roles",
             joinColumns = {@JoinColumn(name = "user_id")},
             inverseJoinColumns = {@JoinColumn(name = "role_id")})
     private List<Role> roles;
 
-    @ManyToMany(targetEntity = Product.class)
+    @ManyToMany(
+            targetEntity = Product.class,
+            fetch = FetchType.EAGER)
     private List<Product> boughtProducts;
 
     @OneToOne(targetEntity = Cart.class, mappedBy = "customer", cascade = CascadeType.ALL)

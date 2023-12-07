@@ -40,7 +40,7 @@ public class CartControllerTestIT {
     @Test
     @WithMockUser(username = TEST_USERNAME)
     void testShowItemsInCart() throws Exception {
-        User user = testDataUtil.createUser(TEST_USERNAME);
+        testDataUtil.createUser(TEST_USERNAME);
 
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/cart")

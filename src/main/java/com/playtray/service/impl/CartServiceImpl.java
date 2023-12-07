@@ -10,11 +10,12 @@ import com.playtray.service.CartService;
 import com.playtray.service.ItemService;
 import com.playtray.service.ProductService;
 import com.playtray.service.UserService;
-import com.playtray.service.exception.ObjectNotFoundException;
+import com.playtray.error.ObjectNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -88,15 +89,16 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public void buy(Principal principal, CartDTO cartDTO) {
+    public void buy(Principal principal) {
         User customer = userService.findByUsername(principal.getName());
+        Cart cart = customer.getCart();
 
-        List<Product> products = cartDTO.getItems()
+        List<Product> products = cart.getItems()
                 .stream()
                 .map(Item::getProduct)
                 .toList();
 
-        customer.setBoughtProducts(products);
+        customer.getBoughtProducts().addAll(products);
 
         userService.save(customer);
     }
@@ -107,6 +109,20 @@ public class CartServiceImpl implements CartService {
         Cart cart = customer.getCart();
 
         return modelMapper.map(cart, CartDTO.class);
+    }
+
+    @Override
+    public void clearCart(Principal principal) {
+        User user = userService.findByUsername(principal.getName());
+        Cart cart = user.getCart();
+
+        List<Item> items = cart.getItems();
+
+        cart.setItems(new ArrayList<>())
+                .setTotalPrice();
+
+        cartRepository.save(cart);
+        items.forEach(itemService::delete);
     }
 
     private Item getItemFromCart(Long productId, Cart cart) {

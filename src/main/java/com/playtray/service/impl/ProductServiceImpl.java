@@ -1,5 +1,6 @@
 package com.playtray.service.impl;
 
+import com.playtray.error.ObjectNotFoundException;
 import com.playtray.model.dto.ProductAddDTO;
 import com.playtray.model.dto.ProductDTO;
 import com.playtray.model.dto.ProductDetailsDTO;
@@ -41,7 +42,7 @@ public class ProductServiceImpl implements ProductService {
         Optional<Product> product = productRepository.findById(id);
 
         if (product.isEmpty()) {
-            throw new NullPointerException("Product with id " + id + " doesn't exist!");
+            throw new ObjectNotFoundException("Product with id " + id + " doesn't exist!");
         }
 
         productRepository.delete(product.get());
@@ -60,17 +61,18 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Optional<ProductDetailsDTO> getProductDetails(Long id) {
+    public ProductDetailsDTO getProductDetails(Long id) {
         return productRepository
                 .findById(id)
-                .map(ProductServiceImpl::mapAsDetails);
+                .map(ProductServiceImpl::mapAsDetails)
+                .orElseThrow(() -> new ObjectNotFoundException("Game with id " + id + " not found!"));
     }
 
     @Override
     public Product findById(Long productId) {
 
         return productRepository.findById(productId)
-                .orElseThrow(() -> new NullPointerException("Product with id " + productId + " doesn't exist!"));
+                .orElseThrow(() -> new ObjectNotFoundException("Product with id " + productId + " doesn't exist!"));
     }
 
     @Override

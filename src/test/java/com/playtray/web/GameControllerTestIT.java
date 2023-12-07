@@ -2,8 +2,6 @@ package com.playtray.web;
 
 import com.playtray.model.entity.Product;
 import com.playtray.repository.ProductRepository;
-import com.playtray.utils.TestDataUtil;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
