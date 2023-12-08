@@ -7,20 +7,29 @@ spring:
     hibernate:
       ddl-auto: update
     open-in-view: 'false'
+
   mvc:
     hiddenmethod:
       filter:
         enabled: 'true'
+
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
     password: ${db_password}
     username: ${db_username}
     url: jdbc:mysql://localhost:3306/playtray?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC
+
   thymeleaf: # Thymeleaf
     cache: false
     mode: HTML
     encoding: UTF-8
     prefix: file:src/main/resources/templates/
+
+  data:
+    web:
+      pageable:
+        one-indexed-parameters: true
+
 logging:
   level:
     org:
@@ -30,6 +39,7 @@ logging:
         SQL: DEBUG
       nodeValue: WARN
     blog: WARN
+
 server:
   port: 8080
   error:

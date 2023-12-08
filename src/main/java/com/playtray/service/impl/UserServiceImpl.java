@@ -1,5 +1,6 @@
 package com.playtray.service.impl;
 
+import com.playtray.error.ObjectNotFoundException;
 import com.playtray.model.dto.UserDTO;
 import com.playtray.model.dto.UserRegisterDTO;
 import com.playtray.model.entity.Cart;
@@ -9,14 +10,14 @@ import com.playtray.model.enums.UserRole;
 import com.playtray.repository.RoleRepository;
 import com.playtray.repository.UserRepository;
 import com.playtray.service.UserService;
-import com.playtray.error.ObjectNotFoundException;
 import org.modelmapper.ModelMapper;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+
+import static com.playtray.constants.ExceptionMessages.*;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -52,7 +53,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public void delete(Long id) {
         User user = userRepository.findById(id)
-                .orElseThrow(() -> new ObjectNotFoundException("User with id " + id + " doesn't exist!"));
+                .orElseThrow(() ->
+                        new ObjectNotFoundException(USER_ID_NOT_FOUND + id));
 
         userRepository.delete(user);
     }
@@ -92,7 +94,8 @@ public class UserServiceImpl implements UserService {
     public User findByUsername(String username) {
         return userRepository
                 .findByUsername(username)
-                .orElseThrow(() -> new ObjectNotFoundException("User with username " + username + " doesn't exist!"));
+                .orElseThrow(() ->
+                        new ObjectNotFoundException(USER_USERNAME_NOT_FOUND + username));
     }
 
     @Override
@@ -108,7 +111,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public void removeUserRole(String username, Long roleId) {
         User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new ObjectNotFoundException("User with username " + username + " doesn't exist!"));
+                .orElseThrow(() ->
+                        new ObjectNotFoundException(USER_USERNAME_NOT_FOUND + username));
 
         user.getRoles().removeIf(userRole -> userRole.getId().equals(roleId));
 
@@ -118,12 +122,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public void addUserRole(String username, Long roleId) {
         User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new ObjectNotFoundException(
-                        "User with username " + username + " doesn't exist!"));
+                .orElseThrow(() ->
+                        new ObjectNotFoundException(USER_USERNAME_NOT_FOUND + username));
 
         Role roleToAdd = roleRepository.findById(roleId)
-                .orElseThrow(() -> new ObjectNotFoundException(
-                        "Role with id " + roleId + " doesn't exist!"));;
+                .orElseThrow(() ->
+                        new ObjectNotFoundException(
+                                ROLE_ID_NOT_FOUND + roleId));
 
         for (Role role : user.getRoles()) {
             if (role.getId().equals(roleId)) {

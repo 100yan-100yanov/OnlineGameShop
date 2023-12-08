@@ -18,12 +18,10 @@
 
 <section>
 
-    <!--<section style="background-color: #eee;">-->
     <div class="container py-5"
          th:each="console : ${consoles.getContent()}"
          th:object="${console}">
-        <!--         th:style="${iStat.odd} ? 'font-weight: bold;'"-->
-        <!--         th:alt-title="${iStat.even} ? 'even' : 'odd'"-->
+
 
         <div class="row justify-content-center mb-0">
             <div class="col-md-12 col-xl-10">
@@ -96,41 +94,41 @@
             </div>
         </div>
     </div>
-<!--    <div th:if="${consoles.totalPages > 1}">-->
-<!--        <ul class="pagination">-->
-<!--            <li th:each="pageNumber : ${#numbers.sequence(0, consoles.getTotalPages()-1)}">-->
-<!--                <a th:if="${consoles.isLast()}"-->
-<!--                   th:href="@{'/products/consoles/all?page=' + ${pageNumber}}"-->
-<!--                   th:text="${pageNumber + 1}"-->
-<!--                   th:class="${pageNumber == consoles.number ? 'active' : ''}"></a>-->
-<!--            </li>-->
-<!--        </ul>-->
-<!--    </div>-->
+    <!--    <div th:if="${consoles.totalPages > 1}">-->
+    <!--        <ul class="pagination">-->
+    <!--            <li th:each="pageNumber : ${#numbers.sequence(0, consoles.getTotalPages()-1)}">-->
+    <!--                <a th:if="${consoles.isLast()}"-->
+    <!--                   th:href="@{'/products/consoles/all?page=' + ${pageNumber}}"-->
+    <!--                   th:text="${pageNumber + 1}"-->
+    <!--                   th:class="${pageNumber == consoles.number ? 'active' : ''}"></a>-->
+    <!--            </li>-->
+    <!--        </ul>-->
+    <!--    </div>-->
     <nav aria-label="Page navigation example">
-        <ul class="pagination justify-content-center">
-            <li class="page-item">
-                <a class="page-link"
-                   th:href="@{'/products/consoles/all?page=' + ${consoles.number}}"
-                   aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                </a>
-            </li>
+            <ul class="pagination justify-content-center">
+                <li class="page-item">
+                    <a class="page-link"
+                       th:href="@{'/products/consoles/all?page=' + ${consoles.number + 1}}"
+                       aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
 
-            <li th:each="pageNumber : ${#numbers.sequence(0, consoles.getTotalPages()-1)}"
-                th:class="${pageNumber == consoles.number ? 'page-item active' : 'page-item'}">
-                <a class="page-link"
-                   th:href="@{'/products/consoles/all?page=' + ${pageNumber}}"
-                   th:text="${pageNumber + 1}"></a>
-            </li>
+                <li th:each="pageNumber : ${#numbers.sequence(1, consoles.getTotalPages() + 1)}"
+                    th:class="${pageNumber == consoles.number ? 'page-item active' : 'page-item'}">
+                    <a class="page-link"
+                       th:href="@{'/products/consoles/all?page=' + ${pageNumber}}"
+                       th:text="${pageNumber}"></a>
+                </li>
 
-            <li class="page-item">
-                <a class="page-link"
-                   th:href="@{'/products/consoles/all?page=' + ${consoles.number + 1}}"
-                   aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                </a>
-            </li>
-        </ul>
+                <li class="page-item">
+                    <a class="page-link"
+                       th:href="@{'/products/consoles/all?page=' + ${consoles.number + 2}}"
+                       aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
     </nav>
 
 </section>

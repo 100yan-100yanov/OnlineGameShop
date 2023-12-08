@@ -18,6 +18,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+import static com.playtray.constants.ExceptionMessages.PRODUCT_ID_NOT_FOUND;
+
 @Service
 public class ProductServiceImpl implements ProductService {
 
@@ -38,11 +40,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void delete(Long id) {
-        Optional<Product> product = productRepository.findById(id);
+    public void delete(Long productId) {
+        Optional<Product> product = productRepository.findById(productId);
 
         if (product.isEmpty()) {
-            throw new ObjectNotFoundException("Product with id " + id + " doesn't exist!");
+            throw new ObjectNotFoundException(PRODUCT_ID_NOT_FOUND + productId);
         }
 
         productRepository.delete(product.get());
@@ -61,18 +63,20 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductDetailsDTO getProductDetails(Long id) {
+    public ProductDetailsDTO getProductDetails(Long productId) {
         return productRepository
-                .findById(id)
+                .findById(productId)
                 .map(ProductServiceImpl::mapAsDetails)
-                .orElseThrow(() -> new ObjectNotFoundException("Game with id " + id + " not found!"));
+                .orElseThrow(() ->
+                        new ObjectNotFoundException(PRODUCT_ID_NOT_FOUND + productId));
     }
 
     @Override
     public Product findById(Long productId) {
 
         return productRepository.findById(productId)
-                .orElseThrow(() -> new ObjectNotFoundException("Product with id " + productId + " doesn't exist!"));
+                .orElseThrow(() ->
+                        new ObjectNotFoundException(PRODUCT_ID_NOT_FOUND + productId));
     }
 
     @Override

@@ -27,15 +27,16 @@
 <br>
 <br>
 <div class="text-center">
-    <h1 class="display-4"><strong>Welcome to PlayTray</strong></h1>
-    <h1 class="display-4"><strong
-            sec:authorize="isAuthenticated()"
-            sec:authentication="name"></strong></h1>
-    <br>
-    <p class="lead">
-    <h4>Your ultimate destination for games, consoles, and accessories for PS5, PS4, XBOX, Switch, and
-        PC.</h4>
-    </p>
+    <div class="card rounded-5 mx-auto" style="width: 1100px; background-color: rgba(245, 245, 245, 0.5)">
+        <h1 class="display-4"><strong>Welcome to PlayTray</strong></h1>
+        <h1 class="display-4"><strong
+                sec:authorize="isAuthenticated()"
+                sec:authentication="name"></strong></h1>
+        <br>
+        <p class="lead">
+        <h4>Your ultimate destination for games, consoles, and accessories for PS5, PS4, XBOX, Switch, and
+            PC.</h4></p>
+    </div>
 </div>
 <br>
 <br>
@@ -63,7 +64,8 @@
         <!-- Card for Latest Console -->
         <div class="col-sm-3">
             <div class="card">
-                <img th:src="${console.imageUrl}" class="card-img-top img-fluid" style="height: 250px" alt="Latest Console">
+                <img th:src="${console.imageUrl}" class="card-img-top img-fluid" style="height: 250px"
+                     alt="Latest Console">
                 <div class="card-body" style="height: 120px">
                     <h6 class="card-title"
                         th:text="${console.name} +  ', ' + ${console.platform}">Latest Game</h6>
@@ -79,7 +81,8 @@
         <!-- Card for Latest Accessory -->
         <div class="col-sm-3">
             <div class="card">
-                <img th:src="${accessory.imageUrl}" class="card-img-top img-fluid" style="height: 250px" alt="Latest Accessory">
+                <img th:src="${accessory.imageUrl}" class="card-img-top img-fluid" style="height: 250px"
+                     alt="Latest Accessory">
                 <div class="card-body" style="height: 120px">
                     <h6 class="card-title"
                         th:text="${accessory.name} +  ', ' + ${accessory.platform}">Latest Game</h6>

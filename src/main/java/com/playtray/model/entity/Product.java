@@ -31,7 +31,7 @@ public class Product extends BaseEntity {
     private BigDecimal price;
 
     @Column(nullable = false)
-    @Size(min = 5, max = 200)
+    @Size(min = 5, max = 180)
     private String summary;
 
     @Column(nullable = false)

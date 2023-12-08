@@ -32,7 +32,8 @@ public class SecurityConfiguration {
                 request -> request
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                         .requestMatchers("/", "/about-us").permitAll()
-                        .requestMatchers("/users/login", "/users/register", "/users/login-error").permitAll()
+                        .requestMatchers("/users/login-error").permitAll()
+                        .requestMatchers("/users/register", "/users/login").anonymous()
                         .requestMatchers("/users/logout").hasRole(UserRole.USER.name())
                         .requestMatchers("/admin/**").hasRole(UserRole.ADMIN.name())
                         .requestMatchers("/cart", "/cart/add/**", "/cart/remove/**").hasRole(UserRole.USER.name())

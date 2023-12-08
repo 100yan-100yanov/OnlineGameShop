@@ -18,6 +18,9 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.playtray.constants.ExceptionMessages.PRODUCT_ID_NOT_FOUND;
+
+
 @Service
 public class CartServiceImpl implements CartService {
 
@@ -83,7 +86,7 @@ public class CartServiceImpl implements CartService {
             itemService.delete(item);
 
         } else {
-            throw new ObjectNotFoundException("Product with id " + productId + " doesn't exist!");
+            throw new ObjectNotFoundException(PRODUCT_ID_NOT_FOUND + productId);
         }
 
     }

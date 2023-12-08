@@ -8,11 +8,11 @@ import com.playtray.repository.RoleRepository;
 import com.playtray.repository.UserRepository;
 import com.playtray.service.RoleService;
 import org.modelmapper.ModelMapper;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import static com.playtray.constants.ExceptionMessages.USER_USERNAME_NOT_FOUND;
 
 @Service
 public class RoleServiceImpl implements RoleService {
@@ -33,7 +33,8 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public List<RoleDTO> getRolesByUsername(String username) {
         User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new ObjectNotFoundException("User with username " + username + " doesn't exist!"));
+                .orElseThrow(() ->
+                        new ObjectNotFoundException(USER_USERNAME_NOT_FOUND + username));
 
         List<Role> roles = user.getRoles();
 
@@ -46,7 +47,8 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public List<RoleDTO> getUnassignedRoles(String username) {
         User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new ObjectNotFoundException("User with username " + username + " doesn't exist!"));
+                .orElseThrow(() ->
+                        new ObjectNotFoundException(USER_USERNAME_NOT_FOUND + username));
 
         List<Role> allRoles = roleRepository.findAll();
         List<Role> userRoles = user.getRoles();
