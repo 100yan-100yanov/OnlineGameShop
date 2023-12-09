@@ -32,7 +32,7 @@ public class TestDataUtil {
     private PasswordEncoder passwordEncoder;
 
     public User createUser(String username) {
-        Role role = roleRepository.findByName(UserRole.USER);
+        List<Role> roles = List.of(roleRepository.findByName(UserRole.USER));
         User user = new User();
         Cart cart = new Cart();
 
@@ -49,7 +49,7 @@ public class TestDataUtil {
                 .setEmail("mail@email.com")
                 .setCart(cart)
                 .setActive(true)
-                .setRoles(List.of(role))
+                .setRoles(roles)
                 .setBoughtProducts(new ArrayList<>());
 
         userRepository.save(user);

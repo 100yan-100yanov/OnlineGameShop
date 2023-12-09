@@ -4,6 +4,7 @@ import com.playtray.model.entity.Role;
 import com.playtray.model.entity.User;
 import com.playtray.model.enums.UserRole;
 import com.playtray.repository.UserRepository;
+import com.playtray.service.exception.ObjectNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -68,7 +69,7 @@ public class PlaytrayUserDetailsServiceTest {
 
     private User createTestUser() {
         return new User()
-                .setUsername("username")
+                .setUsername("TestUser")
                 .setFirstName("firstName")
                 .setLastName("lastName")
                 .setEmail("email@email.com")

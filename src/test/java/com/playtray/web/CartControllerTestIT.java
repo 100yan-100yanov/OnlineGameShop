@@ -21,7 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 public class CartControllerTestIT {
 
-    private static final String TEST_USERNAME = "TestUser";
+    private final String TEST_USERNAME = "TestUser";
 
     @Autowired
     private MockMvc mockMvc;

@@ -23,9 +23,9 @@ public class CartController {
 
     @GetMapping
     public ModelAndView cart(Principal principal) {
-        ModelAndView modelAndView = new ModelAndView("cart");
-
         CartDTO cartDTO = cartService.getCart(principal);
+
+        ModelAndView modelAndView = new ModelAndView("cart");
         modelAndView.addObject("cart", cartDTO);
 
         return modelAndView;

@@ -19,12 +19,12 @@ public class HomeController {
 
     @GetMapping("/")
     public ModelAndView index() {
-        ModelAndView modelAndView = new ModelAndView("index");
 
         ProductDTO gameDTO = productService.findLatest(ProductCategory.GAME);
         ProductDTO consoleDTO = productService.findLatest(ProductCategory.CONSOLE);
         ProductDTO accessoryDTO = productService.findLatest(ProductCategory.ACCESSORY);
 
+        ModelAndView modelAndView = new ModelAndView("index");
         modelAndView.addObject("game", gameDTO);
         modelAndView.addObject("console", consoleDTO);
         modelAndView.addObject("accessory", accessoryDTO);

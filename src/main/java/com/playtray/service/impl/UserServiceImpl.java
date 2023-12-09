@@ -12,6 +12,7 @@ import com.playtray.repository.RoleRepository;
 import com.playtray.repository.UserRepository;
 import com.playtray.service.UserService;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -42,7 +43,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void register(UserRegisterDTO userRegisterDTO) {
+    public void registerUser(UserRegisterDTO userRegisterDTO) {
         String username = userRegisterDTO.getUsername();
 
         Optional<User> optionalUser = userRepository.findByUsername(username);
@@ -52,15 +53,6 @@ public class UserServiceImpl implements UserService {
 
             userRepository.save(user);
         }
-    }
-
-    @Override
-    public void delete(Long id) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() ->
-                        new ObjectNotFoundException(USER_ID_NOT_FOUND + id));
-
-        userRepository.delete(user);
     }
 
     private User mapToUser(UserRegisterDTO userRegisterDTO) {
@@ -80,26 +72,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean isUniqueUsername(String value) {
-        return userRepository.findByUsername(value).isEmpty();
-    }
-
-    @Override
-    public boolean isUniqueEmail(String value) {
-        return userRepository.findByEmail(value).isEmpty();
-    }
-
-    @Override
-    public void save(User customer) {
-        userRepository.save(customer);
-    }
-
-    @Override
-    public User findByUsername(String username) {
-        return userRepository
-                .findByUsername(username)
+    public void deleteUser(Long id) {
+        User user = userRepository.findById(id)
                 .orElseThrow(() ->
-                        new ObjectNotFoundException(USER_USERNAME_NOT_FOUND + username));
+                        new ObjectNotFoundException(USER_ID_NOT_FOUND + id));
+
+        userRepository.delete(user);
     }
 
     @Override
@@ -113,21 +91,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void removeUserRole(String username, Long roleId) {
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() ->
-                        new ObjectNotFoundException(USER_USERNAME_NOT_FOUND + username));
-
-        user.getRoles().removeIf(userRole -> userRole.getId().equals(roleId));
-
-        userRepository.save(user);
-    }
-
-    @Override
     public void addUserRole(String username, Long roleId) {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() ->
-                        new ObjectNotFoundException(USER_USERNAME_NOT_FOUND + username));
+                        new UsernameNotFoundException(USER_USERNAME_NOT_FOUND + username));
 
         Role roleToAdd = roleRepository.findById(roleId)
                 .orElseThrow(() ->
@@ -141,6 +108,17 @@ public class UserServiceImpl implements UserService {
             }
         }
         user.getRoles().add(roleToAdd);
+
+        userRepository.save(user);
+    }
+
+    @Override
+    public void removeUserRole(String username, Long roleId) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() ->
+                        new UsernameNotFoundException(USER_USERNAME_NOT_FOUND + username));
+
+        user.getRoles().removeIf(userRole -> userRole.getId().equals(roleId));
 
         userRepository.save(user);
     }
@@ -176,5 +154,28 @@ public class UserServiceImpl implements UserService {
                 });
 
         return sales;
+    }
+
+    @Override
+    public User findByUsername(String username) {
+        return userRepository
+                .findByUsername(username)
+                .orElseThrow(() ->
+                        new UsernameNotFoundException(USER_USERNAME_NOT_FOUND + username));
+    }
+
+    @Override
+    public void saveUser(User customer) {
+        userRepository.save(customer);
+    }
+
+    @Override
+    public boolean isUniqueUsername(String value) {
+        return userRepository.findByUsername(value).isEmpty();
+    }
+
+    @Override
+    public boolean isUniqueEmail(String value) {
+        return userRepository.findByEmail(value).isEmpty();
     }
 }

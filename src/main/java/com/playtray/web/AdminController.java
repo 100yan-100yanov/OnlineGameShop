@@ -2,7 +2,6 @@ package com.playtray.web;
 
 import com.playtray.model.dto.RoleDTO;
 import com.playtray.model.dto.UserDTO;
-import com.playtray.model.enums.UserRole;
 import com.playtray.service.RoleService;
 import com.playtray.service.UserService;
 import org.springframework.stereotype.Controller;
@@ -27,10 +26,9 @@ public class AdminController {
 
     @GetMapping("/users")
     public ModelAndView allUsers() {
-        ModelAndView modelAndView = new ModelAndView("manage-users");
-
         List<UserDTO> users = userService.getAllUsers();
 
+        ModelAndView modelAndView = new ModelAndView("manage-users");
         modelAndView.addObject("users", users);
 
         return modelAndView;
@@ -39,7 +37,7 @@ public class AdminController {
     @DeleteMapping("/users/delete/{id}")
     public ModelAndView deleteUser(@PathVariable("id") Long id) {
 
-        userService.delete(id);
+        userService.deleteUser(id);
 
         return new ModelAndView("redirect:/admin/users");
     }

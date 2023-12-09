@@ -8,7 +8,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,25 +24,26 @@ public class AccessoryController {
     }
 
     @GetMapping("/accessories/all")
-    public ModelAndView allAccessories(Model model,
-                                       @PageableDefault(size = 3, sort = "id")
+    public ModelAndView allAccessories(@PageableDefault(size = 3, sort = "id")
                                        Pageable pageable) {
 
         Page<ProductSummaryDTO> allAccessories =
                 productService.getAll(ProductCategory.ACCESSORY, pageable);
 
-        model.addAttribute("accessories", allAccessories);
+        ModelAndView modelAndView = new ModelAndView("accessories");
+        modelAndView.addObject("accessories", allAccessories);
 
-        return new ModelAndView("accessories");
+        return modelAndView;
     }
 
     @GetMapping("/accessories/{id}")
-    public ModelAndView accessoryDetails(Model model,
-                                         @PathVariable("id") Long id) {
+    public ModelAndView accessoryDetails(@PathVariable("id") Long id) {
 
         ProductDetailsDTO accessoryDetails = productService.getProductDetails(id);
-        model.addAttribute("accessoryDetails", accessoryDetails);
 
-        return new ModelAndView("accessory-details");
+        ModelAndView modelAndView = new ModelAndView("accessory-details");
+        modelAndView.addObject("accessoryDetails", accessoryDetails);
+
+        return modelAndView;
     }
 }

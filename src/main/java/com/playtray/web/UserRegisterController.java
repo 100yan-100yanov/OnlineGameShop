@@ -50,7 +50,7 @@ public class UserRegisterController {
             modelAndView.setViewName("redirect:/users/register");
 
         } else {
-            userService.register(userRegisterDTO);
+            userService.registerUser(userRegisterDTO);
             modelAndView.setViewName("redirect:/users/login");
         }
 

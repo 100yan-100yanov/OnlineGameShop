@@ -29,7 +29,7 @@
                     <div class="card-body rounded-3">
                         <div class="row">
 
-                            <div class="col-md-12 col-lg-3 col-xl-2 mb-4 mb-lg-0">
+                            <div class="col-md-12 col-lg-3 col-xl-2 mb-4 mb-lg-0 mt-4">
                                 <div class="bg-image hover-zoom ripple rounded ripple-surface">
                                     <img th:src="*{imageUrl}"
                                          class="w-100"/>
@@ -94,27 +94,18 @@
             </div>
         </div>
     </div>
-    <!--    <div th:if="${consoles.totalPages > 1}">-->
-    <!--        <ul class="pagination">-->
-    <!--            <li th:each="pageNumber : ${#numbers.sequence(0, consoles.getTotalPages()-1)}">-->
-    <!--                <a th:if="${consoles.isLast()}"-->
-    <!--                   th:href="@{'/products/consoles/all?page=' + ${pageNumber}}"-->
-    <!--                   th:text="${pageNumber + 1}"-->
-    <!--                   th:class="${pageNumber == consoles.number ? 'active' : ''}"></a>-->
-    <!--            </li>-->
-    <!--        </ul>-->
-    <!--    </div>-->
+
     <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-center">
                 <li class="page-item">
                     <a class="page-link"
-                       th:href="@{'/products/consoles/all?page=' + ${consoles.number + 1}}"
+                       th:href="@{'/products/consoles/all?page=' + ${consoles.number}}"
                        aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
 
-                <li th:each="pageNumber : ${#numbers.sequence(1, consoles.getTotalPages() + 1)}"
+                <li th:each="pageNumber : ${#numbers.sequence(1, consoles.getTotalPages())}"
                     th:class="${pageNumber == consoles.number ? 'page-item active' : 'page-item'}">
                     <a class="page-link"
                        th:href="@{'/products/consoles/all?page=' + ${pageNumber}}"
@@ -123,7 +114,7 @@
 
                 <li class="page-item">
                     <a class="page-link"
-                       th:href="@{'/products/consoles/all?page=' + ${consoles.number + 2}}"
+                       th:href="@{'/products/consoles/all?page=' + ${consoles.number + 1}}"
                        aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                     </a>
@@ -146,5 +137,4 @@
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
         crossorigin="anonymous">
 </script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 </html>

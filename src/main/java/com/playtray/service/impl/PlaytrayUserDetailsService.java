@@ -8,6 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import static com.playtray.constants.ExceptionMessages.USER_USERNAME_NOT_FOUND;
 
@@ -24,7 +25,7 @@ public class PlaytrayUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) {
         return userRepository.findByUsername(username)
                 .map(PlaytrayUserDetailsService::map)
-                .orElseThrow(() -> new ObjectNotFoundException(USER_USERNAME_NOT_FOUND + username));
+                .orElseThrow(() -> new UsernameNotFoundException(USER_USERNAME_NOT_FOUND + username));
     }
 
     private static UserDetails map(User user) {

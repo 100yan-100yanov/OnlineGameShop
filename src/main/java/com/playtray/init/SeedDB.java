@@ -49,6 +49,7 @@ public class SeedDB implements CommandLineRunner {
             Product gameFinalFantasyXVI = new Product();
             Product accessoryXboxHeadset = new Product();
             Product accessoryKeyboardPC = new Product();
+            Product accessoryControllerSwitch = new Product();
 
             List<Product> products =
                     List.of(
@@ -131,7 +132,16 @@ public class SeedDB implements CommandLineRunner {
                                     .setPrice(BigDecimal.valueOf(99.99))
                                     .setSummary("Hear and feel the satisfying feedback in every keystroke you make, with a tactile design that offers optimized actuation for better precision and performance when gaming.")
                                     .setDescription("Mean performance in a leaner form — enter the Razer BlackWidow V3 Tenkeyless. Continuing an iconic legacy, this compact gaming keyboard is armed with our world-renowned Razer™ Mechanical Switches and powered by Razer Chroma™ RGB, for a level of precision and personalization beloved by gamers worldwide.")
-                                    .setImageUrl("https://cdn.ozone.bg/media/catalog/product/cache/1/image/a4e40ebdc3e371adff845072e1c73f37/8/1/bc4cf409725f7a98c87293a191df4ae8/mehanichna-klaviatura-razer---blackwidow-v3-tenkeyless--razer-green-31.jpg")
+                                    .setImageUrl("https://cdn.ozone.bg/media/catalog/product/cache/1/image/a4e40ebdc3e371adff845072e1c73f37/8/1/bc4cf409725f7a98c87293a191df4ae8/mehanichna-klaviatura-razer---blackwidow-v3-tenkeyless--razer-green-31.jpg"),
+
+                            accessoryControllerSwitch
+                                    .setCategory(ProductCategory.ACCESSORY)
+                                    .setPlatform(PlatformName.SWITCH)
+                                    .setName("Pro Controller")
+                                    .setPrice(BigDecimal.valueOf(74.99))
+                                    .setSummary("The Nintendo Switch Pro Controller is a video game controller developed by Nintendo for use with the Nintendo Switch console. It is an alternative to Joy-Con.")
+                                    .setDescription("Take your game sessions up a notch with the Nintendo Switch Pro Controller. Includes motion controls, HD rumble, built-in amiibo functionality, and more.")
+                                    .setImageUrl("https://cdn.ozone.bg/media/catalog/product/cache/1/image/a4e40ebdc3e371adff845072e1c73f37/n/i/90a9fae510cd0c315704bb94b87b42b2/nintendo-switch-pro-controller-33.jpg")
                     );
 
             productRepository.saveAll(products);

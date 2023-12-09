@@ -10,15 +10,15 @@ import java.util.Map;
 
 public interface UserService {
 
-    void register(UserRegisterDTO userRegisterDTO);
+    void registerUser(UserRegisterDTO userRegisterDTO);
 
-    void delete(Long id);
+    void deleteUser(Long id);
 
     boolean isUniqueUsername(String value);
 
     boolean isUniqueEmail(String value);
 
-    void save(User customer);
+    void saveUser(User customer);
 
     User findByUsername(String name);
 

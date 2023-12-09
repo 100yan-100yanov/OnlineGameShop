@@ -19,7 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@WithMockUser(username = "Admin", roles = {"ADMIN"})
+@WithMockUser(username = "Knifer", roles = {"ADMIN"})
 public class AdminControllerTestIT {
 
     private static final String TEST_USERNAME = "TestUser";
@@ -40,6 +40,7 @@ public class AdminControllerTestIT {
 
     @Test
     void testShowAllUsers() throws Exception {
+
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/admin/users")
                         .with(csrf()))
@@ -82,7 +83,6 @@ public class AdminControllerTestIT {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/admin/users/" + TEST_USERNAME + "/roles"));
     }
-
     @Test
     void testRemoveUserRoleFromUser() throws Exception {
         User user = testDataUtil.createUser(TEST_USERNAME);

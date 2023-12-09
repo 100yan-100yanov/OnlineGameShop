@@ -107,7 +107,7 @@ public class CartServiceImpl implements CartService {
 
         customer.getBoughtProducts().addAll(products);
 
-        userService.save(customer);
+        userService.saveUser(customer);
     }
 
     @Override
