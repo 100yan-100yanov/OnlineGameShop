@@ -1,6 +1,6 @@
-package com.playtray.interceptor;
+package com.playtray.service.interceptor;
 
-import com.playtray.error.ObjectNotFoundException;
+import com.playtray.service.exception.ObjectNotFoundException;
 import com.playtray.model.entity.User;
 import com.playtray.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;

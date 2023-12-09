@@ -1,6 +1,6 @@
 package com.playtray.web;
 
-import com.playtray.error.ObjectNotFoundException;
+import com.playtray.service.exception.ObjectNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

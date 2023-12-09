@@ -1,6 +1,6 @@
 package com.playtray.config;
 
-import com.playtray.interceptor.BannedUserInterceptor;
+import com.playtray.service.interceptor.BannedUserInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;

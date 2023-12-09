@@ -1,6 +1,6 @@
 package com.playtray.service.impl;
 
-import com.playtray.error.ObjectNotFoundException;
+import com.playtray.service.exception.ObjectNotFoundException;
 import com.playtray.model.dto.ProductAddDTO;
 import com.playtray.model.dto.ProductDTO;
 import com.playtray.model.dto.ProductDetailsDTO;

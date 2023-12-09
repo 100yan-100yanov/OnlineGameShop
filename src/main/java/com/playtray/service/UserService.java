@@ -4,7 +4,9 @@ import com.playtray.model.dto.UserDTO;
 import com.playtray.model.dto.UserRegisterDTO;
 import com.playtray.model.entity.User;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 public interface UserService {
 
@@ -25,4 +27,6 @@ public interface UserService {
     void removeUserRole(String username, Long roleId);
 
     void addUserRole(String username, Long roleId);
+
+    Map<String, BigDecimal> getTotalSales();
 }

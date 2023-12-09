@@ -10,7 +10,7 @@ import com.playtray.service.CartService;
 import com.playtray.service.ItemService;
 import com.playtray.service.ProductService;
 import com.playtray.service.UserService;
-import com.playtray.error.ObjectNotFoundException;
+import com.playtray.service.exception.ObjectNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -96,10 +96,14 @@ public class CartServiceImpl implements CartService {
         User customer = userService.findByUsername(principal.getName());
         Cart cart = customer.getCart();
 
-        List<Product> products = cart.getItems()
-                .stream()
-                .map(Item::getProduct)
-                .toList();
+        List<Item> items = cart.getItems();
+        List<Product> products = new ArrayList<>();
+
+        for (Item item : items) {
+            for (int i = 0; i < item.getQuantity(); i++) {
+                products.add(item.getProduct());
+            }
+        }
 
         customer.getBoughtProducts().addAll(products);
 

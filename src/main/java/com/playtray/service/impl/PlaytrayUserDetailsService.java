@@ -1,6 +1,6 @@
 package com.playtray.service.impl;
 
-import com.playtray.error.ObjectNotFoundException;
+import com.playtray.service.exception.ObjectNotFoundException;
 import com.playtray.model.entity.Role;
 import com.playtray.model.entity.User;
 import com.playtray.repository.UserRepository;

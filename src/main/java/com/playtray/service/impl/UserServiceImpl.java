@@ -1,6 +1,7 @@
 package com.playtray.service.impl;
 
-import com.playtray.error.ObjectNotFoundException;
+import com.playtray.model.entity.Product;
+import com.playtray.service.exception.ObjectNotFoundException;
 import com.playtray.model.dto.UserDTO;
 import com.playtray.model.dto.UserRegisterDTO;
 import com.playtray.model.entity.Cart;
@@ -14,7 +15,10 @@ import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import static com.playtray.constants.ExceptionMessages.*;
@@ -139,5 +143,38 @@ public class UserServiceImpl implements UserService {
         user.getRoles().add(roleToAdd);
 
         userRepository.save(user);
+    }
+
+    @Override
+    public Map<String, BigDecimal> getTotalSales() {
+        Map<String, BigDecimal> sales = new HashMap<>();
+        sales.put("Units", BigDecimal.ZERO);
+        sales.put("Amount", BigDecimal.ZERO);
+
+        List<User> users = userRepository.findAllByBoughtProductsIsNotEmpty();
+
+        users
+                .stream()
+                .map(User::getBoughtProducts)
+                .forEach(products -> {
+                    BigDecimal currentUnits = BigDecimal.valueOf(products.size());
+                    BigDecimal oldUnits = sales.get("Units");
+                    BigDecimal newUnits = oldUnits.add(currentUnits);
+
+                    sales.put("Units", newUnits);
+
+                    BigDecimal currentAmount =
+                            products
+                                    .stream()
+                                    .map(Product::getPrice)
+                                    .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+                    BigDecimal oldAmount = sales.get("Amount");
+                    BigDecimal newAmount = oldAmount.add(currentAmount);
+
+                    sales.put("Amount", newAmount);
+                });
+
+        return sales;
     }
 }
