@@ -45,7 +45,10 @@ public class User extends BaseEntity {
             fetch = FetchType.EAGER)
     private List<Product> boughtProducts;
 
-    @OneToOne(targetEntity = Cart.class, mappedBy = "customer", cascade = CascadeType.ALL)
+    @OneToOne(
+            targetEntity = Cart.class,
+            mappedBy = "customer",
+            cascade = CascadeType.ALL)
     private Cart cart;
 
     public User() {

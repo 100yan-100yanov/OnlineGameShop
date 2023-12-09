@@ -4,16 +4,21 @@ import com.playtray.model.entity.Role;
 import com.playtray.model.entity.User;
 import com.playtray.model.enums.UserRole;
 import com.playtray.repository.RoleRepository;
+import com.playtray.service.interceptor.BannedUserInterceptor;
 import com.playtray.utils.TestDataUtil;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -25,13 +30,21 @@ public class AdminControllerTestIT {
     private static final String TEST_USERNAME = "TestUser";
 
     @Autowired
-    MockMvc mockMvc;
+    private MockMvc mockMvc;
+
+    @MockBean
+    BannedUserInterceptor bannedUserInterceptor;
 
     @Autowired
     private TestDataUtil testDataUtil;
 
     @Autowired
     private RoleRepository roleRepository;
+
+    @BeforeEach
+    void setUp() throws Exception {
+        when(bannedUserInterceptor.preHandle(any(), any(), any())).thenReturn(true);
+    }
 
     @AfterEach
     void tearDown() {
@@ -64,8 +77,7 @@ public class AdminControllerTestIT {
         User user = testDataUtil.createUser(TEST_USERNAME);
 
         mockMvc.perform(MockMvcRequestBuilders
-                        .get("/admin/users/{username}/roles", user.getUsername())
-                        .with(csrf()))
+                        .get("/admin/users/{username}/roles", user.getUsername()))
                 .andExpect(status().isOk())
                 .andExpect(view().name("manage-user-roles"));
     }
