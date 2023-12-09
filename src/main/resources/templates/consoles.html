@@ -99,13 +99,13 @@
             <ul class="pagination justify-content-center">
                 <li class="page-item">
                     <a class="page-link"
-                       th:href="@{'/products/consoles/all?page=' + ${consoles.number}}"
+                       th:href="@{'/products/consoles/all?page=' + ${consoles.number + 1}}"
                        aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
 
-                <li th:each="pageNumber : ${#numbers.sequence(1, consoles.getTotalPages())}"
+                <li th:each="pageNumber : ${#numbers.sequence(1, consoles.getTotalPages() + 1)}"
                     th:class="${pageNumber == consoles.number ? 'page-item active' : 'page-item'}">
                     <a class="page-link"
                        th:href="@{'/products/consoles/all?page=' + ${pageNumber}}"
@@ -114,7 +114,7 @@
 
                 <li class="page-item">
                     <a class="page-link"
-                       th:href="@{'/products/consoles/all?page=' + ${consoles.number + 1}}"
+                       th:href="@{'/products/consoles/all?page=' + ${consoles.number + 2}}"
                        aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                     </a>
