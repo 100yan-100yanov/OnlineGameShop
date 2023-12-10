@@ -1,9 +1,8 @@
 package com.playtray.web;
 
-import com.playtray.model.dto.ProductDTO;
+import com.playtray.model.dto.ProductLatestDTO;
 import com.playtray.model.enums.ProductCategory;
 import com.playtray.service.ProductService;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -20,9 +19,9 @@ public class HomeController {
     @GetMapping("/")
     public ModelAndView index() {
 
-        ProductDTO gameDTO = productService.findLatest(ProductCategory.GAME);
-        ProductDTO consoleDTO = productService.findLatest(ProductCategory.CONSOLE);
-        ProductDTO accessoryDTO = productService.findLatest(ProductCategory.ACCESSORY);
+        ProductLatestDTO gameDTO = productService.findLatest(ProductCategory.GAME);
+        ProductLatestDTO consoleDTO = productService.findLatest(ProductCategory.CONSOLE);
+        ProductLatestDTO accessoryDTO = productService.findLatest(ProductCategory.ACCESSORY);
 
         ModelAndView modelAndView = new ModelAndView("index");
         modelAndView.addObject("game", gameDTO);

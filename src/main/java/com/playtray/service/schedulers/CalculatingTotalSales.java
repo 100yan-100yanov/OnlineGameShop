@@ -21,7 +21,7 @@ public class CalculatingTotalSales {
         this.userService = userService;
     }
 
-    @Scheduled(timeUnit = TimeUnit.HOURS, fixedRate = 6)
+    @Scheduled(timeUnit = TimeUnit.SECONDS, fixedRate = 6)
     public void calculateTotal() {
         Map<String, BigDecimal> totalSales = userService.getTotalSales();
 

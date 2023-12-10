@@ -4,7 +4,7 @@ import com.playtray.model.enums.PlatformName;
 
 import java.math.BigDecimal;
 
-public class ProductDTO {
+public class ProductLatestDTO {
     private Long id;
     private String name;
     private PlatformName platform;

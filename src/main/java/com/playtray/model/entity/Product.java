@@ -41,6 +41,7 @@ public class Product extends BaseEntity {
     @Column(nullable = false)
     private String imageUrl;
 
+
     public ProductCategory getCategory() {
         return productCategory;
     }

@@ -19,6 +19,7 @@ public class Cart extends BaseEntity {
 
     private BigDecimal totalPrice;
 
+
     public Cart() {
         this.items = new ArrayList<>();
     }

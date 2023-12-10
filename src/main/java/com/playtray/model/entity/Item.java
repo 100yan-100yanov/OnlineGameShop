@@ -17,6 +17,7 @@ public class Item extends BaseEntity{
     @Column(nullable = false)
     private BigDecimal price;
 
+
     public Product getProduct() {
         return product;
     }

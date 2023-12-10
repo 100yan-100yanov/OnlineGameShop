@@ -14,7 +14,6 @@ public class ItemServiceImpl implements ItemService {
         this.itemRepository = itemRepository;
     }
 
-
     @Override
     public void delete(Item item) {
         itemRepository.delete(item);

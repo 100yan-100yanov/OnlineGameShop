@@ -2,7 +2,7 @@ package com.playtray.service.impl;
 
 import com.playtray.service.exception.ObjectNotFoundException;
 import com.playtray.model.dto.ProductAddDTO;
-import com.playtray.model.dto.ProductDTO;
+import com.playtray.model.dto.ProductLatestDTO;
 import com.playtray.model.dto.ProductDetailsDTO;
 import com.playtray.model.dto.ProductSummaryDTO;
 import com.playtray.model.entity.Product;
@@ -56,7 +56,7 @@ public class ProductServiceImpl implements ProductService {
         List<ProductSummaryDTO> products = productRepository
                 .findAllByProductCategory(category, pageable)
                 .stream()
-                .map(ProductServiceImpl::mapAsSummary)
+                .map(product -> modelMapper.map(product, ProductSummaryDTO.class))
                 .toList();
 
         return new PageImpl<>(products);
@@ -66,7 +66,7 @@ public class ProductServiceImpl implements ProductService {
     public ProductDetailsDTO getProductDetails(Long productId) {
         return productRepository
                 .findById(productId)
-                .map(ProductServiceImpl::mapAsDetails)
+                .map(product -> modelMapper.map(product, ProductDetailsDTO.class))
                 .orElseThrow(() ->
                         new ObjectNotFoundException(PRODUCT_ID_NOT_FOUND + productId));
     }
@@ -80,31 +80,9 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductDTO findLatest(ProductCategory productCategory) {
+    public ProductLatestDTO findLatest(ProductCategory productCategory) {
         Product product = productRepository.findProductByCategory(productCategory);
 
-        return modelMapper.map(product, ProductDTO.class);
-    }
-
-    private static ProductDetailsDTO mapAsDetails(Product product) {
-        return new ProductDetailsDTO(
-                product.getId(),
-                product.getName(),
-                product.getPlatform(),
-                product.getPrice(),
-                product.getDescription(),
-                product.getImageUrl()
-        );
-    }
-
-    private static ProductSummaryDTO mapAsSummary(Product product) {
-        return new ProductSummaryDTO(
-                product.getId(),
-                product.getName(),
-                product.getPlatform(),
-                product.getPrice(),
-                product.getSummary(),
-                product.getImageUrl()
-        );
+        return modelMapper.map(product, ProductLatestDTO.class);
     }
 }

@@ -51,6 +51,7 @@ public class User extends BaseEntity {
             cascade = CascadeType.ALL)
     private Cart cart;
 
+
     public User() {
         this.boughtProducts = new ArrayList<>();
         this.cart = new Cart();
