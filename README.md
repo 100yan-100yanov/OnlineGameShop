@@ -131,13 +131,3 @@ For major changes, please open an issue first to discuss what you would like to 
 ## 🐛 Reporting Issues
 
 Found a bug? Please open an [issue](https://github.com/100yan-100yanov/OnlineGameShop/issues) and describe the problem in detail.
-
-## 📄 License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
----
-
-**Happy coding! 🎉**
-
----
