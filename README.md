@@ -14,13 +14,13 @@ This project is built to help developers understand the basic structure of an e-
 
 ## 📸 Screenshots
 
-![Homepage Screenshot](images/screenshots/Index.png)
+![Homepage Screenshot](src/main/resources/static/images/screenshots/Index.png)
 
-![Product Page Screenshot](images/screenshots/Details.png)
+![Product Page Screenshot](src/main/resources/static/images/screenshots/Details.png)
 
-![Cart Page Screenshot](images/screenshots/Cart.png)
+![Cart Page Screenshot](src/main/resources/static/images/screenshots/Cart.png)
 
-![Login Page Screenshot](images/screenshots/Login.png)
+![Login Page Screenshot](src/main/resources/static/images/screenshots/Login.png)
 
 ## 🚀 Getting Started
 
