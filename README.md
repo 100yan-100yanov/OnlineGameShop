@@ -14,7 +14,13 @@ This project is built to help developers understand the basic structure of an e-
 
 ## 📸 Screenshots
 
-*Add screenshots here for a better visual understanding of the project.*
+![Homepage Screenshot](images/screenshots/Index.png)
+
+![Product Page Screenshot](images/screenshots/Details.png)
+
+![Cart Page Screenshot](images/screenshots/Cart.png)
+
+![Login Page Screenshot](images/screenshots/Login.png)
 
 ## 🚀 Getting Started
 
